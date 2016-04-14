@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites
+END
+events.js
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites/events.js
+END
+formats.js
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites/formats.js
+END
+options.js
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites/options.js
+END
+inline.js
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites/inline.js
+END
+component.js
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/suites/component.js
+END

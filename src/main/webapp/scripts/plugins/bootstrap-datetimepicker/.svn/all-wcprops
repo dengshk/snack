@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/LICENSE
+END
+.travis.yml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/.travis.yml
+END
+bower.json
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/bower.json
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/README.md
+END

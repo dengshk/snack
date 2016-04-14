@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/DeveloperEdition/!svn/ver/92175/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker
+END
+examples.html
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/examples.html
+END
+daterangepicker-bs2.css
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/daterangepicker-bs2.css
+END
+daterangepicker.js
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/daterangepicker.js
+END
+daterangepicker-bs3.css
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css
+END
+daterangepicker_amend_old.js
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/daterangepicker_amend_old.js
+END
+daterangepicker_amend.js
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/DeveloperEdition/!svn/ver/92175/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/daterangepicker_amend.js
+END
+moment.js
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/moment.js
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/README.md
+END
+moment.min.js
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-daterangepicker/moment.min.js
+END

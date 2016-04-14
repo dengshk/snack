@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/dropzone
+END
+upload.php
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/dropzone/upload.php
+END
+dropzone.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/dropzone/dropzone.js
+END
+dropzone.min.js
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/dropzone/dropzone.min.js
+END

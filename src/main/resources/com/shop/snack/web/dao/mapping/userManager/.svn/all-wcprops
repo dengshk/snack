@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/DeveloperEdition/!svn/ver/93514/ROAD_TEST/source/web/trunk/rdt/src/main/resources/com/wireless/web/dao/mapping/userManager
+END
+GroupMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/DeveloperEdition/!svn/ver/93006/ROAD_TEST/source/web/trunk/rdt/src/main/resources/com/wireless/web/dao/mapping/userManager/GroupMapper.xml
+END
+UserMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/DeveloperEdition/!svn/ver/93514/ROAD_TEST/source/web/trunk/rdt/src/main/resources/com/wireless/web/dao/mapping/userManager/UserMapper.xml
+END

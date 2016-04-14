@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests
+END
+tests.html
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/tests.html
+END
+tests.min.html
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/tests.min.html
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/README.md
+END
+_coverage.html
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/_coverage.html
+END
+run-qunit.js
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/bootstrap-datetimepicker/tests/run-qunit.js
+END

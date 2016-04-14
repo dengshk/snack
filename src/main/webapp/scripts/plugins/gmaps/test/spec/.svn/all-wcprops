@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec
+END
+GeometrySpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/GeometrySpec.js
+END
+LayerSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/LayerSpec.js
+END
+MapSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/MapSpec.js
+END
+RouteSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/RouteSpec.js
+END
+StyleSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/StyleSpec.js
+END
+EventSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/EventSpec.js
+END
+MarkerSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/MarkerSpec.js
+END
+OverlaySpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/OverlaySpec.js
+END
+StreetViewSpec.js
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/plugins/gmaps/test/spec/StreetViewSpec.js
+END

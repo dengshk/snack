@@ -1,0 +1,67 @@
+<style type="text/css" >
+	#gis-tk-info>ul>li{
+		color: #428bca;
+		padding: 5px 10px;
+		margin-bottom:-10px;
+		cursor:pointer;
+	}
+	#gis-tk-info>ul>li.active_tab{
+		background-color: #428bca;
+		color: #fff;
+	}
+</style>
+<div id="gis-tk-info" style="width: 500px;">
+	<div style="float:left;padding: 5px 0px;"><%=diejia%><%=road_name%></div>
+	<ul  class="nav nav-pills" style="float:right;
+		margin-right:10px;">
+		<li class="active_tab " name="tab_2_1" onclick="infoTable('tab_2_1');">点集合信息</li>
+		<li class="" name="tab_2_2" onclick="infoTable('tab_2_2');">主服信息</li>
+	</ul>
+	<div class="gis-tk" style="float:left;width:100%;">
+		<div class="gis-tk-div" id="tab_2_1" style="float:left;width:100%;">
+			<ul style="width:50%;">
+				<li><span>采样点数量</span><%=count%></li>
+				<li><span>主服务CI</span><%=ci1%></li>
+				<li><span>主ENodeBID</span><%=bid1%></li>
+				<li><span>服务小区数量</span><%=cellCnt%></li>
+				<li><span>RSRP</span><%=rsrp%></li>
+				<li><span>SNR</span><%=snr%></li>
+				<li><span>时延</span><%=delay%></li>
+				<li><span>覆盖率</span><%=cover%></li>
+			</ul>
+			<ul style="width:50%;">
+				<li><span>性能采样数量</span><%=con%></li>
+				<li><span>主服务PCI</span><%=pci1%></li>
+				<li><span>主服务TAC</span><%=tac1%></li>
+				<li><span>服务TAC数量</span><%=tacCnt%></li>
+				<li><span>RSRQ</span><%=rsrq%></li>
+				<li><span>下行链路带宽</span><%=link%></li>
+				<li><span>丢包</span><%=lose%></li>
+			</ul>
+		</div>
+		<div class="gis-tk-div" style="display:none;float:left;width:100%;" id="tab_2_2">
+			<ul style="width:33%;">
+				<li><span>主服务CI1</span><%=ci1%></li>
+				<li><span>主服务CI2</span><%=ci2%></li>
+				<li><span>主服务CI3</span><%=ci3%></li>
+				<li><span>主服务CI4</span><%=ci4%></li>
+				<li><span>主服务CI5</span><%=ci5%></li>
+			</ul>
+			<ul style="width:33%;">
+				<li><span>主服务PCI1</span><%=pci1%></li>
+				<li><span>主服务PCI2</span><%=pci2%></li>
+				<li><span>主服务PCI3</span><%=pci3%></li>
+				<li><span>主服务PCI4</span><%=pci4%></li>
+				<li><span>主服务PCI5</span><%=pci5%></li>
+			</ul>
+			<ul style="width:33%;">
+				<li><span>主服务TAC1</span><%=tac1%></li>
+				<li><span>主服务TAC2</span><%=tac2%></li>
+				<li><span>主服务TAC3</span><%=tac3%></li>
+				<li><span>主服务TAC4</span><%=tac4%></li>
+				<li><span>主服务TAC5</span><%=tac5%></li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
