@@ -56,7 +56,6 @@ var Login = function () {
 	            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),function(data){
 	            		result = data;
 	            	});
-	            	alert(result);
 	            	if(result.code == 1000){
 	            		window.location.href = basePath+result.user_home_page;
 	            	}else{
