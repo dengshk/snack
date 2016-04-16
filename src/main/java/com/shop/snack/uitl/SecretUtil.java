@@ -1,4 +1,4 @@
-package com.wireless.uitl;
+package com.shop.snack.uitl;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;

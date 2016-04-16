@@ -1,4 +1,4 @@
-package com.wireless.support;
+package com.shop.snack.support;
 
 import java.util.List;
 

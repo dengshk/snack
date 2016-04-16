@@ -1,4 +1,4 @@
-package com.wireless.uitl;
+package com.shop.snack.uitl;
 
 import org.apache.commons.lang.StringUtils;
 import java.security.MessageDigest;

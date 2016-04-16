@@ -1,4 +1,4 @@
-package com.wireless.uitl;
+package com.shop.snack.uitl;
 
 public class Constant {
 

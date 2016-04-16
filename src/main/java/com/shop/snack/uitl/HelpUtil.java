@@ -6,7 +6,7 @@
 * @时间：2015年12月8日 下午6:32:24  
 * @版本：V1.0     
 */
-package com.wireless.uitl;
+package com.shop.snack.uitl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +14,6 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.wireless.web.daoElastic.mapManager.MapDaoES;
-import com.wireless.web.utils.WebConstants;
 
 /**  
  * @类功能说明：  

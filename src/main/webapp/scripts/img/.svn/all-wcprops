@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svn/DeveloperEdition/!svn/ver/91998/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img
+/svn/DeveloperEdition/!svn/ver/94148/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img
 END
 portlet-expand-icon.png
 K 25
@@ -213,6 +213,12 @@ svn:wc:ra_dav:version-url
 V 118
 /svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/hor-menu-red-arrow.png
 END
+drawing.png
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/DeveloperEdition/!svn/ver/94148/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/drawing.png
+END
 bg-white-lock.png
 K 25
 svn:wc:ra_dav:version-url
@@ -351,6 +357,12 @@ svn:wc:ra_dav:version-url
 V 107
 /svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/avatar1.jpg
 END
+map_input.png
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/DeveloperEdition/!svn/ver/94145/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/map_input.png
+END
 avatar2.jpg
 K 25
 svn:wc:ra_dav:version-url
@@ -411,6 +423,12 @@ svn:wc:ra_dav:version-url
 V 108
 /svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/logo-img.png
 END
+for_bar.png
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/DeveloperEdition/!svn/ver/94148/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/for_bar.png
+END
 sidebar-toggler-purple.jpg
 K 25
 svn:wc:ra_dav:version-url
@@ -434,6 +452,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 112
 /svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/ajax-loading.gif
+END
+screen.png
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/DeveloperEdition/!svn/ver/94145/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/img/screen.png
 END
 search-icon-brown.png
 K 25

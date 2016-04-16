@@ -4085,3 +4085,51 @@ Responsive Flip Scroll Tables
   .flip-scroll td:last-child { border-bottom: 1px solid #ddd; }
 
 }
+.gis_search{
+	float: right;
+    position: relative;
+    right: 0;
+    z-index: 999;
+}
+.map_contraction
+{background: #fff url("../img/screen.png") no-repeat scroll 6px 6px;
+    box-shadow: 2px 2px 5px #dbdbdb;
+    cursor: pointer;
+    float: left;
+    height: 36px;
+    margin-left: 10px;
+    padding: 12px;
+    width: 36px;
+    margin-top:10px;}
+.legend{ -moz-user-select: none;
+    float: left;
+    left: 0;
+    position: relative;
+    z-index: 10;
+    margin-top:6px;}
+.legend .text_name{
+  float: left; width: 40px;margin-left: -25px;
+ }
+.legend ul li{height:24px;line-height:24px;list-style-type:none;float:left;width:90px;}
+.map_float{  float: right;position: relative;top: 10px;z-index:8888; height:0px;}
+.map_float_left{box-shadow: 2px 2px 5px #dbdbdb; height:36px; padding:8px 0px 0px 0px; float:left; background:#FFF; }
+.map_float_left .map_input{float:left;}
+.map_float_left .map_input input{float:left;}
+.map_float_left .map_input span{margin:2px 15px 0px 8px; float:left;}
+.map_float_left .map_input .rorward{background:url(../img/for_bar.png) no-repeat; width:14px; height:13px; float:left; cursor:pointer; margin-top:4px;}
+.map_float_left .map_input .back_off{background:url(../img/for_bar.png) 0px -22px no-repeat;}
+.map_float_right{box-shadow:2px 2px 5px #dbdbdb; cursor:pointer; background: #fff url(../img/screen.png) 6px -28px no-repeat; float:left; height:36px; width:36px; margin-left:10px; padding:12px;}
+.map_float_left ul{margin-left: -15px;}
+.map_float_left ul li{float:left; width:40px;margin-right:4px;list-style:none; height: 20px;}
+.map_float_left ul li span{margin-left:28px; margin-top:-4px;}
+.map_float_left .left_img1{background:url(../img/drawing.png) no-repeat; float:left; cursor:pointer;}
+.map_float_left .left_img1:hover{background:url(../img/drawing.png)  0px -102px  no-repeat;}
+.map_float_left .left_img2{background:url(../img/drawing.png) 0px -25px no-repeat; float:left; cursor:pointer;}
+.map_float_left .left_img2:hover{background:url(../img/drawing.png)  0px -127px  no-repeat;}
+.map_float_left .left_img3{background:url(../img/drawing.png) 0px -50px no-repeat; float:left; cursor:pointer;}
+.map_float_left .left_img3:hover{background:url(../img/drawing.png)  0px -152px  no-repeat;}
+.map_float_left .left_img4{background:url(../img/drawing.png) 0px -75px no-repeat; float:left; cursor:pointer;}
+.map_float_left .left_img4:hover{background:url(../img/drawing.png)  0px -177px  no-repeat;}
+.cb{ background:url(../img/map_input.png);}
+.cb{width:17px;height:17px;display:inline-block;*display:inline;zoom:1;background-position:0 0;cursor:pointer; float:left;}
+.cb_active{background-position:0 -17px;}

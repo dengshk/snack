@@ -12,6 +12,9 @@ var Login = function () {
 	                password: {
 	                    required: true
 	                },
+	                verifyCode: {
+	                    required: true
+	                },
 	                remember: {
 	                    required: false
 	                }
@@ -23,6 +26,9 @@ var Login = function () {
 	                },
 	                password: {
 	                    required: "密码不能为空。"
+	                },
+	                verifyCode: {
+	                    required: "验证码不能为空。"
 	                }
 	            },
 
@@ -47,12 +53,14 @@ var Login = function () {
 	            submitHandler: function (form) {//在Submit之前，且所有验证成功，可以在这里改成用$.ajax()送出。
 	            	var result;
 	            	dwr.engine.setAsync(false);//同步
-	            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),null,function(data){
+	            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),function(data){
 	            		result = data;
 	            	});
+	            	alert(result);
 	            	if(result.code == 1000){
 	            		window.location.href = basePath+result.user_home_page;
 	            	}else{
+	            		 $("#imgCode").click();
 	            		$('.alert-danger', $('.login-form')).html(result.message).show();
 	            	}
 	            }
@@ -63,7 +71,7 @@ var Login = function () {
 	                if ($('.login-form').validate().form()) {
 	                	var result;
 		            	dwr.engine.setAsync(false);//同步
-		            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),null,function(data){
+		            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),$.trim($("#verifyCode").val()),null,function(data){
 		            		result = data;
 		            	});
 		            	if(result.code == 1000){

@@ -307,8 +307,8 @@ a#icon-resize:hover {
 /*doc*/
 .panel {
     background-color: transparent;
-    margin-left: -15px;
-    margin-top: 10px;
+    margin-left: 0px;
+    margin-top: 0px;
     -webkit-box-shadow: none;
     box-shadow: none;
 }

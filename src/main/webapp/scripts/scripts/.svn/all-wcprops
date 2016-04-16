@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 99
-/svn/DeveloperEdition/!svn/ver/91621/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/scripts
+/svn/DeveloperEdition/!svn/ver/93979/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/scripts
 END
 ui-knob.js
 K 25
@@ -73,7 +73,7 @@ login-soft.js
 K 25
 svn:wc:ra_dav:version-url
 V 113
-/svn/DeveloperEdition/!svn/ver/90697/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/scripts/login-soft.js
+/svn/DeveloperEdition/!svn/ver/96519/ROAD_TEST/source/web/trunk/rdt/src/main/webapp/scripts/scripts/login-soft.js
 END
 form-dateRanges_amend.js
 K 25
