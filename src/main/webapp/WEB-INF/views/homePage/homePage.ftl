@@ -104,30 +104,6 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
-					<!-- 信号采样点信息 开始 -->
-					<div style="background-color: #f7f7f7; height: 50px;width:100%">
-						<#if pointList?? && pointList?size &gt; 0>
-							<#list pointList as p>
-								<div class="boxcontent boxcontent_${p_index+1}" style="width:15%">
-									<table class="box_table">
-										<tbody>
-											<tr>
-												<td> ${p.name} </td>
-											<tr>
-											<tr>
-												<td> ${p.value} </td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</#list>
-						</#if>
-					</div>
-					<!-- 信号采样点信息 结束 -->
-					<!--RSRP占比-->
-					<div id="rsrpRate" class="main" style="width: 48%;float: left"></div>
-					<!--SNR占比 -->
-					<div id="snrRate" class="main" style="margin-left: 20px; width: 48%;float: left"></div>
 					<!-- 分隔线  -->
 					<div style="width: 97%;float: left;margin-top:20px;margin-left:10px;argin-bottom:10px;vertical-align:middle;">
 						<div style="border-top:3px solid #ddd;height:1px;width: 41%;float: left;margin-top:20px;">

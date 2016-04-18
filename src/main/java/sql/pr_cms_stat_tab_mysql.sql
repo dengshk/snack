@@ -170,3 +170,46 @@ CREATE TABLE `rpt_homepage_coverage` (
   `create_time` datetime DEFAULT NULL,
   KEY `idx_cal_time` (`cal_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='报表,主页道路覆盖';
+
+-- ----------------------------
+-- Table structure for t_snack_product
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_product`;
+CREATE TABLE `t_snack_product` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `describe` varchar(600) DEFAULT NULL,
+  `type_id` int(2) DEFAULT NULL,
+  `state` int(1) DEFAULT NULL,
+  `brand` varchar(50) DEFAULT NULL,
+  `place` varchar(50) DEFAULT NULL,
+  `taste` varchar(50) DEFAULT NULL,
+  `buy_price` decimal(6,2) DEFAULT NULL,
+  `sale_price` decimal(6,2) DEFAULT NULL,
+  `expiration` int(5) DEFAULT NULL,
+  `produce_date` date DEFAULT NULL,
+  `overdue_date` date DEFAULT NULL,
+  `buy_date` date DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_snack_product_classify
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_product_classify`;
+CREATE TABLE `t_snack_product_classify` (
+  `type_id` int(2) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(200) DEFAULT NULL,
+  `type_info` varchar(600) DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+-- 测试数据
+INSERT INTO `snack`.`t_snack_product` (`id`, `name`, `describe`, `type_id`, `state`, `brand`, `place`, `taste`, `buy_price`, `sale_price`, `expiration`, `produce_date`, `overdue_date`, `buy_date`, `modify_time`, `create_time`) VALUES ('1', '恰恰瓜子', '好吃得很', '1', '1', '九阳', '重庆', '香', '4.23', '5.50', '120', '2016-04-04', '2016-05-07', '2016-04-17', NULL, '2016-04-18 16:59:22');
+insert into t_snack_product_classify(type_id,type_name,type_info) values(1,'坚果炒货',null);
+commit;

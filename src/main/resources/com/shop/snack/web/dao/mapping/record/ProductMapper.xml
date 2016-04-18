@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.snack.web.dao.record.ProductDao">	
+	<!-- 用户管理 开始 -->
+	<sql id="whereCondition">
+		select
+			a.`id`,
+			a.`name`,
+			a.`describe`,
+			b.`type_name` type,
+			a.`state`,
+			a.`brand`,
+			a.`place`,
+			a.`taste`,
+			a.`buy_price` buyPrice,
+			a.`sale_price` salePrice,
+			a.`expiration`,
+			a.`produce_date` produceDate,
+			a.`overdue_date` overdueDate,
+			a.`buy_date` buyDate,
+			a.`modify_time` modifyTime,
+			a.`create_time` createTime
+		from t_snack_product a,t_snack_product_classify b
+		where a.type_id=b.type_id
+		<if test="id != null">
+			and a.`id` = #{id,jdbcType=DECIMAL}
+		</if>
+		<if test="name != null">
+			and a.`name` = #{name,jdbcType=VARCHAR}
+		</if>
+    </sql>
+    
+	<select id="queryByName" parameterType="java.lang.String"
+		resultType="com.shop.snack.web.model.Product">
+		<include refid="whereCondition"/>
+	</select>
+	
+    <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
+		select count(b.id)
+  			from (<include refid="whereCondition"/> ) b
+	</select>
+
+ <select id="queryForList" parameterType="map" resultType="com.shop.snack.web.model.Product">
+   <![CDATA[
+	   select a.*
+		          from (
+	 ]]>
+		<include refid="whereCondition"/>	         
+    <![CDATA[
+		   ) a
+		       limit #{lbound},#{pageSize} 
+	]]>
+   </select>
+
+   <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.Product">
+	  <include refid="whereCondition"/>
+   </select>
+   
+   <insert id="addOne">
+   		insert into t_snack_product (
+			`name`,
+			`describe`,
+			`type_id`,
+			`state`,
+			`brand`,
+			`place`,
+			`taste`,
+			`buy_price`,
+			`sale_price`,
+			`expiration`,
+			`produce_date`,
+			`overdue_date`,
+			`buy_date`,
+			`modify_time`,
+			`create_time`
+   		) 
+   		values(
+			#{name,jdbcType=VARCHAR},
+			#{describe,jdbcType=VARCHAR},
+			#{type,jdbcType=DECIMAL},
+			1,
+			#{brand,jdbcType=VARCHAR},
+			#{place,jdbcType=VARCHAR},
+			#{taste,jdbcType=VARCHAR},
+			#{buyPrice,jdbcType=DECIMAL},
+			#{salePrice,jdbcType=DECIMAL},
+			#{expiration,jdbcType=DECIMAL},
+			#{produceDate,jdbcType=VARCHAR},
+			#{overdueDate,jdbcType=VARCHAR},
+			#{buyDate,jdbcType=VARCHAR},
+			#{modifyTime,jdbcType=VARCHAR},
+			#{createTime,jdbcType=VARCHAR}
+   		)
+   </insert>
+   
+   <update id="updOne">
+   		update t_snack_product
+   		set `name`=#{name,jdbcType=VARCHAR},
+   		    `describe`=#{describe,jdbcType=VARCHAR},
+			`type_id`=#{type,jdbcType=DECIMAL},
+			`state`=#{state,jdbcType=DECIMAL},
+			`brand`=#{brand,jdbcType=VARCHAR},
+			`place`=#{place,jdbcType=VARCHAR},
+			`taste`=#{taste,jdbcType=VARCHAR},
+			`buy_price`=#{buyPrice,jdbcType=DECIMAL},
+			`sale_price`=#{salePrice,jdbcType=DECIMAL},
+			`expiration`=#{expiration,jdbcType=DECIMAL},
+			`produce_date`=#{produceDate,jdbcType=VARCHAR},
+			`overdue_date`=#{overdueDate,jdbcType=VARCHAR},
+			`buy_date`=#{buyDate,jdbcType=VARCHAR},
+			`modify_time`=#{modifyTime,jdbcType=VARCHAR},
+			`create_time`=#{createTime,jdbcType=VARCHAR}
+   		where id = #{id,jdbcType=DECIMAL}
+   </update>
+   
+   <update id="updState">
+   		update t_snack_product
+   		set `state`=#{state,jdbcType=DECIMAL}
+   		where id = #{id,jdbcType=DECIMAL}
+   </update>
+   <!-- 管理 结束-->
+ 
+   <!-- 物理删除用户 -->
+   <update id="deleteOne" parameterType="map">
+   		delete from  t_snack_product
+   		where `id` = #{id,jdbcType=DECIMAL}
+   </update>
+   
+</mapper>
