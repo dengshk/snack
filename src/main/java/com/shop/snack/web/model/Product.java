@@ -26,7 +26,8 @@ public class Product implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private String describe;
-	private String type;
+	private String typeId;
+	private String typeName;
 	private Integer state;
 	private String brand;
 	private String place;
@@ -75,17 +76,18 @@ public class Product implements java.io.Serializable {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
+
+	public String getTypeId() {
+		return typeId;
 	}
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 	/**
 	 * @return the state
@@ -230,12 +232,6 @@ public class Product implements java.io.Serializable {
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

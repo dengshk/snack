@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.Product;
+import com.shop.snack.web.model.ProductType;
 import com.shop.snack.web.service.record.ProductService;
 
 @Controller
@@ -51,47 +52,40 @@ public class ProductManagerAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/editProduct")
-	public ModelAndView editUser(HttpServletRequest request, Integer userId) {
+	public ModelAndView editUser(HttpServletRequest request, Integer id) {
 		ModelAndView mv = new ModelAndView("/record/editProduct");
 		Map<String, Object> params = new HashMap<String, Object>();
-		List<Area> provinces = new ArrayList<Area>();
-		List<Area> districts = new ArrayList<Area>();
-		List<Area> countys = new ArrayList<Area>();
-		List<Map<String, Object>> groups = new ArrayList<Map<String, Object>>();
-
-		mv.addObject("checkuni", "1");
-		mv.addObject("checkmob", "0");
-		mv.addObject("checktele", "0");
-		mv.addObject("provinces", provinces);
-		mv.addObject("districts", districts);
-		mv.addObject("countys", countys);
-		mv.addObject("groups", groups);
-		mv.addObject("user", null);
+		params.put("id", id);
+		Product product = productService.queryById(params);
+		List<ProductType> productTypes= productService.queryProductTypes(null);
+		mv.addObject("product", product);
+		mv.addObject("productTypes", productTypes);
 		return mv;
 	}
-	
+
 	/**
 	 * 修改用户启用状态
+	 * 
 	 * @param user
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/changeState")
-	public @ResponseBody Map<String ,Integer> changeUserState(@ModelAttribute Product product,HttpServletRequest request) {
+	public @ResponseBody
+	Map<String, Integer> changeUserState(@ModelAttribute Product product, HttpServletRequest request) {
 		Map<String, Integer> re = new HashMap<String, Integer>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		Integer num = -1;
-		
+
 		params.put("state", product.getState());
-		//判断是添加还是修改
+		// 判断是添加还是修改
 		params.put("id", product.getId());
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String time = df.format(new Date());
 		params.put("modifyDate", time);
 		num = productService.changeState(params);
 		re.put("msg", num);
 		return re;
 	}
-	
-	
+
 }

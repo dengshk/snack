@@ -118,7 +118,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p.name)!}</td>
-											<td align='center'>${(p.type)!}</td>
+											<td align='center'>${(p.typeName)!}</td>
 											<td align='center'>
 												${(p.buyPrice)!}
 											</td>

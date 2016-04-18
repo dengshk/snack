@@ -2,14 +2,16 @@
 <!DOCTYPE mapper   
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.snack.web.dao.record.ProductDao">	
+<mapper namespace="com.shop.snack.web.dao.record.ProductDao">
+
 	<!-- 用户管理 开始 -->
 	<sql id="whereCondition">
 		select
 			a.`id`,
 			a.`name`,
 			a.`describe`,
-			b.`type_name` type,
+			a.`type_id` typeId,
+			b.`type_name` typeName,
 			a.`state`,
 			a.`brand`,
 			a.`place`,
@@ -57,6 +59,20 @@
    <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.Product">
 	  <include refid="whereCondition"/>
    </select>
+
+	<!--配置一个resultMap 指定返回的类型 -->  
+	<resultMap id="productType" type="com.shop.snack.web.model.ProductType">  
+	    <id column="typeId" property="typeId" />  
+	    <result column="typeName" property="typeName" />  
+	    <result column="typeInfo" property="typeInfo" />  
+	</resultMap> 
+   <select id="queryProductTypes" resultMap="productType">
+		select
+			type_id typeId,
+			type_name typeName,
+			type_info typeInfo
+		from t_snack_product_classify
+   </select>
    
    <insert id="addOne">
    		insert into t_snack_product (
@@ -79,7 +95,7 @@
    		values(
 			#{name,jdbcType=VARCHAR},
 			#{describe,jdbcType=VARCHAR},
-			#{type,jdbcType=DECIMAL},
+			#{typeId,jdbcType=DECIMAL},
 			1,
 			#{brand,jdbcType=VARCHAR},
 			#{place,jdbcType=VARCHAR},
@@ -99,7 +115,7 @@
    		update t_snack_product
    		set `name`=#{name,jdbcType=VARCHAR},
    		    `describe`=#{describe,jdbcType=VARCHAR},
-			`type_id`=#{type,jdbcType=DECIMAL},
+			`type_id`=#{typeId,jdbcType=DECIMAL},
 			`state`=#{state,jdbcType=DECIMAL},
 			`brand`=#{brand,jdbcType=VARCHAR},
 			`place`=#{place,jdbcType=VARCHAR},

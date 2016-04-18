@@ -60,6 +60,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </body>
 <!-- END BODY -->
 <script>
-setTimeout(function(){window.parent.parent.location.href='/rdt/login'},'500')
+setTimeout(function(){window.parent.parent.location.href='/snack/login'},'500')
 </script>
 </html>
