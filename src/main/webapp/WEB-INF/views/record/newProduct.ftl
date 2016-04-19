@@ -104,12 +104,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										</span>
 									</th>-->
 									<th style="text-align:center;width:20%;">产品名称</th>
-									<th style="text-align:center;width:10%;">产品类型</th>
-									<th style="text-align:center;width:10%;">统一进价</th>
-									<th style="text-align:center;width:10%;">统一卖价</th>
-									<th style="text-align:center;width:10%;">进货日期</th>
-									<th style="text-align:center;width:10%;">过期日期</th>
-									<th style="text-align:center;width:10%;">产品状态</th>
+									<th style="text-align:center;width:12%;">产品类型</th>
+									<th style="text-align:center;width:12%;">统一进价(元)</th>
+									<th style="text-align:center;width:12%;">统一售价(元)</th>
+									<th style="text-align:center;width:12%;">保质期限(天)</th>
+									<th style="text-align:center;width:12%;">产品状态</th>
 									<th colspan="3" style="text-align:center;width:20%;">操作</th>
 								</tr>
 							</thead>
@@ -126,10 +125,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 												${(p.salePrice)!}
 											</td>
 											<td align='center'>
-												${(p.buyDate)!}
-											</td>
-											<td align='center'>
-												${(p.overdueDate)!}
+												${(p.expiration)!}
 											</td>
 											<td align='center'>
 												<#if (p.state)?? && p.state==1>在售</#if>

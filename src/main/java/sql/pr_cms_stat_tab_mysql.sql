@@ -187,9 +187,6 @@ CREATE TABLE `t_snack_product` (
   `buy_price` decimal(6,2) DEFAULT NULL,
   `sale_price` decimal(6,2) DEFAULT NULL,
   `expiration` int(5) DEFAULT NULL,
-  `produce_date` date DEFAULT NULL,
-  `overdue_date` date DEFAULT NULL,
-  `buy_date` date DEFAULT NULL,
   `modify_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -210,6 +207,7 @@ CREATE TABLE `t_snack_product_classify` (
 
 
 -- 测试数据
-INSERT INTO `snack`.`t_snack_product` (`id`, `name`, `describe`, `type_id`, `state`, `brand`, `place`, `taste`, `buy_price`, `sale_price`, `expiration`, `produce_date`, `overdue_date`, `buy_date`, `modify_time`, `create_time`) VALUES ('1', '恰恰瓜子', '好吃得很', '1', '1', '九阳', '重庆', '香', '4.23', '5.50', '120', '2016-04-04', '2016-05-07', '2016-04-17', NULL, '2016-04-18 16:59:22');
+INSERT INTO `snack`.`t_snack_product` (`id`, `name`, `describe`, `type_id`, `state`, `brand`, `place`, `taste`, `buy_price`, `sale_price`, `expiration`, `modify_time`, `create_time`) VALUES ('1', '恰恰瓜子', '好吃得很', '1', '1', '九阳', '重庆', '香', '4.23', '5.50', '120', NULL, '2016-04-18 16:59:22');
+insert into t_snack_product_classify(type_id,type_name,type_info) values(-1,'未分类',null);
 insert into t_snack_product_classify(type_id,type_name,type_info) values(1,'坚果炒货',null);
 commit;

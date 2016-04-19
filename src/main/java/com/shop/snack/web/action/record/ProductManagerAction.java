@@ -1,8 +1,6 @@
 package com.shop.snack.web.action.record;
 
-import java.awt.geom.Area;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,11 +52,16 @@ public class ProductManagerAction {
 	@RequestMapping(value = "/editProduct")
 	public ModelAndView editUser(HttpServletRequest request, Integer id) {
 		ModelAndView mv = new ModelAndView("/record/editProduct");
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
-		Product product = productService.queryById(params);
-		List<ProductType> productTypes= productService.queryProductTypes(null);
-		mv.addObject("product", product);
+		if (id != null && !id.equals("")) {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			Product product = productService.queryById(params);
+			mv.addObject("product", product);
+		} else {
+			mv.addObject("product", null);
+		}
+
+		List<ProductType> productTypes = productService.queryProductTypes(null);
 		mv.addObject("productTypes", productTypes);
 		return mv;
 	}
@@ -88,4 +91,59 @@ public class ProductManagerAction {
 		return re;
 	}
 
+	/**
+	 * 删除
+	 * 
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteProduct")
+	public @ResponseBody
+	Map<String, Object> deleteProduct(HttpServletRequest request, Integer id) {
+		Map<String, Object> msg = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		Integer re = productService.deleteOne(params);
+		msg.put("msg", re);
+		return msg;
+	}
+
+	/**
+	 * 修改或者新添用户
+	 * 
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/saveProduct")
+	public @ResponseBody
+	Map<String, Integer> saveProduct(@ModelAttribute Product product, HttpServletRequest request) {
+		Map<String, Integer> re = new HashMap<String, Integer>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Integer num = -1;
+
+		params.put("id", product.getId() != null && !product.getId().equals("") ? product.getId() : "");
+		params.put("name", product.getName() != null && !product.getName().equals("") ? product.getName() : "");
+		params.put("typeId", product.getTypeId() != null && !product.getTypeId().equals("") ? product.getTypeId() : "");
+		params.put("buyPrice", product.getBuyPrice() != null && !product.getBuyPrice().equals("") ? product.getBuyPrice() : "");
+		params.put("salePrice", product.getSalePrice() != null && !product.getSalePrice().equals("") ? product.getSalePrice() : "");
+		params.put("expiration", product.getExpiration() != null && !product.getExpiration().equals("") ? product.getExpiration() : "");
+		params.put("state", product.getState() != null && !product.getState().equals("") ? product.getState() : "");
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String time = df.format(new Date());
+		params.put("createTime", time);
+		params.put("modifyTime", time);
+		// 判断是添加还是修改
+		if (product.getId() != null) {
+			// 修改用户
+			num = productService.updOne(params);
+		} else {
+			// 添加用户
+			num = productService.addOne(params);
+		}
+		re.put("msg", num);
+		return re;
+	}
 }

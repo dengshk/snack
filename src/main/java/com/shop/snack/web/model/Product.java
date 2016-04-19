@@ -26,18 +26,15 @@ public class Product implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private String describe;
-	private String typeId;
+	private Integer typeId;
 	private String typeName;
 	private Integer state;
 	private String brand;
 	private String place;
 	private String taste;
-	private BigDecimal buyPrice;
-	private BigDecimal salePrice;
-	private Integer expiration;
-	private String produceDate;
-	private String overdueDate;
-	private String buyDate;
+	private String buyPrice;
+	private String salePrice;
+	private String expiration;
 	private String modifyTime;
 	private String createTime;
 	/**
@@ -76,16 +73,27 @@ public class Product implements java.io.Serializable {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-
-	public String getTypeId() {
+	/**
+	 * @return the typeId
+	 */
+	public Integer getTypeId() {
 		return typeId;
 	}
-	public void setTypeId(String typeId) {
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
+	/**
+	 * @return the typeName
+	 */
 	public String getTypeName() {
 		return typeName;
 	}
+	/**
+	 * @param typeName the typeName to set
+	 */
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
@@ -140,74 +148,38 @@ public class Product implements java.io.Serializable {
 	/**
 	 * @return the buyPrice
 	 */
-	public BigDecimal getBuyPrice() {
+	public String getBuyPrice() {
 		return buyPrice;
 	}
 	/**
 	 * @param buyPrice the buyPrice to set
 	 */
-	public void setBuyPrice(BigDecimal buyPrice) {
+	public void setBuyPrice(String buyPrice) {
 		this.buyPrice = buyPrice;
 	}
 	/**
 	 * @return the salePrice
 	 */
-	public BigDecimal getSalePrice() {
+	public String getSalePrice() {
 		return salePrice;
 	}
 	/**
 	 * @param salePrice the salePrice to set
 	 */
-	public void setSalePrice(BigDecimal salePrice) {
+	public void setSalePrice(String salePrice) {
 		this.salePrice = salePrice;
 	}
 	/**
 	 * @return the expiration
 	 */
-	public Integer getExpiration() {
+	public String getExpiration() {
 		return expiration;
 	}
 	/**
 	 * @param expiration the expiration to set
 	 */
-	public void setExpiration(Integer expiration) {
+	public void setExpiration(String expiration) {
 		this.expiration = expiration;
-	}
-	/**
-	 * @return the produceDate
-	 */
-	public String getProduceDate() {
-		return produceDate;
-	}
-	/**
-	 * @param produceDate the produceDate to set
-	 */
-	public void setProduceDate(String produceDate) {
-		this.produceDate = produceDate;
-	}
-	/**
-	 * @return the overdueDate
-	 */
-	public String getOverdueDate() {
-		return overdueDate;
-	}
-	/**
-	 * @param overdueDate the overdueDate to set
-	 */
-	public void setOverdueDate(String overdueDate) {
-		this.overdueDate = overdueDate;
-	}
-	/**
-	 * @return the buyDate
-	 */
-	public String getBuyDate() {
-		return buyDate;
-	}
-	/**
-	 * @param buyDate the buyDate to set
-	 */
-	public void setBuyDate(String buyDate) {
-		this.buyDate = buyDate;
 	}
 	/**
 	 * @return the modifyTime
@@ -233,5 +205,5 @@ public class Product implements java.io.Serializable {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-
+	
 }

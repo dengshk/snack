@@ -27,5 +27,5 @@ public interface ProductDao extends PageMapper {
 	Integer updState(Map<String, Object> params);
 
 	// 物理删除
-	void deleteOne(Map<String, Object> params);
+	Integer deleteOne(Map<String, Object> params);
 }

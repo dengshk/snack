@@ -16,12 +16,9 @@
 			a.`brand`,
 			a.`place`,
 			a.`taste`,
-			a.`buy_price` buyPrice,
-			a.`sale_price` salePrice,
+			format(a.`buy_price`,2) buyPrice,
+			format(a.`sale_price`,2) salePrice,
 			a.`expiration`,
-			a.`produce_date` produceDate,
-			a.`overdue_date` overdueDate,
-			a.`buy_date` buyDate,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime
 		from t_snack_product a,t_snack_product_classify b
@@ -86,9 +83,6 @@
 			`buy_price`,
 			`sale_price`,
 			`expiration`,
-			`produce_date`,
-			`overdue_date`,
-			`buy_date`,
 			`modify_time`,
 			`create_time`
    		) 
@@ -96,16 +90,13 @@
 			#{name,jdbcType=VARCHAR},
 			#{describe,jdbcType=VARCHAR},
 			#{typeId,jdbcType=DECIMAL},
-			1,
+			#{state,jdbcType=DECIMAL},
 			#{brand,jdbcType=VARCHAR},
 			#{place,jdbcType=VARCHAR},
 			#{taste,jdbcType=VARCHAR},
 			#{buyPrice,jdbcType=DECIMAL},
 			#{salePrice,jdbcType=DECIMAL},
 			#{expiration,jdbcType=DECIMAL},
-			#{produceDate,jdbcType=VARCHAR},
-			#{overdueDate,jdbcType=VARCHAR},
-			#{buyDate,jdbcType=VARCHAR},
 			#{modifyTime,jdbcType=VARCHAR},
 			#{createTime,jdbcType=VARCHAR}
    		)
@@ -123,11 +114,7 @@
 			`buy_price`=#{buyPrice,jdbcType=DECIMAL},
 			`sale_price`=#{salePrice,jdbcType=DECIMAL},
 			`expiration`=#{expiration,jdbcType=DECIMAL},
-			`produce_date`=#{produceDate,jdbcType=VARCHAR},
-			`overdue_date`=#{overdueDate,jdbcType=VARCHAR},
-			`buy_date`=#{buyDate,jdbcType=VARCHAR},
-			`modify_time`=#{modifyTime,jdbcType=VARCHAR},
-			`create_time`=#{createTime,jdbcType=VARCHAR}
+			`modify_time`=#{modifyTime,jdbcType=VARCHAR}
    		where id = #{id,jdbcType=DECIMAL}
    </update>
    

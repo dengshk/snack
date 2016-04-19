@@ -38,7 +38,7 @@ public class ProductService extends BaseService {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 查询产品分类
 	 * 
@@ -55,7 +55,7 @@ public class ProductService extends BaseService {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 查询用户信息
 	 * 
@@ -86,6 +86,57 @@ public class ProductService extends BaseService {
 			re = productDao.updState(params);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
+
+	/**
+	 * 删除
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer deleteOne(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = productDao.deleteOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
+	
+	/**
+	 * 添加
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer addOne(Map<String, Object> params) {
+		Integer re =-1;
+		try {
+			re=productDao.addOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return re;
+	}
+	
+	/**
+	 * 修改
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer updOne(Map<String, Object> params) {
+		Integer re =-1;
+		try {
+			re=productDao.updOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
 		}
 		return re;
 	}
