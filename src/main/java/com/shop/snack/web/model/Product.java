@@ -8,7 +8,6 @@
  */
 package com.shop.snack.web.model;
 
-import java.math.BigDecimal;
 
 /**
  * @类功能说明：
