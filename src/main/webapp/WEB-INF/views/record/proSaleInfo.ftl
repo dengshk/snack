@@ -104,7 +104,7 @@
 									</div>
 								</div>
 								<!-- 查询条件 -->
-								<form  action="${application.getContextPath()}/epinfo/epinfo" id="pageForm" role="search" method="post" >
+								<form  action="${application.getContextPath()}/record/newProduct" id="pageForm" role="search" method="post" >
 									<!--时间-->
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
 									<!--方案名称-->
@@ -122,7 +122,7 @@
 									<!--方案名称-->
 									<input type="hidden" id="vision_query" name="vision" value="${(bean.vision)!}"/>
 								</form>
-								<form  action="${application.getContextPath()}/epinfo/child" id="editPage" role="search" method="post" >
+								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
 									<!--修改id-->
 									<input type="hidden" id="editChild" name="id" value=""/>
 									<!--分页-->
@@ -245,7 +245,7 @@
 	<!--复选框 -->
 	<script src="${application.getContextPath()}/scripts/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
 	
-	<script src="${application.getContextPath()}/js/epinfo/epinfo.js" type="text/javascript"></script>
+	<script src="${application.getContextPath()}/js/record/proSaleInfo.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {

@@ -3,6 +3,9 @@ package com.shop.snack.web.action.record;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.EPQueryBean;
 import com.shop.snack.web.service.record.ProSaleInfoService;
+import com.shop.snack.web.service.record.ProductService;
 
 @Controller
 @RequestMapping("/proSale")
@@ -22,9 +26,10 @@ public class ProSaleInfoAction {
 
 	@Autowired
 	public ProSaleInfoService service;
+	@Autowired
+	public ProductService productService;
 
 	@Autowired
-	// public ImportEpinfoService importService;
 	@RequestMapping(value = "/fetchPage")
 	public ModelAndView proInQuery() {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfo");
@@ -42,4 +47,15 @@ public class ProSaleInfoAction {
 		return mv;
 	}
 
+	@RequestMapping(value = "/child")
+	public ModelAndView child(EPQueryBean bean ,Integer pageIndex ,
+			Integer pageSize,Integer id ,HttpServletResponse response ,HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/record/proSaleInfoChild");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pageSize", pageSize);
+		params.put("pageIndex", pageIndex);
+		PageBean page = productService.queryProduct(params);
+		mv.addObject("page", page);
+		return mv;
+	}
 }
