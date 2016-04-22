@@ -8,7 +8,6 @@
  */
 package com.shop.snack.web.model;
 
-
 /**
  * @类功能说明：
  * @类修改者：
@@ -28,181 +27,351 @@ public class Product implements java.io.Serializable {
 	private Integer typeId;
 	private String typeName;
 	private Integer state;
+	private String agent1Price;
+	private String agent2Price;
+	private String agent3Price;
+	private String agent4Price;
+	private Integer agent1Num;
+	private Integer agent2Num;
+	private Integer agent3Num;
+	private Integer agent4Num;
+	private String salePrice;
+	private Integer grammage;
+	private Integer expiration;
 	private String brand;
 	private String place;
 	private String taste;
-	private String buyPrice;
-	private String salePrice;
-	private String expiration;
 	private String modifyTime;
 	private String createTime;
+
 	/**
 	 * @return the id
 	 */
 	public Integer getId() {
 		return id;
 	}
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * @return the describe
 	 */
 	public String getDescribe() {
 		return describe;
 	}
+
 	/**
-	 * @param describe the describe to set
+	 * @param describe
+	 *            the describe to set
 	 */
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
+
 	/**
 	 * @return the typeId
 	 */
 	public Integer getTypeId() {
 		return typeId;
 	}
+
 	/**
-	 * @param typeId the typeId to set
+	 * @param typeId
+	 *            the typeId to set
 	 */
 	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
+
 	/**
 	 * @return the typeName
 	 */
 	public String getTypeName() {
 		return typeName;
 	}
+
 	/**
-	 * @param typeName the typeName to set
+	 * @param typeName
+	 *            the typeName to set
 	 */
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
+
 	/**
 	 * @return the state
 	 */
 	public Integer getState() {
 		return state;
 	}
+
 	/**
-	 * @param state the state to set
+	 * @param state
+	 *            the state to set
 	 */
 	public void setState(Integer state) {
 		this.state = state;
 	}
+
 	/**
-	 * @return the brand
+	 * @return the agent1Price
 	 */
-	public String getBrand() {
-		return brand;
+	public String getAgent1Price() {
+		return agent1Price;
 	}
+
 	/**
-	 * @param brand the brand to set
+	 * @param agent1Price
+	 *            the agent1Price to set
 	 */
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setAgent1Price(String agent1Price) {
+		this.agent1Price = agent1Price;
 	}
+
 	/**
-	 * @return the place
+	 * @return the agent2Price
 	 */
-	public String getPlace() {
-		return place;
+	public String getAgent2Price() {
+		return agent2Price;
 	}
+
 	/**
-	 * @param place the place to set
+	 * @param agent2Price
+	 *            the agent2Price to set
 	 */
-	public void setPlace(String place) {
-		this.place = place;
+	public void setAgent2Price(String agent2Price) {
+		this.agent2Price = agent2Price;
 	}
+
 	/**
-	 * @return the taste
+	 * @return the agent3Price
 	 */
-	public String getTaste() {
-		return taste;
+	public String getAgent3Price() {
+		return agent3Price;
 	}
+
 	/**
-	 * @param taste the taste to set
+	 * @param agent3Price
+	 *            the agent3Price to set
 	 */
-	public void setTaste(String taste) {
-		this.taste = taste;
+	public void setAgent3Price(String agent3Price) {
+		this.agent3Price = agent3Price;
 	}
+
 	/**
-	 * @return the buyPrice
+	 * @return the agent4Price
 	 */
-	public String getBuyPrice() {
-		return buyPrice;
+	public String getAgent4Price() {
+		return agent4Price;
 	}
+
 	/**
-	 * @param buyPrice the buyPrice to set
+	 * @param agent4Price
+	 *            the agent4Price to set
 	 */
-	public void setBuyPrice(String buyPrice) {
-		this.buyPrice = buyPrice;
+	public void setAgent4Price(String agent4Price) {
+		this.agent4Price = agent4Price;
 	}
+
+	/**
+	 * @return the agent1Num
+	 */
+	public Integer getAgent1Num() {
+		return agent1Num;
+	}
+
+	/**
+	 * @param agent1Num
+	 *            the agent1Num to set
+	 */
+	public void setAgent1Num(Integer agent1Num) {
+		this.agent1Num = agent1Num;
+	}
+
+	/**
+	 * @return the agent2Num
+	 */
+	public Integer getAgent2Num() {
+		return agent2Num;
+	}
+
+	/**
+	 * @param agent2Num
+	 *            the agent2Num to set
+	 */
+	public void setAgent2Num(Integer agent2Num) {
+		this.agent2Num = agent2Num;
+	}
+
+	/**
+	 * @return the agent3Num
+	 */
+	public Integer getAgent3Num() {
+		return agent3Num;
+	}
+
+	/**
+	 * @param agent3Num
+	 *            the agent3Num to set
+	 */
+	public void setAgent3Num(Integer agent3Num) {
+		this.agent3Num = agent3Num;
+	}
+
+	/**
+	 * @return the agent4Num
+	 */
+	public Integer getAgent4Num() {
+		return agent4Num;
+	}
+
+	/**
+	 * @param agent4Num
+	 *            the agent4Num to set
+	 */
+	public void setAgent4Num(Integer agent4Num) {
+		this.agent4Num = agent4Num;
+	}
+
 	/**
 	 * @return the salePrice
 	 */
 	public String getSalePrice() {
 		return salePrice;
 	}
+
 	/**
-	 * @param salePrice the salePrice to set
+	 * @param salePrice
+	 *            the salePrice to set
 	 */
 	public void setSalePrice(String salePrice) {
 		this.salePrice = salePrice;
 	}
+
+	/**
+	 * @return the grammage
+	 */
+	public Integer getGrammage() {
+		return grammage;
+	}
+
+	/**
+	 * @param grammage
+	 *            the grammage to set
+	 */
+	public void setGrammage(Integer grammage) {
+		this.grammage = grammage;
+	}
+
 	/**
 	 * @return the expiration
 	 */
-	public String getExpiration() {
+	public Integer getExpiration() {
 		return expiration;
 	}
+
 	/**
-	 * @param expiration the expiration to set
+	 * @param expiration
+	 *            the expiration to set
 	 */
-	public void setExpiration(String expiration) {
+	public void setExpiration(Integer expiration) {
 		this.expiration = expiration;
 	}
+
+	/**
+	 * @return the brand
+	 */
+	public String getBrand() {
+		return brand;
+	}
+
+	/**
+	 * @param brand
+	 *            the brand to set
+	 */
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	/**
+	 * @return the place
+	 */
+	public String getPlace() {
+		return place;
+	}
+
+	/**
+	 * @param place
+	 *            the place to set
+	 */
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	/**
+	 * @return the taste
+	 */
+	public String getTaste() {
+		return taste;
+	}
+
+	/**
+	 * @param taste
+	 *            the taste to set
+	 */
+	public void setTaste(String taste) {
+		this.taste = taste;
+	}
+
 	/**
 	 * @return the modifyTime
 	 */
 	public String getModifyTime() {
 		return modifyTime;
 	}
+
 	/**
-	 * @param modifyTime the modifyTime to set
+	 * @param modifyTime
+	 *            the modifyTime to set
 	 */
 	public void setModifyTime(String modifyTime) {
 		this.modifyTime = modifyTime;
 	}
+
 	/**
 	 * @return the createTime
 	 */
 	public String getCreateTime() {
 		return createTime;
 	}
+
 	/**
-	 * @param createTime the createTime to set
+	 * @param createTime
+	 *            the createTime to set
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	
+
 }

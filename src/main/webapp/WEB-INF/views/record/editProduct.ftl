@@ -22,26 +22,70 @@
 						<span class="help-block" for="name"></span>
 					</div>
 				</div>
-				<!--统一进价-->
+				<!--省级代理-->
 				<div class="form-group" style="padding:10px 0px 0px 0;">
-					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="buyPrice" class="">
+					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="agent1Price" class="">
 						<span style="color:red;">*&nbsp;</span>
-						统一进价
+						省级代理
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="buyPrice" type="text" class="form-control " id="buyPrice" value="${(product.buyPrice)!}" maxlength="20" placeholder="请输入产品进价">
-						<span class="help-block" for="buyPrice"></span>
+						<input name="agent1Price" type="text" class="form-control " id="agent1Price" value="${(product.agent1Price)!}" maxlength="20" placeholder="请输入省级代理进价">
+						<span class="help-block" for="agent1Price"></span>
+					</div>
+				</div>
+				<!--市级代理-->
+				<div class="form-group" style="padding:10px 0px 0px 0;">
+					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="agent2Price" class="">
+						<span style="color:red;">*&nbsp;</span>
+						市级代理
+					</label>
+					<div class="input-icon right col-md-7">
+						<input name="agent2Price" type="text" class="form-control " id="agent2Price" value="${(product.agent2Price)!}" maxlength="20" placeholder="请输入市级代理进价">
+						<span class="help-block" for="agent2Price"></span>
+					</div>
+				</div>
+				<!--特约代理-->
+				<div class="form-group" style="padding:10px 0px 0px 0;">
+					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="agent3Price" class="">
+						<span style="color:red;">*&nbsp;</span>
+						特约代理
+					</label>
+					<div class="input-icon right col-md-7">
+						<input name="agent3Price" type="text" class="form-control " id="agent3Price" value="${(product.agent3Price)!}" maxlength="20" placeholder="请输入特约代理进价">
+						<span class="help-block" for="agent3Price"></span>
+					</div>
+				</div>
+				<!--终端代理-->
+				<div class="form-group" style="padding:10px 0px 0px 0;">
+					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="agent4Price" class="">
+						<span style="color:red;">*&nbsp;</span>
+						终端代理
+					</label>
+					<div class="input-icon right col-md-7">
+						<input name="agent4Price" type="text" class="form-control " id="agent4Price" value="${(product.agent4Price)!}" maxlength="20" placeholder="请输入终端代理进价">
+						<span class="help-block" for="agent4Price"></span>
 					</div>
 				</div>
 				<!--统一售价-->
 				<div class="form-group" style="padding:10px 0px 0px 0;">
 					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="salePrice" class="">
 						<span style="color:red;">*&nbsp;</span>
-						统一售价
+						统一零售价
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="salePrice" type="text" class="form-control" id="salePrice" value="${(product.salePrice)!}" maxlength="20" placeholder="请输入产品售价">
+						<input name="salePrice" type="text" class="form-control" id="salePrice" value="${(product.salePrice)!}" maxlength="20" placeholder="请输入统一零售价">
 						<span class="help-block" for="salePrice"></span>
+					</div>
+				</div>
+				<!--克数-->
+				<div class="form-group" style="padding:10px 0px 0px 0;">
+					<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="grammage" class="">
+						<span style="color:red;">*&nbsp;</span>
+						克数
+					</label>
+					<div class="input-icon right col-md-7">
+						<input name="grammage" type="text" class="form-control" id="grammage" value="${(product.grammage)!}" maxlength="20" placeholder="请输入产品克数">
+						<span class="help-block" for="grammage"></span>
 					</div>
 				</div>
 				<!--保质期-->

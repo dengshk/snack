@@ -84,21 +84,21 @@
 											</div>
 										</div>
 										<!--时间范围控件       结束-->
-										<!-- IMEI 开始 -->
+										<!-- 订货人 开始 -->
 										<div class="form-group" style="margin-left:8px;">
-											<label class="control-label">顾客姓名:</label>
-											<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入顾客姓名"/>
+											<label class="control-label">订货人:</label>
+											<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入订货人"/>
 										</div>
-										<!-- IMEI 结束 -->
+										<!-- 订货人 结束 -->
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 									</form>
 								</div>
 								<div class="table-toolbar">
 									<div class="btn-group">
-										<button class="btn green" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">创建&nbsp;<i class="fa fa-plus"></i></button>
-										<button class="btn green" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="export">导出&nbsp;<i class="fa fa-download"></i></button>
-										<button class="btn green" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="import">导入&nbsp;<i class="fa fa-upload"></i></button>
-										<button class="btn green" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" fileName="ImportTemplate" id="demo">导入模板&nbsp;<i class="fa fa-file-text-o"></i></button>
+										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">创建&nbsp;<i class="fa fa-plus"></i></button>
+										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="export">导出&nbsp;<i class="fa fa-download"></i></button>
+										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="import">导入&nbsp;<i class="fa fa-upload"></i></button>
+										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" fileName="ImportTemplate" id="demo">导入模板&nbsp;<i class="fa fa-file-text-o"></i></button>
 									</div>
 									<div class="btn-group pull-right">
 									</div>
@@ -151,18 +151,14 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;" >
-														<label>
-															<input id="all" type="checkbox" name="checkAll" value="-1">
-														</label>
-													</th>
-													<th style="text-align:center;" >销售单号</th>
-													<th style="text-align:center;" >顾客姓名</th>
-													<th style="text-align:center;" >顾客电话</th>
-													<th style="text-align:center;" >销售总量</th>
-													<th style="text-align:center;" >销售总价</th>
-													<th style="text-align:center;" >销售日期</th>
-													<th style="text-align:center;" >备注信息</th>
+													<th style="text-align:center;" >订单号</th>
+													<th style="text-align:center;" >订单日期</th>
+													<th style="text-align:center;" >订货人</th>
+													<th style="text-align:center;" >收获方式</th>
+													<th style="text-align:center;" >订单状态</th>
+													<th style="text-align:center;" >是否付款</th>
+													<th style="text-align:center;" >总成本</th>
+													<th style="text-align:center;" >利润</th>
 													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" >操作</th>
 											</tr>
 										</thead>
@@ -172,17 +168,13 @@
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-														<td style="text-align:center;" >
-															<label>
-																<input  type="checkbox" name="checkOne" value="${(ls.flowId)!'-'}">
-															</label>
-														</td>
 														<td style="text-align:center;" >${(ls.flowId)!'-'}</td>
 														<td style="text-align:center;" >${(ls.customerName)!'-'}</td>
 														<td style="text-align:center;" >${(ls.customerTel)!'-'}</td>
 														<td style="text-align:center;" >${(ls.saleNum)!'-'}</td>
 														<td style="text-align:center;" >${(ls.salePrice)!'-'}</td>
 														<td style="text-align:center;" >${(ls.saleDate)!'-'}</td>
+														<td style="text-align:center;" >${(ls.remark)!'-'}</td>
 														<td style="text-align:center;" >${(ls.remark)!'-'}</td>
 														<td style="text-align:center;" name="${(ls.flowId)!'-'}">
 														<a href="#" class="edit" nid = "${(ls.flowId)!}" nname = "${(ls.customerName)!'-'}">编辑</a>
@@ -191,7 +183,7 @@
 												</#list>
 											<#else>
 												<tr>
-													<td colspan="10"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">无符合的终端信息</td>
+													<td colspan="9"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 												</tr>
 											</#if>
 										</tbody>

@@ -32,8 +32,32 @@ function editProduct(productId){
 			saveUser();
 		});
 	$modal.modal();
+	    //价格修改
+    $("#agent1Price").blur(function(){
+			initPrice();
+		});
     });
 }
+
+/**
+ * 自动修改代理价格逐级+2
+ */
+function initPrice(){
+	var price1=$("#agent1Price").val();
+	var price2=$("#agent2Price").val();
+	var price3=$("#agent3Price").val();
+	var price4=$("#agent4Price").val();
+	if(price2==null||price2==""){
+		$("#agent2Price").attr("value",parseFloat(price1)+parseFloat(2));
+	}
+	if(price3==null||price3==""){
+		$("#agent3Price").attr("value",parseFloat(price1)+parseFloat(4));
+	}
+	if(price4==null||price4==""){
+		$("#agent4Price").attr("value",parseFloat(price1)+parseFloat(6));
+	}
+}
+
 
 /**
  * 保存新添用户或者修改用户
@@ -49,8 +73,12 @@ function saveUser(){
 		//获取用户信息
 		var _id = $("#id").val();
 		var _name =$("#name").val();
-		var _buyPrice = $("#buyPrice").val();
+		var _agent1Price = $("#agent1Price").val();
+		var _agent2Price = $("#agent2Price").val();
+		var _agent3Price = $("#agent3Price").val();
+		var _agent4Price = $("#agent4Price").val();
 		var _salePrice = $("#salePrice").val();
+		var _grammage = $("#grammage").val();
 		var _expiration = $("#expiration").val();
 		var _typeId =$("#typeId").val();
 		var _state = -1;
@@ -72,9 +100,13 @@ function saveUser(){
 			data:{
 				id:_id,
 				name:_name,
-				buyPrice:_buyPrice,
+				agent1Price:_agent1Price,
+				agent2Price:_agent2Price,
+				agent3Price:_agent3Price,
+				agent4Price:_agent4Price,
 				salePrice:_salePrice,
 				expiration:_expiration,
+				grammage:_grammage,
 				state:_state,
 				typeId:_typeId
 			},

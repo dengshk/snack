@@ -98,18 +98,17 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
 								<tr style="background-color:#EAEAEA;">
-									<!--<th class="table-checkbox">
-										<span>
-											<input class="group-checkable" data-set="#childs .checkboxes" type="checkbox" >
-										</span>
-									</th>-->
-									<th style="text-align:center;width:20%;">产品名称</th>
-									<th style="text-align:center;width:12%;">产品类型</th>
-									<th style="text-align:center;width:12%;">统一进价(元)</th>
-									<th style="text-align:center;width:12%;">统一售价(元)</th>
-									<th style="text-align:center;width:12%;">保质期限(天)</th>
-									<th style="text-align:center;width:12%;">产品状态</th>
-									<th colspan="3" style="text-align:center;width:20%;">操作</th>
+									<th style="text-align:center;width:12%;">产品名称</th>
+									<th style="text-align:center;width:8%;">产品类型</th>
+									<th style="text-align:center;width:8%;">省级代理</th>
+									<th style="text-align:center;width:8%;">市级代理</th>
+									<th style="text-align:center;width:8%;">特约代理</th>
+									<th style="text-align:center;width:8%;">终端代理</th>
+									<th style="text-align:center;width:8%;">统一零售价</th>
+									<th style="text-align:center;width:8%;">克数(g)</th>
+									<th style="text-align:center;width:8%;">保质期(天)</th>
+									<th style="text-align:center;width:8%;">产品状态</th>
+									<th style="text-align:center;width:16%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -118,15 +117,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p.name)!}</td>
 											<td align='center'>${(p.typeName)!}</td>
-											<td align='center'>
-												${(p.buyPrice)!}
-											</td>
-											<td align='center'>
-												${(p.salePrice)!}
-											</td>
-											<td align='center'>
-												${(p.expiration)!}
-											</td>
+											<td align='center'>${(p.agent1Price)!}</td>
+											<td align='center'>${(p.agent2Price)!}</td>
+											<td align='center'>${(p.agent3Price)!}</td>
+											<td align='center'>${(p.agent4Price)!}</td>
+											<td align='center'>${(p.salePrice)!}</td>
+											<td align='center'>${(p.grammage)!}</td>
+											<td align='center'>${(p.expiration)!}</td>
 											<td align='center'>
 												<#if (p.state)?? && p.state==1>在售</#if>
 												<#if (p.state)?? && p.state==0>下架</#if>

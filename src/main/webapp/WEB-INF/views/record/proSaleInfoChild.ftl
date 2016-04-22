@@ -88,9 +88,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<input name="id" type="hidden" id="id" value="${(product.id)!}"/>
 						<!--时间范围控件       开始-->
 						<div class="form-group">
-							<label class="control-label">时间范围:</label>
-			                <div class="input-group date form_date col-md-9" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" size="16" type="text" value="" readonly>
+							<!--<label class="control-label"></label>-->
+			                <div class="input-group date form_date" style="margin-left:8px;" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+			                    <input class="form-control" size="12" type="text" value="2016-04-21" readonly>
 			                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                </div>
@@ -141,13 +141,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<input class="group-checkable" data-set="#childs .checkboxes" type="checkbox" >
 										</span>
 									</th>-->
-									<th style="text-align:center;width:20%;">产品名称</th>
-									<th style="text-align:center;width:12%;">产品类型</th>
-									<th style="text-align:center;width:12%;">统一进价(元)</th>
-									<th style="text-align:center;width:12%;">统一售价(元)</th>
-									<th style="text-align:center;width:12%;">保质期限(天)</th>
-									<th style="text-align:center;width:12%;">产品状态</th>
-									<th colspan="3" style="text-align:center;width:20%;">操作</th>
+									<th style="text-align:center;width:30%;">产品名称</th>
+									<th style="text-align:center;width:10%;">进货单价</th>
+									<th style="text-align:center;width:10%;">销售单价</th>
+									<th style="text-align:center;width:10%;">销售数量</th>
+									<th style="text-align:center;width:10%;">销售金额</th>
+									<th style="text-align:center;width:10%;">小计收入</th>
+									<th style="text-align:center;width:20%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -155,7 +155,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p.name)!}</td>
-											<td align='center'>${(p.typeName)!}</td>
 											<td align='center'>
 												${(p.buyPrice)!}
 											</td>
@@ -166,16 +165,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 												${(p.expiration)!}
 											</td>
 											<td align='center'>
-												<#if (p.state)?? && p.state==1>在售</#if>
-												<#if (p.state)?? && p.state==0>下架</#if>
+												88.88
 											</td>
-											<td align='center' colspan="3">
+											<td align='center'>
+												8.88
+											</td>
+											<td align='center'>
 												<a class="editUser" href="#" id="${(p.id)!}">修改</a>|
-												<a class="resSta changeUserState" align='center' href="#" id="${(p.id)!}" _islock="${(p.state)!}" >
-													<#if (p.state)?? && p.state==1>下架</#if>
-													<#if (p.state)?? && p.state==0>在售</#if>
-												</a>
-													|
 												<a class="deleteUser" href="#" id="${(p.id)!}" un="${(p.name)!}" userid="${(p.id)!}">删除</a>
 											</td>
 										</tr>
@@ -196,29 +192,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	</div>
 </div>
 		</div>
-	
-		<!--dialog请求层-->
-		<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
-		<div class="modal fade" id="ajax" tabindex="-1" role="basic" aria-hidden="true">
-		</div>
 	</div>
 	<!--分页-->
 	<script type="text/javascript" src="${application.getContextPath()}/js/ejs_production.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
-	
-	<script type="text/javascript" src="${application.getContextPath()}/js/record/productManager.js"></script>
-	<!--<script type="text/javascript" src="${application.getContextPath()}/js/userManager/initSelect.js"></script>-->
-	<!--复选框 -->
-	<script src="${application.getContextPath()}/scripts/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
-	<!--验证--> 	
-	<script type="text/javascript" src="${application.getContextPath()}/js/record/validater.js"></script>	
-	
+
 	<!-- 开始    日期范围控件脚本  -->
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/daterangepicker_amend.js"></script>
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/form-dateRanges_amend.js"></script>
-	<script type="text/javascript" src="${application.getContextPath()}scripts/plugins/bootstrap-daterangepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="${application.getContextPath()}scripts/plugins/bootstrap-daterangepicker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${application.getContextPath()}/scripts/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${application.getContextPath()}/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="${application.getContextPath()}/scripts/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${application.getContextPath()}/scripts/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 	jQuery(document).ready(function() {    
 		   PageUtils.init({
@@ -237,7 +220,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		var winHeight = window.screen.height;
 		$('.page-content').css('min-height',winHeight);
 		$("#modal-backdrop").hide();
-		DateRanges.init('reportrange');
+    });
+ 	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
     });
 	</script>
 </body>

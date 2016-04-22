@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.snack.web.dao.record.ProductDao">
 
-	<!-- 用户管理 开始 -->
+	<!-- 产品管理 开始 -->
 	<sql id="whereCondition">
 		select
 			a.`id`,
@@ -13,12 +13,20 @@
 			a.`type_id` typeId,
 			b.`type_name` typeName,
 			a.`state`,
+			format(a.`agent1_price`,2) agent1Price,
+			format(a.`agent2_price`,2) agent2Price,
+			format(a.`agent3_price`,2) agent3Price,
+			format(a.`agent4_price`,2) agent4Price,
+			a.`agent1_num` agent1Num,
+			a.`agent2_num` agent2Num,
+			a.`agent3_num` agent3Num,
+			a.`agent4_num` agent4Num,
+			a.`sale_price` salePrice,
+			a.`grammage` grammage,
+			a.`expiration` expiration,
 			a.`brand`,
 			a.`place`,
 			a.`taste`,
-			format(a.`buy_price`,2) buyPrice,
-			format(a.`sale_price`,2) salePrice,
-			a.`expiration`,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime
 		from t_snack_product a,t_snack_product_classify b
@@ -29,6 +37,7 @@
 		<if test="name != null">
 			and a.`name` = #{name,jdbcType=VARCHAR}
 		</if>
+		order by 6 desc,4,2
     </sql>
     
 	<select id="queryByName" parameterType="java.lang.String"
@@ -77,45 +86,69 @@
 			`describe`,
 			`type_id`,
 			`state`,
+			`agent1_price`,
+			`agent2_price`,
+			`agent3_price`,
+			`agent4_price`,
+			`agent1_num`,
+			`agent2_num`,
+			`agent3_num`,
+			`agent4_num`,
+			`sale_price`,
+			`grammage`,
+			`expiration`,
 			`brand`,
 			`place`,
 			`taste`,
-			`buy_price`,
-			`sale_price`,
-			`expiration`,
 			`modify_time`,
 			`create_time`
    		) 
    		values(
-			#{name,jdbcType=VARCHAR},
-			#{describe,jdbcType=VARCHAR},
-			#{typeId,jdbcType=DECIMAL},
-			#{state,jdbcType=DECIMAL},
-			#{brand,jdbcType=VARCHAR},
-			#{place,jdbcType=VARCHAR},
-			#{taste,jdbcType=VARCHAR},
-			#{buyPrice,jdbcType=DECIMAL},
-			#{salePrice,jdbcType=DECIMAL},
-			#{expiration,jdbcType=DECIMAL},
-			#{modifyTime,jdbcType=VARCHAR},
-			#{createTime,jdbcType=VARCHAR}
+			#{product.name,jdbcType=VARCHAR},
+			#{product.describe,jdbcType=VARCHAR},
+			#{product.typeId,jdbcType=DECIMAL},
+			#{product.state,jdbcType=DECIMAL},
+			#{product.agent1Price,jdbcType=VARCHAR},
+			#{product.agent2Price,jdbcType=VARCHAR},
+			#{product.agent3Price,jdbcType=VARCHAR},
+			#{product.agent4Price,jdbcType=VARCHAR},
+			#{product.agent1Num,jdbcType=DECIMAL},
+			#{product.agent2Num,jdbcType=DECIMAL},
+			#{product.agent3Num,jdbcType=DECIMAL},
+			#{product.agent4Num,jdbcType=DECIMAL},
+			#{product.salePrice,jdbcType=DECIMAL},
+			#{product.grammage,jdbcType=DECIMAL},
+			#{product.expiration,jdbcType=DECIMAL},
+			#{product.brand,jdbcType=VARCHAR},
+			#{product.place,jdbcType=VARCHAR},
+			#{product.taste,jdbcType=VARCHAR},
+			#{product.modifyTime,jdbcType=VARCHAR},
+			#{product.createTime,jdbcType=VARCHAR}
    		)
    </insert>
    
    <update id="updOne">
    		update t_snack_product
-   		set `name`=#{name,jdbcType=VARCHAR},
-   		    `describe`=#{describe,jdbcType=VARCHAR},
-			`type_id`=#{typeId,jdbcType=DECIMAL},
-			`state`=#{state,jdbcType=DECIMAL},
-			`brand`=#{brand,jdbcType=VARCHAR},
-			`place`=#{place,jdbcType=VARCHAR},
-			`taste`=#{taste,jdbcType=VARCHAR},
-			`buy_price`=#{buyPrice,jdbcType=DECIMAL},
-			`sale_price`=#{salePrice,jdbcType=DECIMAL},
-			`expiration`=#{expiration,jdbcType=DECIMAL},
-			`modify_time`=#{modifyTime,jdbcType=VARCHAR}
-   		where id = #{id,jdbcType=DECIMAL}
+   		set `name`=#{product.name,jdbcType=VARCHAR},
+   		    `describe`=#{product.describe,jdbcType=VARCHAR},
+			`type_id`=#{product.typeId,jdbcType=DECIMAL},
+			`state`=#{product.state,jdbcType=DECIMAL},
+			`agent1_price`=#{product.agent1Price,jdbcType=VARCHAR},
+			`agent2_price`=#{product.agent2Price,jdbcType=VARCHAR},
+			`agent3_price`=#{product.agent3Price,jdbcType=VARCHAR},
+			`agent4_price`=#{product.agent4Price,jdbcType=VARCHAR},
+			`agent1_num`=#{product.agent1Num,jdbcType=DECIMAL},
+			`agent2_num`=#{product.agent2Num,jdbcType=DECIMAL},
+			`agent3_num`=#{product.agent3Num,jdbcType=DECIMAL},
+			`agent4_num`=#{product.agent4Num,jdbcType=DECIMAL},
+			`sale_price`=#{product.salePrice,jdbcType=DECIMAL},
+			`grammage`=#{product.grammage,jdbcType=DECIMAL},
+			`expiration`=#{product.expiration,jdbcType=DECIMAL},
+			`brand`=#{product.brand,jdbcType=VARCHAR},
+			`place`=#{product.place,jdbcType=VARCHAR},
+			`taste`=#{product.taste,jdbcType=VARCHAR},
+			`modify_time`=#{product.modifyTime,jdbcType=VARCHAR}
+   		where id = #{product.id,jdbcType=DECIMAL}
    </update>
    
    <update id="updState">

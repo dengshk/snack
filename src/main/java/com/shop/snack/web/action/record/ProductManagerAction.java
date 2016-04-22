@@ -123,18 +123,19 @@ public class ProductManagerAction {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Integer num = -1;
 
-		params.put("id", product.getId() != null && !product.getId().equals("") ? product.getId() : "");
-		params.put("name", product.getName() != null && !product.getName().equals("") ? product.getName() : "");
-		params.put("typeId", product.getTypeId() != null && !product.getTypeId().equals("") ? product.getTypeId() : "");
-		params.put("buyPrice", product.getBuyPrice() != null && !product.getBuyPrice().equals("") ? product.getBuyPrice() : "");
-		params.put("salePrice", product.getSalePrice() != null && !product.getSalePrice().equals("") ? product.getSalePrice() : "");
-		params.put("expiration", product.getExpiration() != null && !product.getExpiration().equals("") ? product.getExpiration() : "");
-		params.put("state", product.getState() != null && !product.getState().equals("") ? product.getState() : "");
+//		params.put("id", product.getId() != null && !product.getId().equals("") ? product.getId() : "");
+//		params.put("name", product.getName() != null && !product.getName().equals("") ? product.getName() : "");
+//		params.put("typeId", product.getTypeId() != null && !product.getTypeId().equals("") ? product.getTypeId() : "");
+//		params.put("buyPrice", product.getBuyPrice() != null && !product.getBuyPrice().equals("") ? product.getBuyPrice() : "");
+//		params.put("salePrice", product.getSalePrice() != null && !product.getSalePrice().equals("") ? product.getSalePrice() : "");
+//		params.put("expiration", product.getExpiration() != null && !product.getExpiration().equals("") ? product.getExpiration() : "");
+//		params.put("state", product.getState() != null && !product.getState().equals("") ? product.getState() : "");
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String time = df.format(new Date());
-		params.put("createTime", time);
-		params.put("modifyTime", time);
+		product.setCreateTime(time);
+		product.setModifyTime(time);
+		params.put("product", product);
 		// 判断是添加还是修改
 		if (product.getId() != null) {
 			// 修改用户
