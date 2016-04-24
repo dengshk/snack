@@ -7,15 +7,38 @@
 	<!-- 销售信息 开始 -->
 	<sql id="whereCondition">
 		select
+			`id` id,
 		    `flow_id` flowId,
+		    `state` state,
+		    `pay` pay,
 		    `customer_name` customerName,
 		    `customer_tel` customerTel,
-		    `sale_num` saleNum,
-		    `sale_price` salePrice,
-		    `remark` remark,
+		    `address` address,
+		    `type` type,
+		    `express` express,
+		    `express_no` expressNo,
+		    format(`express_price`,2) expressPrice,
+		    format(`tatal_cost`,2) tatalCost,
+		    format(`origin_pay`,2) originPay,
+		    format(`really_pay`,2) reallyPay,
+		    format(`profit`,2) profit,
+		    `order_date` orderDate,
 		    `sale_date` saleDate
 		from t_snack_sale_info
-		order by `sale_date` desc
+		where 1=1
+		<if test="flowId != null">
+			and `flow_id` = #{flowId,jdbcType=VARCHAR}
+		</if>
+		<if test="customerName != null">
+			and `customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="starttime != null">
+			and `order_date` &gt;= #{starttime,jdbcType=VARCHAR}
+		</if>
+		<if test="endtime != null">
+			and `order_date` &lt;= #{endtime,jdbcType=VARCHAR}
+		</if>
+		order by `order_date` desc
     </sql>
     
     <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
@@ -35,5 +58,23 @@
 	]]>
    </select>
 
+   <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.ProSaleInfo">
+	  <include refid="whereCondition"/>
+   </select>
+   
+   <update id="updSaleInfoValue">
+   		update t_snack_sale_info
+   		set `id`=`id`
+		<if test="type != null">
+			,`type` = #{type,jdbcType=DECIMAL}
+		</if>
+		<if test="state != null">
+			,`state` = #{state,jdbcType=DECIMAL}
+		</if>
+		<if test="pay != null">
+			,`pay` = #{pay,jdbcType=DECIMAL}
+		</if>
+   		where `flow_id` = #{flowId,jdbcType=VARCHAR}
+   </update>
    
 </mapper>

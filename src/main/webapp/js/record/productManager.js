@@ -6,7 +6,7 @@
 	
 	$(".changeUserState").click(function(){
 		var id = this.id;
-		var state;
+		var state="";
 		if($(this).attr("_islock")==0){
 			state=1;
 		}else if($(this).attr("_islock")==1){

@@ -7,70 +7,63 @@ $(function(){
 	});
 	$(".edit").live('click',function(){
 		$("#modal-backdrop").show();
-		$("#editChild").val($(this).attr('nid'));
+		$("#editChild").val($(this).attr('fid'));
 		$("#editPage").submit();
 	});
-	/**
-	 * 复选框连动
-	 */
-	$("input[name='checkAll']").change(function(){ 
-		yfpzBtn();
-		if($("input[name='checkAll']:checkbox").is(":checked")){
-			$("input[name='checkOne']:checkbox").each(function(){
-				$(this).attr("checked",true);
-				$(this).parent().addClass('checked');
+	$(".save").live('click',function(){
+		if(unique==0){
+			var _flowId = $(this).attr('fid');
+			var _state = $(this).parent().parent().find("[name='state']").val();
+			var _pay = $(this).parent().parent().find("[name='pay']").val();
+			var _type = $(this).parent().parent().find("[name='type']").val();
+			$("#modal-backdrop").show();
+			$.ajax({
+				type : "post",
+				url : contextPath+"/proSale/updSaleInfoValue",
+				data:{
+					flowId : _flowId,
+					state : _state,
+					pay : _pay,
+					type : _type
+				},
+				success : function(data) {
+					unique = 0;
+					$("#modal-backdrop").hide();
+					if (data != "-1") {
+						$.messager.show({
+							title:'提示',
+							msg:'订单号:'+_flowId+',已修改!',
+							showType:'show',
+							style:{
+								right:'',
+								left:0,
+								top:document.body.scrollTop+document.documentElement.scrollTop,
+								bottom:''
+							}
+						});
+					} else {
+						$.messager.alert('提示', '订单号:'+_flowId+",保存失败！", "error");
+						window.location.href=contextPath+"/proSale/fetchPage";
+					}
+				},
+				error : function() {
+					unique = 0;
+					$("#modal-backdrop").hide();
+					$.messager.alert('提示', "连接服务器失败！", "error");
+					window.location.href=contextPath+"/proSale/fetchPage";
+				}
 			});
 		}
 	});
-	$("input[name='checkOne']:checkbox").change(function(){ 
-		yfpzBtn();
-		var flag = false;
-		$("input[name='checkOne']:checkbox").each(function(){
-			if(!$(this).is(":checked")){
-				flag = true;
-			}
-		});
-		if(flag){
-			$("input[name='checkAll']:checkbox").attr("checked",false);
-			$("input[name='checkAll']:checkbox").parent().removeClass('checked');
-		}
-	});
-	
 	/**
 	 * 查询
 	 */
 	$("#querybtn").click(function(){
 		$("#modal-backdrop").show();
 		$("#queryTime_query").val($("#queryTime").val());
-		$("#province_query").val($("#province").val());
-		$("#district_query").val($("#district").val());
-		$("#area_query").val($("#area").val());
-		$("#operator_query").val($("#operator").val());
-		$("#imei_query").val($("#imei").val());
-		$("#model_query").val($("#model").val());
-		$("#colletion_query").val($("#colletion").val());
-		$("#vision_query").val($("#vision").val());
+		$("#customerName_query").val($("#customerName").val());
 		$("#pageForm").submit();
 	});
-	
-	/**
-	 * 批量保存方案
-	 */
-	$("#colletion_nums_save").click(function(){
-		var colletionVal = $("#colletion_nums").select2("data").text;
-		var url = contextPath + "/epinfo/updateCollection"
-		pluralUpdate(colletionVal,url);
-	});
-	
-	/**
-	 * 批量保存版本
-	 */
-	$("#vivsion_nums_save").click(function(){
-		var visionVal = $("#vision_nums").select2("data").text;
-		var url = contextPath + "/epinfo/updateVivsion"
-		pluralUpdate(visionVal,url);
-	});
-	
 	/**
 	 * 导出
 	 */
@@ -161,7 +154,7 @@ function importExcel(){
 				}
 				
 			}, success: function (data) {
-				var info = eval("(" + data + ")")
+				var info = eval("(" + data + ")");
 				$('.default').click(); 
 				if(info.msg == 0){
 					$("#modal-backdrop").hide();
@@ -205,85 +198,6 @@ function isEmpty(str)
         return true;     
     }     
     return false;     
-}    
-/**
- * 复选框勾选展示批处理按钮
- */
-function yfpzBtn(){
-	var flag = false;
-	//只要有一个复选框选中就展示
-	$("input[name='checkOne']:checkbox").each(function(){
-		if($(this).is(":checked")){
-			flag = true;
-		}
-	});
-	if($("input[name='checkAll']").is(":checked")){
-		flag = true;
-	}
-	if(flag){
-		$(".yfpz_btn").show();
-	}else{
-		$(".yfpz_btn").hide();
-	}
-}
-
-/**
- * 批量更新
- * @param value
- * @param url
- */
-function pluralUpdate(value,url){
-	var ids ="";
-	if($("input[name='checkAll']:checkbox").is(":checked")){
-		ids += $("input[name='checkAll']:checkbox").val()+",";
-	}else{
-		$("input[name='checkOne']:checkbox").each(function(){
-			if($(this).is(":checked")){
-				ids += $(this).val()+",";
-			}
-		});
-	}
-	if(ids.length>1){
-		ids = ids.substring(0,ids.length-1);
-	}
-	if(unique==0){
-		$("#modal-backdrop").show();
-		unique++;
-		$.ajax({
-			type : "post",
-			url : url,
-			data:{
-				value : value,
-				ids : ids,
-				queryTime : $("#queryTime_query").val(),
-				province : $("#province_query").val(),
-				district : $("#district_query").val(),
-				area : $("#area_query").val(),
-				operator : $("#operator_query").val(),
-				imei : $("#imei_query").val(),
-				model : $("#model_query").val(),
-				colletion : $("#colletion_query").val(),
-				vision : $("#vision_query").val()
-			},
-			success : function(data) {
-				$("#modal-backdrop").hide();
-				unique = 0;
-				if (data == 1) {
-					$.messager.alert('提示', "修改成功", "success", function() {
-						$("#modal-backdrop").show();
-						$("#pageForm").submit();
-					});
-				} else {
-					$.messager.alert('提示', "操作失败！", "error");
-				}
-			},
-			error : function() {
-				$("#modal-backdrop").hide();
-				unique = 0;
-				$.messager.alert('提示', "连接服务器失败！", "error");
-			}
-		});
-	}
 }
 
 function importMsg(error ,msg){

@@ -216,6 +216,7 @@ CREATE TABLE `t_snack_product_classify` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_snack_sale_info`;
 CREATE TABLE `t_snack_sale_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `flow_id` varchar(50) NOT NULL,
   `state` int(2) DEFAULT NULL,
   `pay` int(1) DEFAULT NULL,
@@ -232,6 +233,25 @@ CREATE TABLE `t_snack_sale_info` (
   `profit` decimal(8,2) DEFAULT NULL,
   `order_date` date DEFAULT NULL,
   `sale_date` date DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `flow_id` (`flow_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for  t_snack_order_log
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_order_log`;
+CREATE TABLE `t_snack_order_log` (
+  `flow_id` varchar(50) NOT NULL,
+  `type_id` int(2) DEFAULT NULL,
+  `product_id` int(5) DEFAULT NULL,
+  `product_name` varchar(50) DEFAULT NULL,
+  `cost_price` decimal(6,2) DEFAULT NULL,
+  `sale_price` decimal(6,2) DEFAULT NULL,
+  `order_num` int(5) DEFAULT NULL,
+  `type` int(1) DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
   `create_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

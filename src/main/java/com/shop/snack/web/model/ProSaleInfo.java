@@ -8,6 +8,7 @@
  */
 package com.shop.snack.web.model;
 
+
 /**
  * @类功能说明：
  * @类修改者：
@@ -22,131 +23,165 @@ public class ProSaleInfo implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer id;
 	private String flowId;
+	private Integer state;
+	private Integer pay;
 	private String customerName;
 	private String customerTel;
-	private String saleNum;
-	private String salePrice;
-	private String remark;
+	private String address;
+	private Integer type;
+	private String express;
+	private String expressNo;
+	private String expressPrice;
+	private String tatalCost;
+	private String originPay;
+	private String reallyPay;
+	private String profit;
+	private String orderDate;
 	private String saleDate;
 	private String createTime;
 
-	/**
-	 * @return the flowId
-	 */
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getFlowId() {
 		return flowId;
 	}
 
-	/**
-	 * @param flowId
-	 *            the flowId to set
-	 */
 	public void setFlowId(String flowId) {
 		this.flowId = flowId;
 	}
 
-	/**
-	 * @return the customerName
-	 */
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Integer getPay() {
+		return pay;
+	}
+
+	public void setPay(Integer pay) {
+		this.pay = pay;
+	}
+
 	public String getCustomerName() {
 		return customerName;
 	}
 
-	/**
-	 * @param customerName
-	 *            the customerName to set
-	 */
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
 
-	/**
-	 * @return the customerTel
-	 */
 	public String getCustomerTel() {
 		return customerTel;
 	}
 
-	/**
-	 * @param customerTel
-	 *            the customerTel to set
-	 */
 	public void setCustomerTel(String customerTel) {
 		this.customerTel = customerTel;
 	}
 
-	/**
-	 * @return the saleNum
-	 */
-	public String getSaleNum() {
-		return saleNum;
+	public String getAddress() {
+		return address;
 	}
 
-	/**
-	 * @param saleNum
-	 *            the saleNum to set
-	 */
-	public void setSaleNum(String saleNum) {
-		this.saleNum = saleNum;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	/**
-	 * @return the salePrice
-	 */
-	public String getSalePrice() {
-		return salePrice;
+	public Integer getType() {
+		return type;
 	}
 
-	/**
-	 * @param salePrice
-	 *            the salePrice to set
-	 */
-	public void setSalePrice(String salePrice) {
-		this.salePrice = salePrice;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
-	/**
-	 * @return the remark
-	 */
-	public String getRemark() {
-		return remark;
+	public String getExpress() {
+		return express;
 	}
 
-	/**
-	 * @param remark
-	 *            the remark to set
-	 */
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setExpress(String express) {
+		this.express = express;
 	}
 
-	/**
-	 * @return the saleDate
-	 */
+	public String getExpressNo() {
+		return expressNo;
+	}
+
+	public void setExpressNo(String expressNo) {
+		this.expressNo = expressNo;
+	}
+
+	public String getExpressPrice() {
+		return expressPrice;
+	}
+
+	public void setExpressPrice(String expressPrice) {
+		this.expressPrice = expressPrice;
+	}
+
+	public String getTatalCost() {
+		return tatalCost;
+	}
+
+	public void setTatalCost(String tatalCost) {
+		this.tatalCost = tatalCost;
+	}
+
+	public String getOriginPay() {
+		return originPay;
+	}
+
+	public void setOriginPay(String originPay) {
+		this.originPay = originPay;
+	}
+
+	public String getReallyPay() {
+		return reallyPay;
+	}
+
+	public void setReallyPay(String reallyPay) {
+		this.reallyPay = reallyPay;
+	}
+
+	public String getProfit() {
+		return profit;
+	}
+
+	public void setProfit(String profit) {
+		this.profit = profit;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
 	public String getSaleDate() {
 		return saleDate;
 	}
 
-	/**
-	 * @param saleDate
-	 *            the saleDate to set
-	 */
 	public void setSaleDate(String saleDate) {
 		this.saleDate = saleDate;
 	}
 
-	/**
-	 * @return the createTime
-	 */
 	public String getCreateTime() {
 		return createTime;
 	}
 
-	/**
-	 * @param createTime
-	 *            the createTime to set
-	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}

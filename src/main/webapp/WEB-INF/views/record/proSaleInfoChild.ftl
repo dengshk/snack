@@ -83,38 +83,77 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<div class="portlet-body">
 			<!--报表工具-->
 				<!--抬头信息-->
-				<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/epinfo/epinfo" style="background:#fff !important;">
+				<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSale/child" style="background:#fff !important;">
 					<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
-						<input name="id" type="hidden" id="id" value="${(product.id)!}"/>
-						<!--时间范围控件       开始-->
+						<input name="flowId" type="hidden" id="flowId" value="${(proSaleInfo.flowId)!}"/>
+						<!-- 订货人 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">订货人:</label>
+							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.customerName)!}" placeholder="请输入订货人姓名"/>
+						</div>
+						<!-- 顾客电话 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">联系电话:</label>
+							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.customerTel)!}" placeholder="请输入联系电话"/>
+						</div>
+						<!-- 运费 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">运费:</label>
+							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!'0'}" placeholder="请输入运费"/>
+						</div>
+						<!--快递详情-->
+						<#if !(proSaleInfo??) || proSaleInfo.type==2?number>
+							<!-- 快递商 -->
+							<div class="form-group" style="margin-left:8px;">
+								<label class="control-label">快递商:</label>
+								<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.express)!}" placeholder="请输入快递商"/>
+							</div>
+							<!-- 快递单号 -->
+							<div class="form-group" style="margin-left:8px;">
+								<label class="control-label">快递单号:</label>
+								<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.expressNo)!}" placeholder="请输入快递单号"/>
+							</div>
+							<!-- 收获地址 -->
+							<div class="form-group" style="margin-left:8px;">
+								<label class="control-label">收获地址:</label>
+								<input class="form-control" type="text" id="customerName" name="customerName" style="width:200px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
+							</div>
+						</#if>
+						<br />
+						<br />
+						<!--时间范围控件 -->
+						<!--
 						<div class="form-group">
-							<!--<label class="control-label"></label>-->
-			                <div class="input-group date form_date" style="margin-left:8px;" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" size="12" type="text" value="2016-04-21" readonly>
+			                <label for="dtp_input2" class="col-md-2 control-label">a</label>
+			                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+			                    <input class="form-control" size="16" type="text" value="" readonly>
 			                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                </div>
-						</div>
-						<!--时间范围控件       结束-->
-						<!-- 顾客姓名 开始 -->
+							<input type="hidden" id="dtp_input2" value="" /><br/>
+			            </div>
+			            -->
+						<!-- 实收款 -->
 						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">顾客姓名:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入顾客姓名"/>
+							<label class="control-label">实收款:</label>
+							<input class="form-control" type="text" id="reallyPay" name="reallyPay" style="width:160px !important;" value="${(proSaleInfo.reallyPay)!}" placeholder="请输入实际收款"/>
 						</div>
-						<!-- 顾客姓名 结束 -->
-						<!-- 顾客电话 开始 -->
-						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">顾客电话:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入顾客电话"/>
+						<!--修改-->
+						&nbsp;&nbsp;&nbsp;
+						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="querybtn">
+							<#if proSaleInfo??>
+								<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;修改
+							<#else>
+								<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;保存
+							</#if>
+						</button>
+						<!--返回按钮-->
+						<div class="btn-group">
+							<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="back"  onClick="goBack();">
+								<i class="fa fa-mail-reply"></i>
+								&nbsp;返回
+							</button>
 						</div>
-						<!-- 顾客电话 结束 -->
-						<!-- 备注信息 开始 -->
-						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">备注信息:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入备注信息"/>
-						</div>
-						<!-- 备注信息 结束 -->
-						<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">修改</button>
 					</form>
 				</div>
 				<!--新增-->
@@ -126,13 +165,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 					</div>
 				</div>
 				<!--分页信息-->
-				<form id="pageForm" action="${application.getContextPath()}/record/newProduct" method="post">
+				<form id="editPage" action="${application.getContextPath()}/proSale/child" method="post">
+					<input type="hidden" id="editChild" name="id" value=""/>
 					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
 					<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
 				</form>
 				<!--报表列属性名-->
 				<form id="submitform" action="${application.getContextPath()}/record/newProduct" method="post">
-					<div class="table-responsive table-scrollable" style="height:<#if !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
+					<div class="table-responsive table-scrollable" style="height:<#if !(page??) || !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
 								<tr style="background-color:#EAEAEA;">
@@ -141,44 +181,38 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<input class="group-checkable" data-set="#childs .checkboxes" type="checkbox" >
 										</span>
 									</th>-->
-									<th style="text-align:center;width:30%;">产品名称</th>
+									<th style="text-align:center;width:18%;">产品名称</th>
+									<th style="text-align:center;width:10%;">产品类型</th>
 									<th style="text-align:center;width:10%;">进货单价</th>
 									<th style="text-align:center;width:10%;">销售单价</th>
 									<th style="text-align:center;width:10%;">销售数量</th>
-									<th style="text-align:center;width:10%;">销售金额</th>
-									<th style="text-align:center;width:10%;">小计收入</th>
-									<th style="text-align:center;width:20%;">操作</th>
+									<th style="text-align:center;width:10%;">总成本</th>
+									<th style="text-align:center;width:10%;">应收金额</th>
+									<th style="text-align:center;width:10%;">利润小计</th>
+									<th style="text-align:center;width:12%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								 <#if page.list?? &&  page.list?size &gt; 0>
+								 <#if page?? && page.list?? &&  page.list?size &gt; 0>
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-											<td align='center'>${(p.name)!}</td>
+											<td align='center'>${(p.productName)!}</td>
+											<td align='center'>${(p.typeName)!}</td>
+											<td align='center'>${(p.costPrice)!}</td>
+											<td align='center'>${(p.salePrice)!}</td>
+											<td align='center'>${(p.orderNum)!}</td>
+											<td align='center'>${(p.orderNum?number*p.costPrice?number)?string('0.00')!}</td>
+											<td align='center'>${(p.orderNum?number*p.salePrice?number)?string('0.00')!}</td>
+											<td align='center'>${(p.orderNum?number*p.salePrice?number-p.orderNum?number*p.costPrice?number)?string('0.00')!}</td>
 											<td align='center'>
-												${(p.buyPrice)!}
-											</td>
-											<td align='center'>
-												${(p.salePrice)!}
-											</td>
-											<td align='center'>
-												${(p.expiration)!}
-											</td>
-											<td align='center'>
-												88.88
-											</td>
-											<td align='center'>
-												8.88
-											</td>
-											<td align='center'>
-												<a class="editUser" href="#" id="${(p.id)!}">修改</a>|
-												<a class="deleteUser" href="#" id="${(p.id)!}" un="${(p.name)!}" userid="${(p.id)!}">删除</a>
+												<a class="editUser" href="#" fid="${(p.id)!}">修改</a>|
+												<a class="delete" href="#" fid="${(p.id)!}" fname="${(p.productName)}">删除</a>
 											</td>
 										</tr>
 									</#list>
 								<#else>
 									<tr>
-										<td colspan="7" style="text-align:'center';">还没有数据</td>
+										<td colspan="9" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>
@@ -192,16 +226,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	</div>
 </div>
 		</div>
+		<!--dialog请求层-->
+		<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+		<div class="modal fade" id="ajax" tabindex="-1" role="basic" aria-hidden="true"></div>
 	</div>
 	<!--分页-->
 	<script type="text/javascript" src="${application.getContextPath()}/js/ejs_production.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
 
 	<!-- 开始    日期范围控件脚本  -->
-<script type="text/javascript" src="${application.getContextPath()}/scripts/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${application.getContextPath()}/scripts/bootstrap.min.js"></script>
-<script type="text/javascript" src="${application.getContextPath()}/scripts/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${application.getContextPath()}/scripts/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	<script src="${application.getContextPath()}/js/record/proSaleInfoChild.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	jQuery(document).ready(function() {    
 		   PageUtils.init({
@@ -222,7 +258,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		$("#modal-backdrop").hide();
     });
  	$('.form_date').datetimepicker({
-        language:  'fr',
+        language:  'zh-CN',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,

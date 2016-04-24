@@ -95,7 +95,7 @@
 								</div>
 								<div class="table-toolbar">
 									<div class="btn-group">
-										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">创建&nbsp;<i class="fa fa-plus"></i></button>
+										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">新增&nbsp;<i class="fa fa-plus"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="export">导出&nbsp;<i class="fa fa-download"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="import">导入&nbsp;<i class="fa fa-upload"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" fileName="ImportTemplate" id="demo">导入模板&nbsp;<i class="fa fa-file-text-o"></i></button>
@@ -104,46 +104,18 @@
 									</div>
 								</div>
 								<!-- 查询条件 -->
-								<form  action="${application.getContextPath()}/record/newProduct" id="pageForm" role="search" method="post" >
+								<form  action="${application.getContextPath()}/proSale/fetchPage" id="pageForm" role="search" method="post" >
 									<!--时间-->
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="province_query" name="province" value="${(bean.province)!}"/>
-									<input type="hidden" id="district_query" name="district" value="${(bean.district)!}"/>
-									<input type="hidden" id="area_query" name="area" value="${(bean.area)!}"/>
-									<!--时间-->
-									<input type="hidden" id="operator_query" name="operator" value="${(bean.operator)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="imei_query" name="imei" value="${(bean.imei)!}"/>
-									<!--时间-->
-									<input type="hidden" id="model_query" name="model" value="${(bean.model)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="colletion_query" name="colletion" value="${(bean.colletion)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="vision_query" name="vision" value="${(bean.vision)!}"/>
+									<!--订货人-->
+									<input type="hidden" id="customerName_query" name="customerName" value="${(bean.customerName)!}"/>
 								</form>
 								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
 									<!--修改id-->
 									<input type="hidden" id="editChild" name="id" value=""/>
 									<!--分页-->
-									<input type="hidden" id="editChild" name="pageIndex" value="${(page.pageIndex)!1}"/>
-									<input type="hidden" id="editChild" name="pageSize" value="${(page.pageSize)!10}"/>
-									<!--时间-->
-									<input type="hidden" id="queryTime_child" name="queryTime" value="${(bean.queryTime)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="province_child" name="province" value="${(bean.province)!}"/>
-									<input type="hidden" id="district_child" name="district" value="${(bean.district)!}"/>
-									<input type="hidden" id="area_child" name="area" value="${(bean.area)!}"/>
-									<!--时间-->
-									<input type="hidden" id="operator_child" name="operator" value="${(bean.operator)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="imei_child" name="imei" value="${(bean.imei)!}"/>
-									<!--时间-->
-									<input type="hidden" id="model_child" name="model" value="${(bean.model)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="colletion_child" name="colletion" value="${(bean.colletion)!}"/>
-									<!--方案名称-->
-									<input type="hidden" id="vision_child" name="vision" value="${(bean.vision)!}"/>
+									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
+									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
 								</form>
 								<!--表单开始   开始-->
 								<div class="table-responsive table-scrollable">
@@ -151,15 +123,16 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;" >订单号</th>
-													<th style="text-align:center;" >订单日期</th>
-													<th style="text-align:center;" >订货人</th>
-													<th style="text-align:center;" >收获方式</th>
-													<th style="text-align:center;" >订单状态</th>
-													<th style="text-align:center;" >是否付款</th>
-													<th style="text-align:center;" >总成本</th>
-													<th style="text-align:center;" >利润</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" >操作</th>
+													<th style="text-align:center;width:10%;" >订单号</th>
+													<th style="text-align:center;width:10%;" >订单日期</th>
+													<th style="text-align:center;width:10%;" >订货人</th>
+													<th style="text-align:center;width:10%;" >发货方式</th>
+													<th style="text-align:center;width:10%;" >订单状态</th>
+													<th style="text-align:center;width:10%;" >是否付款</th>
+													<th style="text-align:center;width:10%;" >总成本</th>
+													<th style="text-align:center;width:10%;" >实收款</th>
+													<th style="text-align:center;width:10%;" >售后利润</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:10%;" >操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -168,22 +141,47 @@
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-														<td style="text-align:center;" >${(ls.flowId)!'-'}</td>
-														<td style="text-align:center;" >${(ls.customerName)!'-'}</td>
-														<td style="text-align:center;" >${(ls.customerTel)!'-'}</td>
-														<td style="text-align:center;" >${(ls.saleNum)!'-'}</td>
-														<td style="text-align:center;" >${(ls.salePrice)!'-'}</td>
-														<td style="text-align:center;" >${(ls.saleDate)!'-'}</td>
-														<td style="text-align:center;" >${(ls.remark)!'-'}</td>
-														<td style="text-align:center;" >${(ls.remark)!'-'}</td>
-														<td style="text-align:center;" name="${(ls.flowId)!'-'}">
-														<a href="#" class="edit" nid = "${(ls.flowId)!}" nname = "${(ls.customerName)!'-'}">编辑</a>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.customerName)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >
+															<select class="form-control input-small select2me" style="width:165px;" name="type">
+																<#if ls.type ??>
+																	<option value="1" <#if ls.type?? && ls.type==1>selected</#if>>自送</option>
+																	<option value="2" <#if ls.type?? && ls.type==2>selected</#if>>快递</option>
+																</#if>
+															</select>
+														</td>
+														<td style="text-align:center;vertical-align:middle;" >
+															<select class="form-control input-small select2me" style="width:115px;" name="state">
+																<#if ls.state ??>
+																	<option value="1" <#if ls.state?? && ls.state==1>selected</#if>>已下单</option>
+																	<option value="2" <#if ls.state?? && ls.state==2>selected</#if>>已发货</option>
+																	<option value="3" <#if ls.state?? && ls.state==3>selected</#if>>交易完成</option>
+																</#if>
+															</select>
+														</td>
+														<td style="text-align:center;vertical-align:middle;" >
+															<select class="form-control input-small select2me" style="width:165px;" name="pay">
+																<#if ls.pay ??>
+																	<option value="0" <#if ls.pay?? && ls.pay==0>selected</#if>>未付款</option>
+																	<option value="1" <#if ls.pay?? && ls.pay==1>selected</#if>>已付款</option>
+																</#if>
+															</select>
+														</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
+															<a href="#" class="edit" fid="${(ls.flowId)!}">详情</a>|
+															<a href="#" class="save" fid="${(ls.flowId)!}">保存</a>|
+															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
 														</td>
 													</tr>
 												</#list>
 											<#else>
 												<tr>
-													<td colspan="9"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+													<td colspan="10"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 												</tr>
 											</#if>
 										</tbody>
@@ -204,38 +202,13 @@
 	<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
 	<div class="modal fade" id="ajax" tabindex="-1" role="basic" aria-hidden="true">
 	</div>
-	<div class="bottom_btn yfpz_btn" style="position:fixed;float:right;bottom:40px;right:40px;width:225px;height:73px;display:none;">
-		<button class="btn blue" id="colletion_nums_save" style="float:left;height:31px;width:75px;margin:5px 5px;">方案保存</button>
-		<select class="form-control input-small select2me" style="width:165px;margin:5px 5px;" name="colletion_nums" id="colletion_nums">
-			<#if colletions?? && colletions?size &gt; 0>
-				<#list colletions as colletion>
-					<option value="${(colletion.id)!}">${(colletion.value)!}</option>
-				</#list>
-			</#if>
-		</select>
-		<button class="btn blue" id="vivsion_nums_save" style="float:left;height:31px;width:75px;margin:5px 5px;">版本保存</button>
-		<select class="form-control input-small select2me" style="width:165px;margin:5px 5px;" name="vision_nums" id="vision_nums">
-			<#if visions?? && visions?size &gt; 0>
-				<#list visions as vision>
-					<option value="${(vision.id)!}">${(vision.value)!}</option>
-				</#list>
-			</#if>
-		</select>
-	</div>
-	<div id="error-modal" class="modal fade" tabindex="-1"></div>
-	<div class="modal fade" id="error" tabindex="-1" role="basic" aria-hidden="true">
-	</div>
 	<!-- 开始    日期范围控件脚本  -->
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/daterangepicker_amend.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/form-dateRanges_amend.js"></script>
-	<!--区域连动-->
-	<script type="text/javascript" src="${application.getContextPath()}/js/report/areaNoAuthority.js"></script>
 	<!--分页-->
 	<script src="${application.getContextPath()}/js/ejs_production.js" type="text/javascript"></script>
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
-	<!--复选框 -->
-	<script src="${application.getContextPath()}/scripts/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
 	
 	<script src="${application.getContextPath()}/js/record/proSaleInfo.js" type="text/javascript"></script>
 	
@@ -259,7 +232,6 @@
 		        "displayContainer":"resoucesPage",
 		        "language": "zh"         //语言  zh or en
 		   });
-		   yfpzBtn();
 		   $("#modal-backdrop").hide();
 		});
 	</script>
