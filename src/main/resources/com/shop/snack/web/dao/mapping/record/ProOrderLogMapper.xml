@@ -56,4 +56,43 @@
    		delete from  t_snack_order_log
    		where `id` = #{id,jdbcType=DECIMAL}
    </update>
+   
+   <insert id="addOne">
+   		insert into t_snack_order_log (
+			`flow_id`,
+			`type_id`,
+			`product_id`,
+			`product_name`,
+			`cost_price`,
+			`sale_price`,
+			`order_num`,
+			`type`,
+			`order_date`,
+			`create_time`
+   		)
+   		select
+   			#{proOrderLog.flowId,jdbcType=VARCHAR},
+   			`type_id`,
+   			`id`,
+   			`name`,
+   			#{proOrderLog.costPrice,jdbcType=VARCHAR},
+   			#{proOrderLog.salePrice,jdbcType=VARCHAR},
+   			#{proOrderLog.orderNum,jdbcType=DECIMAL},
+   			#{proOrderLog.type,jdbcType=DECIMAL},
+   			#{proOrderLog.orderDate,jdbcType=VARCHAR},
+			#{proOrderLog.createTime,jdbcType=VARCHAR}
+   		from t_snack_product
+   		where `name`=#{proOrderLog.productName,jdbcType=VARCHAR}
+   		limit 0,1
+   </insert>
+   
+   <update id="updOne">
+   		update t_snack_order_log
+   		set `product_id`=#{proOrderLog.productId,jdbcType=DECIMAL},
+   		    `product_name`=#{proOrderLog.productName,jdbcType=VARCHAR},
+			`cost_price`=#{proOrderLog.costPrice,jdbcType=VARCHAR},
+			`sale_price`=#{proOrderLog.salePrice,jdbcType=VARCHAR},
+			`order_num`=#{proOrderLog.orderNum,jdbcType=DECIMAL}
+   		where id = #{proOrderLog.id,jdbcType=DECIMAL}
+   </update>
 </mapper>

@@ -61,4 +61,38 @@ public class ProOrderLogService extends BaseService {
 		}
 		return re;
 	}
+
+	/**
+	 * 添加
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer addOne(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = dao.addOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer updOne(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = dao.updOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
 }

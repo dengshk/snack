@@ -1,7 +1,6 @@
 $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
-		alert(_id);
 		editOrder(_id);
 	});
 	
@@ -56,11 +55,11 @@ function editOrder(_id){
 	// create the backdrop and wait for next modal to be triggered
     //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
-    $modal.load(contextPath + '/record/editProduct',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
+    $modal.load(contextPath + '/proOrderLog/editSaleOrder',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
 	//初始化验证
 	//formValidate.init();
-	$(".saveUser").click(function(){
-			saveUser();
+	$(".saveOrder").click(function(){
+			saveOrder();
 		});
 	$modal.modal();
     });
@@ -72,4 +71,56 @@ function editOrder(_id){
 function goBack(){
 	$("#modal-backdrop").show();
 	window.location.href=contextPath+"/proSale/fetchPage";
+}
+
+/**
+ * 保存新添用户或者修改用户
+ */
+var unique= 0;
+function saveOrder(){
+	if(unique==0){//防止快速多次提交
+		unique++;
+		//判断是否通过验证
+		//if(!$("#editUser").valid()){
+		//	return false; //如果不通过则不提交
+		//}
+		//获取用户信息
+		var _id = $("#id").val();
+		var _flowId =$("#flowId").val();
+		var _productName = $("#productName").val();
+		var _costPrice = $("#costPrice").val();
+		var _salePrice = $("#salePrice").val();
+		var _orderNum = $("#orderNum").val();
+
+		var sucMsg="";
+		if(_id!=null&&_id!=""){
+			sucMsg="修改成功！";
+		}else{
+			sucMsg="添加成功！";
+		}
+		$.ajax({
+			type:"post",
+			url:contextPath +"/proOrderLog/saveOrder",
+			data:{
+				id:_id,
+				flowId:_flowId,
+				productName:_productName,
+				costPrice:_costPrice,
+				salePrice:_salePrice,
+				orderNum:_orderNum,
+				type:2
+			},
+			success:function(data){
+				unique = 0;
+				if(data.msg==1){
+					$.messager.alert('提示',sucMsg,"success",function(){reloadPage(contextPath + '/proSale/child?op_menu=12',100);});
+				}else{
+					$.messager.alert('提示',"操作失败！","error");
+				}
+			},
+			error:function(){
+				$.messager.alert('提示',"连接服务器失败！","error");
+			}
+		});
+	}
 }
