@@ -18,6 +18,7 @@ import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.ProductType;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.customer.CustomerService;
+import com.shop.snack.web.service.inventory.InventoryService;
 import com.shop.snack.web.service.record.ProductService;
 
 @Controller
@@ -25,7 +26,7 @@ import com.shop.snack.web.service.record.ProductService;
 public class InventoryAction {
 
 	@Autowired
-	private CustomerService customerService;
+	private InventoryService inventoryService;
 	@Autowired
 	private ProductService productService;
 
@@ -37,7 +38,7 @@ public class InventoryAction {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageSize", pageSize);
 		params.put("pageIndex", pageIndex);
-		PageBean page = customerService.queryProduct(params);
+		PageBean page = inventoryService.queryInventory(params);
 		List<ProductType> productTypes = productService.queryProductTypes(null);
 		mv.addObject("productTypes", productTypes);
 		mv.addObject("page", page);

@@ -1,4 +1,4 @@
-package com.shop.snack.web.service.customer;
+package com.shop.snack.web.service.inventory;
 
 import java.util.Map;
 
@@ -9,16 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.dao.customer.CustomerDao;
+import com.shop.snack.web.dao.inventory.InventoryDao;
 import com.shop.snack.web.model.CustomerInfo;
+import com.shop.snack.web.model.InventoryInfo;
 import com.shop.snack.web.service.commManager.BaseService;
 
-@Service("customerService")
-public class CustomerService extends BaseService {
+@Service("inventoryService")
+public class InventoryService extends BaseService {
 
-	private static Logger logger = LoggerFactory.getLogger(CustomerService.class);
+	private static Logger logger = LoggerFactory.getLogger(InventoryService.class);
 
 	@Autowired
-	private CustomerDao customerDao;
+	private InventoryDao inventoryDao;
 
 	/**
 	 * 分页查询用户信息
@@ -27,9 +29,9 @@ public class CustomerService extends BaseService {
 	 *            查询参数
 	 * @return
 	 */
-	public PageBean queryCustomer(Map<String, Object> params) {
+	public PageBean queryInventory(Map<String, Object> params) {
 		try {
-			PageBean page = super.queryForList(CustomerDao.class, params);
+			PageBean page = super.queryForList(InventoryDao.class, params);
 			return page;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -44,10 +46,10 @@ public class CustomerService extends BaseService {
 	 *            查询参数
 	 * @return
 	 */
-	public CustomerInfo queryById(Map<String, Object> params) {
+	public InventoryInfo queryById(Map<String, Object> params) {
 		try {
-			CustomerInfo customerInfo = customerDao.queryById(params);
-			return customerInfo;
+			InventoryInfo inventoryInfo = inventoryDao.queryById(params);
+			return inventoryInfo;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -64,7 +66,7 @@ public class CustomerService extends BaseService {
 	public Integer deleteOne(Map<String, Object> params) {
 		Integer re = -1;
 		try {
-			re = customerDao.deleteOne(params);
+			re = inventoryDao.deleteOne(params);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -81,7 +83,7 @@ public class CustomerService extends BaseService {
 	public Integer addOne(Map<String, Object> params) {
 		Integer re = -1;
 		try {
-			re = customerDao.addOne(params);
+			re = inventoryDao.addOne(params);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -95,10 +97,10 @@ public class CustomerService extends BaseService {
 	 *            参数
 	 * @return
 	 */
-	public Integer updOne(Map<String, Object> params) {
+	public Integer updNums(Map<String, Object> params) {
 		Integer re = -1;
 		try {
-			re = customerDao.updOne(params);
+			re = inventoryDao.updNums(params);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

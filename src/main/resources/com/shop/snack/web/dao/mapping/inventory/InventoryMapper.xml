@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.snack.web.dao.inventory.InventoryDao">
+
+	<!-- 查询 开始 -->
+	<sql id="whereCondition">
+		select
+			a.`id`,
+			a.`product_id` productId,
+			b.`name` productName,
+			b.`type_id` typeId,
+			c.`type_name` typeName,
+			a.`nums`,
+			a.`acc_nums` accNums,
+			a.`modify_time` modifyTime,
+			a.`create_time` createTime
+		from t_snack_inventory_info a
+		left join t_snack_product b
+			on a.`product_id`=b.`id`
+		left join t_snack_product_classify c
+			on b.`type_id`=c.`type_id`
+		where 1=1
+		<if test="id != null">
+			and a.`id` = #{id,jdbcType=DECIMAL}
+		</if>
+		<if test="typeId != null">
+			and c.`type_id` = #{typeId,jdbcType=DECIMAL}
+		</if>
+		<if test="nums != null">
+			and a.`nums` &lt;= #{nums,jdbcType=DECIMAL}
+		</if>
+		order by a.`nums` asc
+    </sql>
+    
+    <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
+		select count(b.id)
+  			from (<include refid="whereCondition"/> ) b
+	</select>
+
+ <select id="queryForList" parameterType="map" resultType="com.shop.snack.web.model.InventoryInfo">
+   <![CDATA[
+	   select a.*
+		          from (
+	 ]]>
+		<include refid="whereCondition"/>	         
+    <![CDATA[
+		   ) a
+		       limit #{lbound},#{pageSize} 
+	]]>
+   </select>
+
+   <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.InventoryInfo">
+	  <include refid="whereCondition"/>
+   </select>
+
+   <insert id="addOne">
+   		insert into t_snack_inventory_info (
+			`product_id`,
+			`nums`,
+			`acc_nums`,
+			`modify_time`,
+			`create_time`
+   		) 
+   		values(
+			#{inventoryInfo.productId,jdbcType=DECIMAL},
+			#{inventoryInfo.nums,jdbcType=DECIMAL},
+			#{inventoryInfo.accNums,jdbcType=DECIMAL},
+			#{inventoryInfo.modifyTime,jdbcType=VARCHAR},
+			#{inventoryInfo.createTime,jdbcType=VARCHAR}
+   		)
+   </insert>
+   
+   <update id="updNums">
+   		update t_snack_inventory_info
+   		set `nums`=#{inventoryInfo.nums,jdbcType=DECIMAL},
+			`modify_time`=#{inventoryInfo.modifyTime,jdbcType=VARCHAR}
+   		where id = #{inventoryInfo.id,jdbcType=DECIMAL}
+   </update>
+ 
+   <!-- 物理删除用户 -->
+   <update id="deleteOne" parameterType="map">
+   		delete from  t_snack_inventory_info
+   		where `id` = #{id,jdbcType=DECIMAL}
+   </update>
+   
+</mapper>

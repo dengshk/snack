@@ -75,24 +75,20 @@
 								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/epinfo/epinfo" style="background:#fff !important;">
 									<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
 										<!--产品分类-->
-										<div class="form-group" style="padding:10px 0px 0px 0;">
-											<label  class="col-md-4" style="text-align:center;margin-top:15px;margin-left:-7px;" for="typeId" class="">
-												<span style="color:red;">*&nbsp;</span>
-												产品分类
-											</label>
-											<div class="input-icon right col-md-7">
-												<select class="form-control select2me" name="typeId" id="typeId">
+										<div class="form-group" style="margin-left:8px;">
+											<label class="control-label">产品类型:</label>
+												<select class="form-control input-small select2me" style="width:165px;" name="typeId" id="typeId">
+													<option value="-1" selected>全部</option>
 													<#if productTypes ?? && productTypes?size &gt; 0>
 														<#list productTypes as p>
 															<option value="${(p.typeId)!}" <#if product?? && product.typeId?? && p.typeId?number == product.typeId?number>selected="true"</#if>>${(p.typeName)!}</option>
 														</#list>
 													</#if>
 												</select>
-											</div>
 										</div>
 										<!-- 库存数量 -->
 										<div class="form-group" style="margin-left:8px;">
-											<label class="control-label">库存数量:<=</label>
+											<label class="control-label">库存数量:&lt;=</label>
 											<input class="form-control" type="text" id="inventoryNums" name="inventoryNums" style="width:160px !important;" value="${(bean.inventoryNums)!}" placeholder="请输入查询库存数量"/>
 										</div>
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
@@ -131,12 +127,13 @@
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.customerName)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}" colspan="2">
-															<a href="#" class="edit" fid="${(ls.flowId)!}">修改</a>|
-															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.productName)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.typeName)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.nums)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.accNums)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" name="${(ls.id)!'-'}" colspan="2">
+															<a href="#" class="edit" fid="${(ls.id)!}">修改</a>|
+															<a href="#" class="delete" fid="${(ls.id)!}">删除</a>
 														</td>
 													</tr>
 												</#list>
@@ -167,12 +164,9 @@
 	<script src="${application.getContextPath()}/js/ejs_production.js" type="text/javascript"></script>
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
 	
-	<script src="${application.getContextPath()}/js/record/proSaleInfo.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
-			//设置日期控件
-			DateRanges.init('reportrange');
 		    var winHeight = window.screen.height;
 			var scHeight = document.body.scrollTop;
 			var winHeight = window.screen.height;

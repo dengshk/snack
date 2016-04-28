@@ -35,7 +35,7 @@ public class CustomerAction {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageSize", pageSize);
 		params.put("pageIndex", pageIndex);
-		PageBean page = customerService.queryProduct(params);
+		PageBean page = customerService.queryCustomer(params);
 		mv.addObject("page", page);
 		return mv;
 	}

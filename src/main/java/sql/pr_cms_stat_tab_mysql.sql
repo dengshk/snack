@@ -269,12 +269,16 @@ CREATE TABLE `t_snack_customer_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 测试数据
-INSERT INTO `snack`.`t_snack_product` (`id`, `name`, `describe`, `type_id`, `state`, `brand`, `place`, `taste`, `buy_price`, `sale_price`, `expiration`, `modify_time`, `create_time`) VALUES ('1', '恰恰瓜子', '好吃得很', '1', '1', '九阳', '重庆', '香', '4.23', '5.50', '120', NULL, '2016-04-18 16:59:22');
-
-insert into t_snack_product_classify(type_id,type_name,type_info) values(-1,'未分类',null);
-insert into t_snack_product_classify(type_id,type_name,type_info) values(1,'坚果炒货',null);
-
-insert into t_snack_sale_info values('111','dsk','131xxx','3','55.45','备注','2015-07-08',now());
-
-commit;
+-- ----------------------------
+-- Table structure for  t_snack_inventory_info
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_inventory_info`;
+CREATE TABLE `t_snack_inventory_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(5) DEFAULT NULL,
+  `nums` int(5) DEFAULT NULL,
+  `acc_nums` int(11) DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
