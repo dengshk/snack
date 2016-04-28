@@ -61,6 +61,16 @@ public class ProOrderLogService extends BaseService {
 		}
 		return re;
 	}
+	
+	public Integer deleteFlowId(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = dao.deleteFlowId(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
 
 	/**
 	 * 添加

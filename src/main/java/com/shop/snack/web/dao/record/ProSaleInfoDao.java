@@ -9,8 +9,16 @@ public interface ProSaleInfoDao extends PageMapper {
 
 	// 根据id查询
 	ProSaleInfo queryById(Map<String, Object> params);
-	
+
 	// 修改某一字段值
 	Integer updSaleInfoValue(Map<String, Object> params);
-	
+
+	// 添加
+	Integer addOne(Map<String, Object> params);
+
+	// 修改
+	Integer updOne(Map<String, Object> params);
+
+	// 物理删除
+	Integer deleteOne(Map<String, Object> params);
 }

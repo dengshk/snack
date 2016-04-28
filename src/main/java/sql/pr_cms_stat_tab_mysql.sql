@@ -255,6 +255,19 @@ CREATE TABLE `t_snack_order_log` (
   `create_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Table structure for  t_snack_customer_info
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_customer_info`;
+CREATE TABLE `t_snack_customer_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_name` varchar(50) DEFAULT NULL,
+  `customer_tel` varchar(50) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 测试数据
 INSERT INTO `snack`.`t_snack_product` (`id`, `name`, `describe`, `type_id`, `state`, `brand`, `place`, `taste`, `buy_price`, `sale_price`, `expiration`, `modify_time`, `create_time`) VALUES ('1', '恰恰瓜子', '好吃得很', '1', '1', '九阳', '重庆', '香', '4.23', '5.50', '120', NULL, '2016-04-18 16:59:22');

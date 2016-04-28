@@ -32,7 +32,7 @@ $(function(){
 					if (data != "-1") {
 						$.messager.show({
 							title:'提示',
-							msg:'订单号:'+_flowId+',已修改!',
+							msg:'操作成功!',
 							showType:'show',
 							style:{
 								right:'',
@@ -42,7 +42,7 @@ $(function(){
 							}
 						});
 					} else {
-						$.messager.alert('提示', '订单号:'+_flowId+",保存失败！", "error");
+						$.messager.alert('提示', "操作失败！", "error");
 						window.location.href=contextPath+"/proSale/fetchPage";
 					}
 				},
@@ -54,6 +54,37 @@ $(function(){
 				}
 			});
 		}
+	});
+    /**
+	 * 删除
+	 */
+	$(".delete").live('click',function(){
+		var _id=$(this).attr("fid");
+		$.messager.confirm('提示',"是否确定删除? ",function(data){
+			if(data){
+				$("#modal-backdrop").show();
+				$.ajax({
+					type:"post", 
+					url:contextPath + "/proSale/deleteOne",
+					data:{
+						id:_id
+					},
+					success:function(data){
+						$("#modal-backdrop").hide();
+						if(data.msg>=1){
+							window.location.href=contextPath+"/proSale/fetchPage";
+						}else{
+							$("#modal-backdrop").hide();
+							$.messager.alert('提示', '删除失败！', "error");
+						}
+					},
+					error:function(data){
+						$("#modal-backdrop").hide();
+						$.messager.alert('提示', "连接服务器失败！", "error");
+					}
+				});
+			}
+		});
 	});
 	/**
 	 * 查询

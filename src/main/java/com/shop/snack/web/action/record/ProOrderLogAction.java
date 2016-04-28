@@ -32,7 +32,7 @@ public class ProOrderLogAction {
 
 	@RequestMapping(value = "/deleteOne")
 	public @ResponseBody
-	Map<String, Object> deleteProduct(HttpServletRequest request, Integer id) {
+	Map<String, Object> deleteProduct(HttpServletRequest request, String id) {
 		Map<String, Object> msg = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
@@ -42,20 +42,17 @@ public class ProOrderLogAction {
 	}
 	
 	@RequestMapping(value = "/editSaleOrder")
-	public ModelAndView editUser(HttpServletRequest request, Integer id) {
+	public ModelAndView editUser(HttpServletRequest request, String id) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChildChild");
 		if (id != null && !id.equals("")) {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("id", id);
-//			Product product = productService.queryById(params);
-//			mv.addObject("product", product);
-			mv.addObject("saleOrder", null);
+			ProOrderLog proOrderLog = proOrderLogService.queryById(params);
+			mv.addObject("saleOrder", proOrderLog);
 		} else {
 			mv.addObject("saleOrder", null);
 		}
 
-//		List<ProductType> productTypes = productService.queryProductTypes(null);
-		mv.addObject("productTypes", null);
 		return mv;
 	}
 	
@@ -79,7 +76,7 @@ public class ProOrderLogAction {
 		proOrderLog.setOrderDate(time);
 		params.put("proOrderLog", proOrderLog);
 		// 判断是添加还是修改
-		if (proOrderLog.getId() != null) {
+		if (proOrderLog.getId() != null && !proOrderLog.getId().equals("")) {
 			// 修改
 			num = proOrderLogService.updOne(params);
 		} else {

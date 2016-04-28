@@ -7,38 +7,46 @@
 	<!-- 销售信息 开始 -->
 	<sql id="whereCondition">
 		select
-			`id` id,
-		    `flow_id` flowId,
-		    `state` state,
-		    `pay` pay,
-		    `customer_name` customerName,
-		    `customer_tel` customerTel,
-		    `address` address,
-		    `type` type,
-		    `express` express,
-		    `express_no` expressNo,
-		    format(`express_price`,2) expressPrice,
-		    format(`tatal_cost`,2) tatalCost,
-		    format(`origin_pay`,2) originPay,
-		    format(`really_pay`,2) reallyPay,
-		    format(`profit`,2) profit,
-		    `order_date` orderDate,
-		    `sale_date` saleDate
-		from t_snack_sale_info
+			a.`id` id,
+		    a.`flow_id` flowId,
+		    a.`state` state,
+		    a.`pay` pay,
+		    a.`customer_name` customerName,
+		    a.`customer_tel` customerTel,
+		    a.`address` address,
+		    a.`type` type,
+		    a.`express` express,
+		    a.`express_no` expressNo,
+		    format(a.`express_price`,2) expressPrice,
+		    format(b.`orderPrice`+a.`express_price`,2) tatalCost,
+		    format(a.`origin_pay`,2) originPay,
+		    format(a.`really_pay`,2) reallyPay,
+		    format(a.`really_pay`-b.`orderPrice`-a.`express_price`,2) profit,
+		    a.`order_date` orderDate,
+		    a.`sale_date` saleDate
+		from t_snack_sale_info a
+		left join(
+			select
+				`flow_id`,
+				sum(`cost_price`*`order_num`) orderPrice
+			from t_snack_order_log
+			group by `flow_id`
+		)b
+			on a.`flow_id`=b.`flow_id`
 		where 1=1
 		<if test="flowId != null">
-			and `flow_id` = #{flowId,jdbcType=VARCHAR}
+			and a.`flow_id` = #{flowId,jdbcType=VARCHAR}
 		</if>
 		<if test="customerName != null">
-			and `customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+			and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="starttime != null">
-			and `order_date` &gt;= #{starttime,jdbcType=VARCHAR}
+			and a.`order_date` &gt;= #{starttime,jdbcType=VARCHAR}
 		</if>
 		<if test="endtime != null">
-			and `order_date` &lt;= #{endtime,jdbcType=VARCHAR}
+			and a.`order_date` &lt;= #{endtime,jdbcType=VARCHAR}
 		</if>
-		order by `order_date` desc
+		order by a.`order_date` desc
     </sql>
     
     <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
@@ -75,6 +83,65 @@
 			,`pay` = #{pay,jdbcType=DECIMAL}
 		</if>
    		where `flow_id` = #{flowId,jdbcType=VARCHAR}
+   </update>
+   
+   <insert id="addOne">
+		insert into t_snack_sale_info(
+			`flow_id`,
+			`state`,
+			`pay`,
+			`customer_name`,
+			`customer_tel`,
+			`address`,
+			`type`,
+			`express`,
+			`express_no`,
+			`express_price`,
+			`tatal_cost`,
+			`origin_pay`,
+			`really_pay`,
+			`profit`,
+			`order_date`,
+			`sale_date`,
+			`create_time`
+		)values(
+			#{proSaleInfo.flowId,jdbcType=VARCHAR},
+			#{proSaleInfo.state,jdbcType=DECIMAL},
+			#{proSaleInfo.pay,jdbcType=DECIMAL},
+			#{proSaleInfo.customerName,jdbcType=VARCHAR},
+			#{proSaleInfo.customerTel,jdbcType=VARCHAR},
+			#{proSaleInfo.address,jdbcType=VARCHAR},
+			#{proSaleInfo.type,jdbcType=DECIMAL},
+			#{proSaleInfo.express,jdbcType=VARCHAR},
+			#{proSaleInfo.expressNo,jdbcType=VARCHAR},
+			#{proSaleInfo.expressPrice,jdbcType=VARCHAR},
+			#{proSaleInfo.tatalCost,jdbcType=VARCHAR},
+			#{proSaleInfo.originPay,jdbcType=VARCHAR},
+			#{proSaleInfo.reallyPay,jdbcType=VARCHAR},
+			#{proSaleInfo.profit,jdbcType=VARCHAR},
+			#{proSaleInfo.orderDate,jdbcType=VARCHAR},
+			#{proSaleInfo.saleDate,jdbcType=VARCHAR},
+			#{proSaleInfo.createTime,jdbcType=VARCHAR}
+		)
+   </insert>
+   
+   <update id="updOne">
+		update t_snack_sale_info
+		set `customer_name`=#{proSaleInfo.customerName,jdbcType=VARCHAR},
+			`customer_tel`=#{proSaleInfo.customerTel,jdbcType=VARCHAR},
+			`address`=#{proSaleInfo.address,jdbcType=VARCHAR},
+			`express`=#{proSaleInfo.express,jdbcType=VARCHAR},
+			`express_no`=#{proSaleInfo.expressNo,jdbcType=VARCHAR},
+			`express_price`=#{proSaleInfo.expressPrice,jdbcType=VARCHAR},
+			`really_pay`=#{proSaleInfo.reallyPay,jdbcType=VARCHAR},
+			`order_date`=#{proSaleInfo.orderDate,jdbcType=VARCHAR}
+		where `flow_id`=#{proSaleInfo.flowId,jdbcType=VARCHAR}
+   </update>
+   
+   <!-- 物理删除用户 -->
+   <update id="deleteOne" parameterType="map">
+   		delete from  t_snack_sale_info
+   		where `flow_id` = #{flowId,jdbcType=DECIMAL}
    </update>
    
 </mapper>

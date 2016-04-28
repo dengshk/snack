@@ -1,5 +1,7 @@
 package com.shop.snack.web.action.record;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
-import com.shop.snack.web.model.EPQueryBean;
 import com.shop.snack.web.model.ProSaleInfo;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.record.ProOrderLogService;
 import com.shop.snack.web.service.record.ProSaleInfoService;
+import com.shop.snack.web.utils.StringUtils;
 import com.shop.snack.web.utils.TimeUtils;
 import com.shop.snack.web.utils.WebConstants;
 
@@ -60,14 +62,14 @@ public class ProSaleInfoAction {
 	}
 
 	@RequestMapping(value = "/child")
-	public ModelAndView child(EPQueryBean bean, Integer pageIndex, Integer pageSize, Integer id, HttpServletResponse response, HttpServletRequest request) {
+	public ModelAndView child(QueryBean bean, Integer pageIndex, Integer pageSize, String flowId, HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChild");
-		if (id == null || id.equals("")) {
+		if (flowId == null || flowId.equals("")) {
 			mv.addObject("proSaleInfo", null);
 			mv.addObject("page", null);
 		} else {
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("flowId", id);
+			params.put("flowId", flowId);
 			params.put("pageSize", pageSize);
 			params.put("pageIndex", pageIndex);
 			ProSaleInfo proSaleInfo = service.queryById(params);
@@ -95,5 +97,67 @@ public class ProSaleInfoAction {
 		re.put("msg", num);
 
 		return re;
+	}
+	
+	/**
+	 * 
+	* 功能说明: 保存或修改销售信息
+	* 修改者名字: dsk
+	* 修改日期 2016年4月27日
+	* 修改内容 
+	* @参数： @param proSaleInfo
+	* @参数： @param request
+	* @参数： @return   
+	* @throws
+	 */
+	@RequestMapping(value = "/saveSaleInfo")
+	public @ResponseBody
+	Map<String, Object> saveProduct(@ModelAttribute ProSaleInfo proSaleInfo, HttpServletRequest request) {
+		Map<String, Object> re = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Integer num = -1;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String time = df.format(new Date());
+		proSaleInfo.setCreateTime(time);
+		proSaleInfo.setOrderDate(time);
+		params.put("proSaleInfo", proSaleInfo);
+		// 判断是添加还是修改
+		if (proSaleInfo.getFlowId() != null && !proSaleInfo.getFlowId().equals("")) {
+			// 修改
+			num = service.updOne(params);
+		} else {
+			// 流水号
+			proSaleInfo.setFlowId(StringUtils.getFlowId());
+			// 默认已付款/交易完成
+			proSaleInfo.setPay(1);
+			proSaleInfo.setState(3);
+			proSaleInfo.setType(proSaleInfo.getExpress() == null || proSaleInfo.getExpress().equals("") ? 1 : 2);
+			
+			// 添加
+			num = service.addOne(params);
+		}
+		re.put("flowId", proSaleInfo.getFlowId());
+		re.put("msg", num);
+		return re;
+	}
+	
+	/**
+	 * 删除
+	 * 
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteOne")
+	public @ResponseBody
+	Map<String, Object> deleteProduct(HttpServletRequest request, String id) {
+		Map<String, Object> msg = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("flowId", id);
+		Integer re = proOrderLogService.deleteFlowId(params);
+		re = service.deleteOne(params);
+		msg.put("msg", re);
+		return msg;
 	}
 }

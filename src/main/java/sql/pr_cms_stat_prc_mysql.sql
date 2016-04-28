@@ -112,3 +112,53 @@ prc:begin
 end
 //
 delimiter ;
+
+/*==============================================================*/
+/* Procedurce: pr_rpt_etl_log 报表统计日志入库                  */
+/*==============================================================*/
+drop procedure if exists pr_rpt_etl_log;
+delimiter //
+create procedure pr_rpt_etl_log(
+    in p_cal_time varchar(20),
+    in p_sta_time datetime,
+    in p_end_time datetime,
+    in p_exe_prc varchar(30),
+    in p_exe_status char(1),
+    in p_exe_msg varchar(500)
+)
+sql security invoker comment '报表统计日志入库'
+prc:
+begin
+    declare v_db_time datetime default now();
+    -- 事务自动提交: 关闭
+    set autocommit = 0;
+
+    -- 开始事务
+    start transaction;
+
+    -- 删除30天前执行成功的日志记录
+    delete from rpt_etl_log where exe_status=1 and db_time <= date_sub(current_date(),interval 30 day);
+    insert into rpt_etl_log(
+        cal_time,
+        sta_time,
+        end_time,
+        exe_prc,
+        exe_status,
+        exe_msg,
+        db_time
+    )values(
+        p_cal_time,
+        p_sta_time,
+        p_end_time,
+        p_exe_prc,
+        p_exe_status,
+        p_exe_msg,
+        v_db_time
+    );
+    
+    -- 提交事务
+    commit;
+    
+end
+//
+delimiter ;

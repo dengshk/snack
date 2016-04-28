@@ -9,6 +9,7 @@
 	</div>
 	<div class="portlet-body form">
 		<form class="form-horizontal form-bordered form-row-seperated" id="editUser" method="post">
+			<input name="id" type="hidden" id="id" value="${(saleOrder.id)!}"/>
 			<input name="flowId" type="hidden" id="flowId" value="${(saleOrder.flowId)!}"/>
 			<input name="productId" type="hidden" id="productId" value="${(saleOrder.productId)!}"/>
 			<div class="form-body">

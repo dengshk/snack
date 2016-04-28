@@ -21,6 +21,9 @@
 		    a.`create_time` createTime
 		from t_snack_order_log a,t_snack_product_classify b
 		where a.`type_id`=b.`type_id`
+		<if test="id != null">
+			and a.`id` = #{id,jdbcType=VARCHAR}
+		</if>
 		<if test="flowId != null">
 			and a.`flow_id` = #{flowId,jdbcType=VARCHAR}
 		</if>
@@ -55,6 +58,11 @@
    <update id="deleteOne" parameterType="map">
    		delete from  t_snack_order_log
    		where `id` = #{id,jdbcType=DECIMAL}
+   </update>
+   
+   <update id="deleteFlowId" parameterType="map">
+   		delete from  t_snack_order_log
+   		where `flow_id` = #{flowId,jdbcType=DECIMAL}
    </update>
    
    <insert id="addOne">

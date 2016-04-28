@@ -111,11 +111,11 @@
 									<input type="hidden" id="customerName_query" name="customerName" value="${(bean.customerName)!}"/>
 								</form>
 								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
-									<!--修改id-->
-									<input type="hidden" id="editChild" name="id" value=""/>
 									<!--分页-->
 									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
 									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+									<!--修改id-->
+									<input type="hidden" id="editChild" name="flowId" value=""/>
 								</form>
 								<!--表单开始   开始-->
 								<div class="table-responsive table-scrollable">
@@ -123,16 +123,18 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;width:10%;" >订单号</th>
+													<th style="text-align:center;width:8%;" >订单号</th>
 													<th style="text-align:center;width:10%;" >订单日期</th>
 													<th style="text-align:center;width:10%;" >订货人</th>
 													<th style="text-align:center;width:10%;" >发货方式</th>
-													<th style="text-align:center;width:10%;" >订单状态</th>
 													<th style="text-align:center;width:10%;" >是否付款</th>
-													<th style="text-align:center;width:10%;" >总成本</th>
+													<th style="text-align:center;width:10%;" >订单状态</th>
+													<th style="text-align:center;width:10%;" >
+														<span data-toggle="tooltip" data-placement="top" title="进货单价 * 销售数量 + 运费">总成本</span>
+													</th>
 													<th style="text-align:center;width:10%;" >实收款</th>
 													<th style="text-align:center;width:10%;" >售后利润</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:10%;" >操作</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:12%;" >操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -153,15 +155,6 @@
 															</select>
 														</td>
 														<td style="text-align:center;vertical-align:middle;" >
-															<select class="form-control input-small select2me" style="width:115px;" name="state">
-																<#if ls.state ??>
-																	<option value="1" <#if ls.state?? && ls.state==1>selected</#if>>已下单</option>
-																	<option value="2" <#if ls.state?? && ls.state==2>selected</#if>>已发货</option>
-																	<option value="3" <#if ls.state?? && ls.state==3>selected</#if>>交易完成</option>
-																</#if>
-															</select>
-														</td>
-														<td style="text-align:center;vertical-align:middle;" >
 															<select class="form-control input-small select2me" style="width:165px;" name="pay">
 																<#if ls.pay ??>
 																	<option value="0" <#if ls.pay?? && ls.pay==0>selected</#if>>未付款</option>
@@ -169,11 +162,20 @@
 																</#if>
 															</select>
 														</td>
+														<td style="text-align:center;vertical-align:middle;" >
+															<select class="form-control input-small select2me" style="width:115px;" name="state">
+																<#if ls.state ??>
+																	<option value="1" <#if ls.state?? && ls.state==1>selected</#if>>已下单</option>
+																	<option value="2" <#if ls.state?? && ls.state==2>selected</#if>>已发货</option>
+																	<option value="3" <#if ls.state?? && ls.state==3>selected</#if>>已完成</option>
+																</#if>
+															</select>
+														</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
-															<a href="#" class="edit" fid="${(ls.flowId)!}">详情</a>|
+															<a href="#" class="edit" fid="${(ls.flowId)!}">详单</a>|
 															<a href="#" class="save" fid="${(ls.flowId)!}">保存</a>|
 															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
 														</td>

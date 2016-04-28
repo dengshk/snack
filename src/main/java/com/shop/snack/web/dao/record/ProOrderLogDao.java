@@ -12,6 +12,7 @@ public interface ProOrderLogDao extends PageMapper {
 
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);
+	Integer deleteFlowId(Map<String, Object> params);
 
 	// 添加
 	Integer addOne(Map<String, Object> params);

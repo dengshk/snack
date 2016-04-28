@@ -83,7 +83,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<div class="portlet-body">
 			<!--报表工具-->
 				<!--抬头信息-->
-				<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSale/child" style="background:#fff !important;">
+				<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSale/saveSaleInfo" style="background:#fff !important;">
 					<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
 						<input name="flowId" type="hidden" id="flowId" value="${(proSaleInfo.flowId)!}"/>
 						<!-- 订货人 -->
@@ -94,29 +94,31 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- 顾客电话 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">联系电话:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.customerTel)!}" placeholder="请输入联系电话"/>
+							<input class="form-control" type="text" id="customerTel" name="customerTel" style="width:160px !important;" value="${(proSaleInfo.customerTel)!}" placeholder="请输入联系电话"/>
 						</div>
 						<!-- 运费 -->
 						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">运费:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!'0'}" placeholder="请输入运费"/>
+							<label class="control-label">运输费用:</label>
+							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!'0'}" placeholder="请输入运费"/>
 						</div>
 						<!--快递详情-->
 						<#if !(proSaleInfo??) || proSaleInfo.type==2?number>
+							<br />
+							<br />
 							<!-- 快递商 -->
 							<div class="form-group" style="margin-left:8px;">
 								<label class="control-label">快递商:</label>
-								<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.express)!}" placeholder="请输入快递商"/>
+								<input class="form-control" type="text" id="express" name="express" style="width:160px !important;" value="${(proSaleInfo.express)!}" placeholder="请输入快递商"/>
 							</div>
 							<!-- 快递单号 -->
 							<div class="form-group" style="margin-left:8px;">
 								<label class="control-label">快递单号:</label>
-								<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.expressNo)!}" placeholder="请输入快递单号"/>
+								<input class="form-control" type="text" id="expressNo" name="expressNo" style="width:160px !important;" value="${(proSaleInfo.expressNo)!}" placeholder="请输入快递单号"/>
 							</div>
 							<!-- 收获地址 -->
 							<div class="form-group" style="margin-left:8px;">
 								<label class="control-label">收获地址:</label>
-								<input class="form-control" type="text" id="customerName" name="customerName" style="width:200px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
+								<input class="form-control" type="text" id="address" name="address" style="width:160px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
 							</div>
 						</#if>
 						<br />
@@ -140,7 +142,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</div>
 						<!--修改-->
 						&nbsp;&nbsp;&nbsp;
-						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="querybtn">
+						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="save">
 							<#if proSaleInfo??>
 								<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;修改
 							<#else>
@@ -166,7 +168,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				</div>
 				<!--分页信息-->
 				<form id="editPage" action="${application.getContextPath()}/proSale/child" method="post">
-					<input type="hidden" id="editChild" name="id" value=""/>
+					<input type="hidden" id="editChild" name="flowId" value="${(proSaleInfo.flowId)!}"/>
 					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
 					<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
 				</form>
@@ -186,8 +188,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<th style="text-align:center;width:10%;">进货单价</th>
 									<th style="text-align:center;width:10%;">销售单价</th>
 									<th style="text-align:center;width:10%;">销售数量</th>
-									<th style="text-align:center;width:10%;">总成本</th>
-									<th style="text-align:center;width:10%;">应收金额</th>
+									<th style="text-align:center;width:10%;">成本小计</th>
+									<th style="text-align:center;width:10%;">应收款小计</th>
 									<th style="text-align:center;width:10%;">利润小计</th>
 									<th style="text-align:center;width:12%;">操作</th>
 								</tr>

@@ -1,3 +1,4 @@
+unique = 0;
 $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
@@ -11,7 +12,7 @@ $(function(){
 			if(data){
 				$("#modal-backdrop").show();
 				$.ajax({
-					type:"post",
+					type:"post", 
 					url:contextPath + "/proOrderLog/deleteOne",
 					data:{
 						id:_id
@@ -21,17 +22,6 @@ $(function(){
 						if(data.msg==1){
 							$("#editChild").val($("#flowId").val());
 							$("#editPage").submit();
-							$.messager.show({
-								title:'提示',
-								msg:'订单【'+_name+'】,已删除!',
-								showType:'show',
-								style:{
-									right:'',
-									left:0,
-									top:document.body.scrollTop+document.documentElement.scrollTop,
-									bottom:''
-								}
-							});
 						}else{
 							$("#modal-backdrop").hide();
 							$.messager.alert('提示', '订单【'+_name+"】,删除失败！", "error");
@@ -45,6 +35,62 @@ $(function(){
 			}
 		});
 	});
+	
+	$("#save").live('click',function(){
+		if(unique==0){
+			var _flowId = $("#flowId").val();
+			var _customerName = $("#customerName").val();
+			var _customerTel = $("#customerTel").val();
+			var _expressPrice = $("#expressPrice").val();
+			var _express = $("#express").val();
+			var _expressNo = $("#expressNo").val();
+			var _address = $("#address").val();
+			var _reallyPay = $("#reallyPay").val();
+			var _orderDate = $("#orderDate").val();
+			$("#modal-backdrop").show();
+			$.ajax({
+				type : "post",
+				url : contextPath+"/proSale/saveSaleInfo",
+				data:{
+					flowId : _flowId,
+					customerName : _customerName,
+					customerTel : _customerTel,
+					expressPrice : _expressPrice,
+					express : _express,
+					expressNo : _expressNo,
+					address : _address,
+					reallyPay : _reallyPay,
+					orderDate : _orderDate
+				},
+				success : function(data) {
+					unique = 0;
+					$("#modal-backdrop").hide();
+					if (data.msg != "-1") {
+						$.messager.show({
+							title:'提示',
+							msg:'操作成功!',
+							showType:'show',
+							style:{
+								right:'',
+								left:0,
+								top:document.body.scrollTop+document.documentElement.scrollTop,
+								bottom:''
+							}
+						});
+						$("#flowId").val(data.flowId);
+					} else {
+						$.messager.alert('提示', "操作失败！", "error");
+					}
+				},
+				error : function() {
+					unique = 0;
+					$("#modal-backdrop").hide();
+					$.messager.alert('提示', "连接服务器失败！", "error");
+				}
+			});
+		}
+	});
+	
 });
 
 /**
@@ -74,7 +120,7 @@ function goBack(){
 }
 
 /**
- * 保存新添用户或者修改用户
+ * 保存新添或者修改
  */
 var unique= 0;
 function saveOrder(){
@@ -84,7 +130,7 @@ function saveOrder(){
 		//if(!$("#editUser").valid()){
 		//	return false; //如果不通过则不提交
 		//}
-		//获取用户信息
+		//获取订单信息
 		var _id = $("#id").val();
 		var _flowId =$("#flowId").val();
 		var _productName = $("#productName").val();
@@ -92,12 +138,6 @@ function saveOrder(){
 		var _salePrice = $("#salePrice").val();
 		var _orderNum = $("#orderNum").val();
 
-		var sucMsg="";
-		if(_id!=null&&_id!=""){
-			sucMsg="修改成功！";
-		}else{
-			sucMsg="添加成功！";
-		}
 		$.ajax({
 			type:"post",
 			url:contextPath +"/proOrderLog/saveOrder",
@@ -113,7 +153,9 @@ function saveOrder(){
 			success:function(data){
 				unique = 0;
 				if(data.msg==1){
-					$.messager.alert('提示',sucMsg,"success",function(){reloadPage(contextPath + '/proSale/child?op_menu=12',100);});
+					$("#modal-backdrop").show();
+					$("#editChild").val($("#flowId").val());
+					$("#editPage").submit();
 				}else{
 					$.messager.alert('提示',"操作失败！","error");
 				}
