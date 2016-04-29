@@ -35,6 +35,39 @@ public class Product implements java.io.Serializable {
 	private Integer agent2Num;
 	private Integer agent3Num;
 	private Integer agent4Num;
+	private Integer nums;
+	private Integer accNums;
+
+	/**
+	 * @return the nums
+	 */
+	public Integer getNums() {
+		return nums;
+	}
+
+	/**
+	 * @param nums
+	 *            the nums to set
+	 */
+	public void setNums(Integer nums) {
+		this.nums = nums;
+	}
+
+	/**
+	 * @return the accNums
+	 */
+	public Integer getAccNums() {
+		return accNums;
+	}
+
+	/**
+	 * @param accNums
+	 *            the accNums to set
+	 */
+	public void setAccNums(Integer accNums) {
+		this.accNums = accNums;
+	}
+
 	private String salePrice;
 	private Integer grammage;
 	private Integer expiration;

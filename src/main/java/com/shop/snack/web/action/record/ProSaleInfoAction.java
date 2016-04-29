@@ -160,4 +160,15 @@ public class ProSaleInfoAction {
 		msg.put("msg", re);
 		return msg;
 	}
+	
+	@RequestMapping(value = "/createExport")
+	public @ResponseBody String createExport(QueryBean bean ,HttpServletRequest request) {
+		String fileName = "-1";
+		try {
+			fileName = service.createExport(request,bean);
+		} catch (Exception e) {
+			logger.error("Large batch processing",e);
+		}
+		return fileName;
+	}
 }

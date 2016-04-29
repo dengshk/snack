@@ -27,6 +27,8 @@
 			a.`brand`,
 			a.`place`,
 			a.`taste`,
+			a.`nums`,
+			a.`acc_nums` accNums,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime
 		from t_snack_product a,t_snack_product_classify b
@@ -37,7 +39,13 @@
 		<if test="name != null">
 			and a.`name` = #{name,jdbcType=VARCHAR}
 		</if>
-		order by 6 desc,4,2
+		<if test="typeId != null">
+			and a.`type_id` = #{typeId,jdbcType=DECIMAL}
+		</if>
+		<if test="nums != null">
+			and a.`nums` &lt;= #{nums,jdbcType=VARCHAR}
+		</if>
+		order by a.`state` desc,a.`nums` asc
     </sql>
     
 	<select id="queryByName" parameterType="java.lang.String"
@@ -63,6 +71,10 @@
    </select>
 
    <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.Product">
+	  <include refid="whereCondition"/>
+   </select>
+   
+   <select id="queryInventoryByCondition" parameterType="map" resultType="com.shop.snack.web.model.Product">
 	  <include refid="whereCondition"/>
    </select>
 

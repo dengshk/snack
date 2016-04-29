@@ -104,17 +104,10 @@ $(function(){
 			unique++;
 			$.ajax({
 				type : "post",
-				url : contextPath+"/epinfo/createExport",
+				url : contextPath+"/proSale/createExport",
 				data:{
-					queryTime : $("#queryTime_query").val(),
-					province : $("#province_query").val(),
-					district : $("#district_query").val(),
-					area : $("#area_query").val(),
-					operator : $("#operator_query").val(),
-					imei : $("#imei_query").val(),
-					model : $("#model_query").val(),
-					colletion : $("#colletion_query").val(),
-					vision : $("#vision_query").val()
+					queryTime : $("#queryTime").val(),
+					customerName : $("#customerName").val()
 				},
 				success : function(data) {
 					$("#modal-backdrop").hide();

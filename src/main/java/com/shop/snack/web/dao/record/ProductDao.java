@@ -15,17 +15,20 @@ public interface ProductDao extends PageMapper {
 	Product queryById(Map<String, Object> params);
 
 	// 查询产品分类
-	List<ProductType> queryProductTypes (Map<String, Object> params);
-	
+	List<ProductType> queryProductTypes(Map<String, Object> params);
+
 	// 添加
 	Integer addOne(Map<String, Object> params);
 
 	// 修改
 	Integer updOne(Map<String, Object> params);
-	
+
 	// 修改状态
 	Integer updState(Map<String, Object> params);
 
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);
+
+	// 根据查询条件查询
+	List<Map<String, Object>> queryInventoryByCondition(Map<String, Object> params);
 }

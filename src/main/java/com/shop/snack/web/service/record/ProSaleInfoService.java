@@ -1,6 +1,11 @@
 package com.shop.snack.web.service.record;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +15,10 @@ import org.springframework.stereotype.Service;
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.dao.record.ProSaleInfoDao;
 import com.shop.snack.web.model.ProSaleInfo;
+import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.commManager.BaseService;
+import com.shop.snack.web.utils.ExportUtils;
+import com.shop.snack.web.utils.TimeUtils;
 
 @Service("proSaleService")
 public class ProSaleInfoService extends BaseService {
@@ -104,5 +112,44 @@ public class ProSaleInfoService extends BaseService {
 			logger.error(e.getMessage(), e);
 		}
 		return re;
+	}
+
+	public String createExport(HttpServletRequest request, QueryBean bean) throws Exception {
+		Map<String,Object> params = new HashMap<String,Object>();
+		// 订货人
+		params.put("customerName", (bean.getCustomerName() == null || bean.getCustomerName().equals("") ? null : bean.getCustomerName()));
+		// 时间条件
+		if (bean != null && bean.getQueryTime() != null && !bean.getQueryTime().equals("")) {
+			Map<String, String> time = TimeUtils.getSETime(bean.getQueryTime());
+			params.put("starttime", time.get("starttime") + " 00:00:00");
+			params.put("endtime", time.get("endtime") + " 23:59:59");
+		}
+		
+		List<Map<String, Object>> list = dao.query4Export(params);
+		List<Object> titleName = new ArrayList<Object>();
+		List<String> columnName = new ArrayList<String>();
+		List<Integer> type = new ArrayList<Integer>();
+		String[] tn = { "订单号", "订单日期", "订货人", "产品名称", "销售数量", "进货单价", "销售单价", "应收款小计", "利润小计" };
+		String[] cn = { "flowId", "orderDate", "customerName", "productName", "orderNum", "costPrice", "salePrice", "originPay", "profit" };
+		Integer[] tp = { 1, 1, 1, 1, 2, 2, 2, 2, 2 };
+		for (int i = 0; i < cn.length; i++) {
+			titleName.add(tn[i]);
+			columnName.add(cn[i]);
+			type.add(tp[i]);
+		}
+		List<String> sheetName = new ArrayList<String>();
+		sheetName.add("销售记录");
+		List<String> sheetColumn = new ArrayList<String>();
+		sheetColumn.add("saleInfo");
+		Map<String, Object> tln = new HashMap<String, Object>();
+		tln.put("saleInfo", titleName);
+		Map<String, Object> col = new HashMap<String, Object>();
+		col.put("saleInfo", columnName);
+		Map<String, Object> types = new HashMap<String, Object>();
+		types.put("saleInfo", type);
+		Map<String, Object> lt = new HashMap<String, Object>();
+		lt.put("saleInfo", list);
+		String fileName = ExportUtils.createExcel(request, sheetName, sheetColumn, tln, col, types, lt);
+		return fileName;
 	}
 }

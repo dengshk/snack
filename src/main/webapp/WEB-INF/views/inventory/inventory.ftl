@@ -72,16 +72,16 @@
 						<div class="portlet ">
 							<div class="portlet-body">
 								<!--报表工具-->
-								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/epinfo/epinfo" style="background:#fff !important;">
+								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/inventory/inventory" style="background:#fff !important;">
 									<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
 										<!--产品分类-->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">产品类型:</label>
-												<select class="form-control input-small select2me" style="width:165px;" name="typeId" id="typeId">
+												<select class="form-control input-small select2me" style="width:165px;" id="qry_typeId">
 													<option value="-1" selected>全部</option>
 													<#if productTypes ?? && productTypes?size &gt; 0>
 														<#list productTypes as p>
-															<option value="${(p.typeId)!}" <#if product?? && product.typeId?? && p.typeId?number == product.typeId?number>selected="true"</#if>>${(p.typeName)!}</option>
+															<option value="${(p.typeId)!}" <#if bean?? && bean.typeId?? && p.typeId?number == bean.typeId?number>selected="true"</#if>>${(p.typeName)!}</option>
 														</#list>
 													</#if>
 												</select>
@@ -89,24 +89,20 @@
 										<!-- 库存数量 -->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">库存数量:&lt;=</label>
-											<input class="form-control" type="text" id="inventoryNums" name="inventoryNums" style="width:160px !important;" value="${(bean.inventoryNums)!}" placeholder="请输入查询库存数量"/>
+											<input class="form-control" type="text" id="qry_nums" style="width:160px !important;" value="${(bean.nums)!}" placeholder="请输入查询库存数量"/>
 										</div>
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 									</form>
 								</div>
 								<!-- 查询条件 -->
-								<form  action="${application.getContextPath()}/proSale/fetchPage" id="pageForm" role="search" method="post" >
-									<!--时间-->
-									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
-									<!--订货人-->
-									<input type="hidden" id="customerName_query" name="customerName" value="${(bean.customerName)!}"/>
-								</form>
-								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
+								<form  action="${application.getContextPath()}/inventory/inventory" id="pageForm" role="search" method="post" >
+									<!--产品分类-->
+									<input type="hidden" id="typeId" name="typeId" value="${(bean.typeId)!}"/>
+									<!--库存数量-->
+									<input type="hidden" id="nums" name="nums" value="${(bean.nums)!}"/>
 									<!--分页-->
 									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
 									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
-									<!--修改id-->
-									<input type="hidden" id="editChild" name="flowId" value=""/>
 								</form>
 								<!--表单开始   开始-->
 								<div class="table-responsive table-scrollable">
@@ -118,7 +114,7 @@
 													<th style="text-align:center;" >产品类型</th>
 													<th style="text-align:center;" >库存数量</th>
 													<th style="text-align:center;" >累计进货量</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" colspan="2" >操作</th>
+													<th style="text-align:center;" >产品状态</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -127,13 +123,13 @@
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-														<td style="text-align:center;vertical-align:middle;" >${(ls.productName)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.name)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.typeName)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.nums)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.accNums)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" name="${(ls.id)!'-'}" colspan="2">
-															<a href="#" class="edit" fid="${(ls.id)!}">修改</a>|
-															<a href="#" class="delete" fid="${(ls.id)!}">删除</a>
+														<td align='center'>
+															<#if (ls.state)?? && ls.state==1>在售</#if>
+															<#if (ls.state)?? && ls.state==0>下架</#if>
 														</td>
 													</tr>
 												</#list>
@@ -163,6 +159,8 @@
 	<!--分页-->
 	<script src="${application.getContextPath()}/js/ejs_production.js" type="text/javascript"></script>
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
+	
+	<script type="text/javascript" src="${application.getContextPath()}/js/inventory/inventory.js"></script>
 	
 	
 	<script type="text/javascript">

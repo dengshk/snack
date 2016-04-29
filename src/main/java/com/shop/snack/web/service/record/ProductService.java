@@ -106,7 +106,7 @@ public class ProductService extends BaseService {
 		}
 		return re;
 	}
-	
+
 	/**
 	 * 添加
 	 * 
@@ -115,15 +115,15 @@ public class ProductService extends BaseService {
 	 * @return
 	 */
 	public Integer addOne(Map<String, Object> params) {
-		Integer re =-1;
+		Integer re = -1;
 		try {
-			re=productDao.addOne(params);
+			re = productDao.addOne(params);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 		}
 		return re;
 	}
-	
+
 	/**
 	 * 修改
 	 * 
@@ -132,12 +132,22 @@ public class ProductService extends BaseService {
 	 * @return
 	 */
 	public Integer updOne(Map<String, Object> params) {
-		Integer re =-1;
+		Integer re = -1;
 		try {
-			re=productDao.updOne(params);
+			re = productDao.updOne(params);
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			logger.error(e.getMessage(), e);
 		}
 		return re;
+	}
+
+	public List<Map<String, Object>> queryInventoryByCondition(Map<String, Object> params) {
+		try {
+			List<Map<String, Object>> products = productDao.queryInventoryByCondition(params);
+			return products;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
 	}
 }

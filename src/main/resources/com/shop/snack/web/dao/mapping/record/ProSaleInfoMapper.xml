@@ -143,5 +143,32 @@
    		delete from  t_snack_sale_info
    		where `flow_id` = #{flowId,jdbcType=DECIMAL}
    </update>
+
+   <select id="query4Export" parameterType="map" resultType="map">
+		select
+		    a.`flow_id` flowId,
+		    a.`order_date` orderDate,
+		    a.`customer_name` customerName,
+		    b.`product_name` productName,
+		    b.`order_num` orderNum,
+		    b.`cost_price` costPrice,
+		    b.`sale_price` salePrice,
+		    b.`cost_price`*b.`order_num` originPay,
+		    (b.`sale_price`-b.`cost_price`)*b.`order_num` profit
+		from t_snack_sale_info a
+		left join t_snack_order_log b
+		    on a.flow_id=b.flow_id
+		where 1=1
+		<if test="customerName != null">
+			and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="starttime != null">
+			and a.`order_date` &gt;= #{starttime,jdbcType=VARCHAR}
+		</if>
+		<if test="endtime != null">
+			and a.`order_date` &lt;= #{endtime,jdbcType=VARCHAR}
+		</if>
+		order by a.flow_id
+   </select>
    
 </mapper>

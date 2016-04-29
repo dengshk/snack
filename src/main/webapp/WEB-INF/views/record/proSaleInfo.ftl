@@ -83,6 +83,7 @@
 												</div>
 											</div>
 										</div>
+										<a href="#" onclick="document.getElementById('queryTime').value=''"><i class="fa fa-rotate-left"></i></a>
 										<!--时间范围控件       结束-->
 										<!-- 订货人 开始 -->
 										<div class="form-group" style="margin-left:8px;">

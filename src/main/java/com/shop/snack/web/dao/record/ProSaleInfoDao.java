@@ -1,5 +1,6 @@
 package com.shop.snack.web.dao.record;
 
+import java.util.List;
 import java.util.Map;
 
 import com.shop.snack.web.dao.commManager.PageMapper;
@@ -21,4 +22,7 @@ public interface ProSaleInfoDao extends PageMapper {
 
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);
+
+	// 导出查询
+	List<Map<String, Object>> query4Export(Map<String, Object> params);
 }

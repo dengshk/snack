@@ -17,16 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.ProductType;
 import com.shop.snack.web.model.QueryBean;
-import com.shop.snack.web.service.customer.CustomerService;
-import com.shop.snack.web.service.inventory.InventoryService;
 import com.shop.snack.web.service.record.ProductService;
 
 @Controller
 @RequestMapping("/inventory")
 public class InventoryAction {
 
-	@Autowired
-	private InventoryService inventoryService;
 	@Autowired
 	private ProductService productService;
 
@@ -38,10 +34,17 @@ public class InventoryAction {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageSize", pageSize);
 		params.put("pageIndex", pageIndex);
-		PageBean page = inventoryService.queryInventory(params);
+		if (bean.getTypeId() != null && bean.getTypeId() != -1) {
+			params.put("typeId", bean.getTypeId());
+		}
+		if (bean.getNums() != null && bean.getNums() >= 0) {
+			params.put("nums", bean.getNums());
+		}
+		PageBean page = productService.queryProduct(params);
 		List<ProductType> productTypes = productService.queryProductTypes(null);
 		mv.addObject("productTypes", productTypes);
 		mv.addObject("page", page);
+		mv.addObject("bean", bean);
 		return mv;
 	}
 
