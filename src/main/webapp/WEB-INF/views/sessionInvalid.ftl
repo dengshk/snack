@@ -12,7 +12,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8" />
-	<title>移动网络自动路测系统</title>
+	<title>零食管理系统</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
@@ -60,6 +60,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </body>
 <!-- END BODY -->
 <script>
-setTimeout(function(){window.parent.parent.location.href='/snack/login'},'500')
+setTimeout(function(){window.parent.parent.location.href='/snack/login'},'1000')
 </script>
 </html>

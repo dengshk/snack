@@ -44,8 +44,11 @@ body>div.window-mask{
 		<div class="header-inner">
 			<!-- BEGIN LOGO -->  
 			<a class="navbar-brand" id="logo_left_top">
+				<!--
 				<img src="${application.getContextPath()}/scripts/img/logo1.png"  style="margin-top:12px;" id="top_logo" alt="logo" class="img-responsive" />
 				<img src="${application.getContextPath()}/scripts/img/logo2.png"  style="margin-top:12px;display:none;margin-left:3px;" id="top_logo2" alt="logo" class="img-responsive" />
+				-->
+				<h4 style="margin-top:15px;margin-left:15px;color:white">零食管理系统</h4>
 			</a>
 			<!-- END LOGO -->
 			<!-- BEGIN RESPONSIVE MENU TOGGLER --> 

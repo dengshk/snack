@@ -282,3 +282,24 @@ CREATE TABLE `t_snack_inventory_info` (
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for  t_snack_import_log
+-- ----------------------------
+DROP TABLE IF EXISTS `t_snack_import_log`;
+CREATE TABLE `t_snack_import_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(200) DEFAULT NULL,
+  `line_num` varchar(200) DEFAULT NULL,
+  `flow_id` varchar(200) DEFAULT NULL,
+  `order_date` varchar(200) DEFAULT NULL,
+  `customer_name` varchar(200) DEFAULT NULL,
+  `product_name` varchar(200) DEFAULT NULL,
+  `order_num` varchar(200) DEFAULT NULL,
+  `cost_price` varchar(200) DEFAULT NULL,
+  `sale_price` varchar(200) DEFAULT NULL,
+  `is_valid` int(1) DEFAULT NULL,
+  `error_msg` varchar(200) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

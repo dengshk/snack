@@ -1,12 +1,16 @@
 package com.shop.snack.web.action.record;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.ProSaleInfo;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.record.ProOrderLogService;
+import com.shop.snack.web.service.record.ProSaleImportService;
 import com.shop.snack.web.service.record.ProSaleInfoService;
 import com.shop.snack.web.utils.StringUtils;
 import com.shop.snack.web.utils.TimeUtils;
@@ -36,6 +44,8 @@ public class ProSaleInfoAction {
 	public ProSaleInfoService service;
 	@Autowired
 	public ProOrderLogService proOrderLogService;
+	@Autowired
+	public ProSaleImportService proSaleImportService;
 
 	@RequestMapping(value = "/fetchPage")
 	public ModelAndView fetchPage(QueryBean bean, Integer pageIndex, Integer pageSize, HttpServletResponse response, HttpServletRequest request) {
@@ -98,17 +108,15 @@ public class ProSaleInfoAction {
 
 		return re;
 	}
-	
+
 	/**
 	 * 
-	* 功能说明: 保存或修改销售信息
-	* 修改者名字: dsk
-	* 修改日期 2016年4月27日
-	* 修改内容 
-	* @参数： @param proSaleInfo
-	* @参数： @param request
-	* @参数： @return   
-	* @throws
+	 * 功能说明: 保存或修改销售信息 修改者名字: dsk 修改日期 2016年4月27日 修改内容
+	 * 
+	 * @参数： @param proSaleInfo
+	 * @参数： @param request
+	 * @参数： @return
+	 * @throws
 	 */
 	@RequestMapping(value = "/saveSaleInfo")
 	public @ResponseBody
@@ -120,7 +128,6 @@ public class ProSaleInfoAction {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String time = df.format(new Date());
 		proSaleInfo.setCreateTime(time);
-		proSaleInfo.setOrderDate(time);
 		params.put("proSaleInfo", proSaleInfo);
 		// 判断是添加还是修改
 		if (proSaleInfo.getFlowId() != null && !proSaleInfo.getFlowId().equals("")) {
@@ -133,7 +140,7 @@ public class ProSaleInfoAction {
 			proSaleInfo.setPay(1);
 			proSaleInfo.setState(3);
 			proSaleInfo.setType(proSaleInfo.getExpress() == null || proSaleInfo.getExpress().equals("") ? 1 : 2);
-			
+
 			// 添加
 			num = service.addOne(params);
 		}
@@ -141,7 +148,7 @@ public class ProSaleInfoAction {
 		re.put("msg", num);
 		return re;
 	}
-	
+
 	/**
 	 * 删除
 	 * 
@@ -160,15 +167,52 @@ public class ProSaleInfoAction {
 		msg.put("msg", re);
 		return msg;
 	}
-	
+
 	@RequestMapping(value = "/createExport")
-	public @ResponseBody String createExport(QueryBean bean ,HttpServletRequest request) {
+	public @ResponseBody
+	String createExport(QueryBean bean, HttpServletRequest request) {
 		String fileName = "-1";
 		try {
-			fileName = service.createExport(request,bean);
+			fileName = service.createExport(request, bean);
 		} catch (Exception e) {
-			logger.error("Large batch processing",e);
+			logger.error("Large batch processing", e);
 		}
 		return fileName;
+	}
+
+	@RequestMapping(value = "/importFile")
+	public ModelAndView importFile(Integer id) {
+		ModelAndView mv = new ModelAndView("/record/proSaleInfoImportFile");
+		return mv;
+	}
+
+	@RequestMapping(value = "saveExcel", method = RequestMethod.POST)
+	public void saveExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) throws IOException {
+		// 生成文件存放于服务器的路径
+		String filePath = request.getSession().getServletContext().getRealPath("/");
+		filePath = filePath.replace("\\", "/");
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			List<Map<String, Object>> list = proSaleImportService.analytical(file, filePath);
+			if (list != null && list.size() > 0) {
+				map.put("msg", -1);
+				map.put("error", getModal(list));
+			} else {
+				map.put("msg", 0);
+				map.put("error", null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String json = JSONObject.fromObject(map).toString();
+		StringUtils.sendJson(json, response);
+	}
+
+	private String getModal(List<Map<String, Object>> list) {
+		StringBuilder sb = new StringBuilder();
+		for (Map<String, Object> info : list) {
+			sb.append(info.get("name") + " : " + info.get("info") + "<br />");
+		}
+		return sb.toString();
 	}
 }

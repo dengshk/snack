@@ -12,7 +12,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8" />
-	<title>移动网络自动路测系统</title>
+	<title>零食管理系统</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
@@ -37,7 +37,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-datepicker/css/datepicker.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-timepicker/compiled/timepicker.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-colorpicker/css/colorpicker.css" />
-	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
 	
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/jquery-multi-select/css/multi-select.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-switch/static/stylesheets/bootstrap-switch-metro.css"/>
@@ -61,6 +60,23 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		margin-right: 0px !important;
 		}
 	</style>
+	
+	
+	<!-- 日期引入 开始 -->
+	<link href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/font-awesome.min.css" rel="stylesheet">
+	<link href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/prettify-1.0.css" rel="stylesheet">
+	<link href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/base.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	    <script src="js/html5shiv.js"></script>
+	    <script src="js/respond.min.js"></script>
+	<![endif]-->
+	<script src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/bootstrap.min.js" type="text/javascript"></script>
+	<script src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/moment-with-locales.js"></script>
+	<script src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/bootstrap-datetimepicker.js"></script>
+	<!-- 日期引入 结束-->
+	
 	
     </head>
 <!-- END HEAD -->
@@ -123,18 +139,21 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</#if>
 						<br />
 						<br />
-						<!--时间范围控件 -->
-						<!--
-						<div class="form-group">
-			                <label for="dtp_input2" class="col-md-2 control-label">a</label>
-			                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" size="16" type="text" value="" readonly>
-			                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						<!--日期控件 -->
+			            <div class="form-group" style="margin-left:8px;">
+			                <div class='input-group date' id='datetimepicker1'>
+			                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			                    <input type='text' class="form-control" value="${(proSaleInfo.orderDate)!}" id="orderDate" name="orderDate" />
 			                </div>
-							<input type="hidden" id="dtp_input2" value="" /><br/>
+				        <script type="text/javascript">
+				            $(function () {
+				                $('#datetimepicker1').datetimepicker({
+				               		format : 'YYYY-MM-DD HH:mm:ss',
+				               		extraFormats : [ 'YYYY-MM-DD','YYYY/MM/DD','YYYY.MM.DD']
+				                });
+				            });
+				        </script>
 			            </div>
-			            -->
 						<!-- 实收款 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">实收款:</label>
@@ -236,9 +255,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<script type="text/javascript" src="${application.getContextPath()}/js/ejs_production.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
 
-	<!-- 开始    日期范围控件脚本  -->
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script src="${application.getContextPath()}/js/record/proSaleInfoChild.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	jQuery(document).ready(function() {    
@@ -258,16 +274,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		var winHeight = window.screen.height;
 		$('.page-content').css('min-height',winHeight);
 		$("#modal-backdrop").hide();
-    });
- 	$('.form_date').datetimepicker({
-        language:  'zh-CN',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
     });
 	</script>
 </body>

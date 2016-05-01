@@ -147,7 +147,7 @@ $(function(){
 	 */
 	$("#import").click(function(){
 		var $modal = $('#ajax-modal');
-	    $modal.load(contextPath + '/epinfo/importFile',{"Content-type":"application/x-www-form-urlencoded"},function(){
+	    $modal.load(contextPath + '/proSale/importFile',{"Content-type":"application/x-www-form-urlencoded"},function(){
 	    	$(".importFile").live('click',function(){
 	    		importExcel();
 	    	});
@@ -158,7 +158,7 @@ $(function(){
 function importExcel(){
 	if(unique == 0){
 		unique++;
-		$('#importExcel').form({url:contextPath + '/epinfo/saveExcel', 
+		$('#importExcel').form({url:contextPath + '/proSale/saveExcel', 
 			onSubmit:function(){
 				var name = $("#file").val();
 				if(name!=null && name!=""){

@@ -20,18 +20,14 @@
 		<beans:property name="filterChainDefinitions">
 			<beans:value>
 				/home/** = authc
-				/map/** = authc
-				/roadMap/** = authc
-				/compreQuota/** = authc
-				/areaKpiTop/** = authc
-				/roadQuality/** = authc
-				/kpiSet/** = authc
+				/record/** = authc
+				/proSale/** = authc
+				/proIn/** = authc
+				/inventory/** = authc
+				/customer/** = authc
 				/operator/** = authc
 				/group/** = authc
 				/export/** = authc
-				/collection/** = authc
-				/epinfo/** = authc
-				/version/** = authc
 				/** = anon
 			</beans:value>
 		</beans:property>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.snack.web.dao.record.ProSaleImportDao">
+	<insert id="insertByBatch" parameterType="map">
+		insert into `t_snack_import_log` (
+			`uuid`,
+			`line_num`,
+			`flow_id`,
+			`order_date`,
+			`customer_name`,
+			`product_name`,
+			`order_num`,
+			`cost_price`,
+			`sale_price`,
+			`create_time`
+   		) 
+   		values(
+			#{uuid,jdbcType=VARCHAR},
+			#{lineNum,jdbcType=VARCHAR},
+			#{flowId,jdbcType=VARCHAR},
+			#{orderDate,jdbcType=VARCHAR},
+			#{customerName,jdbcType=VARCHAR},
+			#{productName,jdbcType=VARCHAR},
+			#{orderNum,jdbcType=VARCHAR},
+			#{costPrice,jdbcType=VARCHAR},
+			#{salePrice,jdbcType=VARCHAR},
+			now()
+   		)
+	</insert>
+</mapper>

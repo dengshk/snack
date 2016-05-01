@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
-<title>移动网络自动路测系统 | 登陆</title>
+<title>零食管理系统 | 登陆</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
@@ -34,7 +34,8 @@
 <body class="login">
 	<!-- BEGIN LOGO -->
 	<div class="logo">
-		<img src="${application.getContextPath()}/scripts/img/login-logo.png" alt="" /> 
+		<!--<img src="${application.getContextPath()}/scripts/img/login-logo.png" alt="" />-->
+		<h1 style="color:white">零食管理系统</h1> 
 	</div>
 	<!-- END LOGO -->
 	<!-- BEGIN LOGIN -->
@@ -64,7 +65,7 @@
 			<div class="form-actions">
 				<button type="submit" class="btn blue pull-right">
 				登陆 <i class="m-icon-swapright m-icon-white"></i>
-				</button>            
+				</button>
 			</div>
 		</form>
 		<!-- END LOGIN FORM -->        
@@ -72,7 +73,7 @@
 	<!-- END LOGIN -->
 	<!-- BEGIN COPYRIGHT -->
 	<div class="copyright">
-		2015 &copy; 移动网络自动路测系统- 成都网优力软件有限公司.
+		2016 &copy; 零食管理系统- 成都网优力软件有限公司.
 	</div>
 	<!-- END COPYRIGHT -->
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
