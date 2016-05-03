@@ -35,7 +35,27 @@ $(function(){
 			}
 		});
 	});
-	
+	//失去焦点自动补全订货人其他信息
+	$('#customerName').live('blur',function(){
+		if($("#customerTel").val()=="" || $("#address").val()==""){
+	        $.ajax({
+		          type : "post",
+		          url: contextPath+'/proSale/queryByName',
+		          data: {
+	    			customerName:$("#customerName").val()
+		          },
+		          success: function( data ) {
+		        	  if($("#customerTel").val()==""){
+		        		  $("#customerTel").val(data.customer.customerTel);
+		        	  }
+		        	  if($("#address").val()==""){
+		        		  $("#address").val(data.customer.address);
+		        	  }
+		          }
+		    });
+		}
+	});
+	//保存
 	$("#save").live('click',function(){
 		if(unique==0){
 			var _flowId = $("#flowId").val();

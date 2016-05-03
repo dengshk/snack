@@ -72,6 +72,23 @@ public class ProductService extends BaseService {
 		}
 		return null;
 	}
+	
+	/**
+	 * 查询用户信息
+	 * 
+	 * @param params
+	 *            查询参数
+	 * @return
+	 */
+	public Product queryByName(Map<String, Object> params) {
+		try {
+			Product product = productDao.queryByName(params);
+			return product;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 
 	/**
 	 * 修改用户状态

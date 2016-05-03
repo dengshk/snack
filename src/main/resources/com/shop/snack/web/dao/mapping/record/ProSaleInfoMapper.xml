@@ -20,7 +20,7 @@
 		    a.`express_price`,
 		    b.`orderPrice`+a.`express_price` tatalCost,
 		    a.`origin_pay` originPay,
-		    a.`really_pay`,2 reallyPay,
+		    a.`really_pay` reallyPay,
 		    a.`really_pay`-b.`orderPrice`-a.`express_price` profit,
 		    a.`order_date` orderDate,
 		    a.`sale_date` saleDate
@@ -69,6 +69,11 @@
    <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.ProSaleInfo">
 	  <include refid="whereCondition"/>
    </select>
+   
+   <select id="queryByName" parameterType="map" resultType="com.shop.snack.web.model.ProSaleInfo">
+	  <include refid="whereCondition"/>
+   </select>
+   
    
    <update id="updSaleInfoValue">
    		update t_snack_sale_info

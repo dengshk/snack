@@ -52,6 +52,16 @@ public class ProSaleInfoService extends BaseService {
 		}
 		return null;
 	}
+	
+	public ProSaleInfo queryByName(Map<String, Object> params) {
+		try {
+			ProSaleInfo proSaleInfo = dao.queryByName(params);
+			return proSaleInfo;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 
 	public Integer updSaleInfoValue(Map<String, Object> params) {
 		Integer re = -1;

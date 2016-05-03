@@ -56,6 +56,23 @@ public class CustomerService extends BaseService {
 		}
 		return null;
 	}
+	
+	/**
+	 * 查询用户信息
+	 * 
+	 * @param params
+	 *            查询参数
+	 * @return
+	 */
+	public CustomerInfo queryByName(Map<String, Object> params) {
+		try {
+			CustomerInfo customerInfo = customerDao.queryByName(params);
+			return customerInfo;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 
 	/**
 	 * 删除

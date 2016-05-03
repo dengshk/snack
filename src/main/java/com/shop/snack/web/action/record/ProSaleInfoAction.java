@@ -25,8 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
+import com.shop.snack.web.model.CustomerInfo;
 import com.shop.snack.web.model.ProSaleInfo;
+import com.shop.snack.web.model.Product;
 import com.shop.snack.web.model.QueryBean;
+import com.shop.snack.web.service.customer.CustomerService;
 import com.shop.snack.web.service.record.ProOrderLogService;
 import com.shop.snack.web.service.record.ProSaleImportService;
 import com.shop.snack.web.service.record.ProSaleInfoService;
@@ -46,6 +49,8 @@ public class ProSaleInfoAction {
 	public ProOrderLogService proOrderLogService;
 	@Autowired
 	public ProSaleImportService proSaleImportService;
+	@Autowired
+	public CustomerService customerService;
 
 	@RequestMapping(value = "/fetchPage")
 	public ModelAndView fetchPage(QueryBean bean, Integer pageIndex, Integer pageSize, HttpServletResponse response, HttpServletRequest request) {
@@ -166,6 +171,24 @@ public class ProSaleInfoAction {
 		re = service.deleteOne(params);
 		msg.put("msg", re);
 		return msg;
+	}
+	
+	/**
+	 * 查询
+	 * @param request
+	 * @param customerName
+	 * @return
+	 */
+	@RequestMapping(value = "/queryByName")
+	public @ResponseBody
+	Map<String, Object> queryByName(HttpServletRequest request, String customerName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("customerName", customerName);
+		CustomerInfo customer = customerService.queryByName(params);
+		map.put("customer", customer);
+		return map;
 	}
 
 	@RequestMapping(value = "/createExport")

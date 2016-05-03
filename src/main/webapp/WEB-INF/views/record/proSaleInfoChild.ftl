@@ -105,7 +105,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- 订货人 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">订货人:</label>
-							<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(proSaleInfo.customerName)!}" placeholder="请输入订货人姓名"/>
+							<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(bean.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
 						</div>
 						<!-- 顾客电话 -->
 						<div class="form-group" style="margin-left:8px;">
@@ -134,7 +134,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 							<!-- 收获地址 -->
 							<div class="form-group" style="margin-left:8px;">
 								<label class="control-label">收获地址:</label>
-								<input class="form-control" type="text" id="address" name="address" style="width:160px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
+								<input class="form-control" type="text" id="address" name="address" style="width:320px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
 							</div>
 						</#if>
 						<br />
@@ -148,7 +148,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				        <script type="text/javascript">
 				            $(function () {
 				                $('#datetimepicker1').datetimepicker({
-				               		format : 'YYYY-MM-DD HH:mm:ss',
+				               		format : 'YYYY-MM-DD',
 				               		extraFormats : [ 'YYYY-MM-DD','YYYY/MM/DD','YYYY.MM.DD']
 				                });
 				            });
@@ -256,6 +256,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
 
 	<script src="${application.getContextPath()}/js/record/proSaleInfoChild.js" type="text/javascript"></script>
+	
+	<!--订货人下拉提示-->
+	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui.min.css">
+	<script src="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui-min.js" type="text/javascript"></script>
+	<script src="${application.getContextPath()}/js/ajaxAutoComplete/ajaxCustomerName.js" type="text/javascript"></script>
+	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {    
 		   PageUtils.init({
