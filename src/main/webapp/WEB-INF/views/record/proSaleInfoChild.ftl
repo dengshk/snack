@@ -222,9 +222,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<td align='center'>${(p.costPrice)!}</td>
 											<td align='center'>${(p.salePrice)!}</td>
 											<td align='center'>${(p.orderNum)!}</td>
-											<td align='center'>${(p.orderNum?number*p.costPrice?number)?string('0.00')!}</td>
-											<td align='center'>${(p.orderNum?number*p.salePrice?number)?string('0.00')!}</td>
-											<td align='center'>${(p.orderNum?number*p.salePrice?number-p.orderNum?number*p.costPrice?number)?string('0.00')!}</td>
+											<td align='center'>${(p.subtotalCost)!}</td>
+											<td align='center'>${(p.subtotalReally)!}</td>
+											<td align='center'>${(p.subtotalProfit)!}</td>
 											<td align='center'>
 												<a class="editUser" href="#" fid="${(p.id)!}">修改</a>|
 												<a class="delete" href="#" fid="${(p.id)!}" fname="${(p.productName)}">删除</a>

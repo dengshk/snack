@@ -1,8 +1,10 @@
 package com.shop.snack.web.action.customer;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +57,6 @@ public class CustomerAction {
 		return mv;
 	}
 
-
 	/**
 	 * 删除
 	 * 
@@ -103,5 +104,14 @@ public class CustomerAction {
 		}
 		re.put("msg", num);
 		return re;
+	}
+
+	@RequestMapping(value = "/searchCustomerName")
+	public @ResponseBody
+	Map<String, Object> searchCustomersByName(HttpServletRequest request, String customerName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CustomerInfo> customers = customerService.searchCustomersByName(customerName);
+		map.put("customers", customers);
+		return map;
 	}
 }

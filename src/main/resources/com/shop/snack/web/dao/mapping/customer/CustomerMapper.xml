@@ -82,4 +82,20 @@
    		where `id` = #{id,jdbcType=DECIMAL}
    </update>
    
+	<select id="searchCustomersByName" parameterType="map" resultType="com.shop.snack.web.model.CustomerInfo">
+		select
+			a.`id`,
+			a.`customer_name` customerName,
+			a.`customer_tel` customerTel,
+			a.`address`,
+			a.`modify_time` modifyTime,
+			a.`create_time` createTime
+		from t_snack_customer_info a
+		where 1=1
+			<if test="customerName != null">
+				and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+			</if>
+		limit 0,10
+	</select>
+   
 </mapper>

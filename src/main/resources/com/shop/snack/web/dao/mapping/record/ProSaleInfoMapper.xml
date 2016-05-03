@@ -17,11 +17,11 @@
 		    a.`type` type,
 		    a.`express` express,
 		    a.`express_no` expressNo,
-		    format(a.`express_price`,2) expressPrice,
-		    format(b.`orderPrice`+a.`express_price`,2) tatalCost,
-		    format(a.`origin_pay`,2) originPay,
-		    format(a.`really_pay`,2) reallyPay,
-		    format(a.`really_pay`-b.`orderPrice`-a.`express_price`,2) profit,
+		    a.`express_price`,
+		    b.`orderPrice`+a.`express_price` tatalCost,
+		    a.`origin_pay` originPay,
+		    a.`really_pay`,2 reallyPay,
+		    a.`really_pay`-b.`orderPrice`-a.`express_price` profit,
 		    a.`order_date` orderDate,
 		    a.`sale_date` saleDate
 		from t_snack_sale_info a

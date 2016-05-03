@@ -1,5 +1,8 @@
 package com.shop.snack.web.service.customer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -103,5 +106,13 @@ public class CustomerService extends BaseService {
 			logger.error(e.getMessage(), e);
 		}
 		return re;
+	}
+	
+	public List<CustomerInfo> searchCustomersByName(String customerName){
+		List<CustomerInfo> list = new ArrayList<CustomerInfo>();
+		Map<String ,Object> param = new HashMap<String ,Object>();
+		param.put("customerName", customerName);
+		list = customerDao.searchCustomersByName(param);
+		return list;
 	}
 }

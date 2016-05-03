@@ -6,7 +6,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
-	<meta content="" name="tc" />
 	<meta name="MobileOptimized" content="320">
 	<link href="${application.getContextPath()}/scripts/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 	<link href="${application.getContextPath()}/scripts/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -88,7 +87,8 @@
 										<!-- 订货人 开始 -->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">订货人:</label>
-											<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入订货人"/>
+											<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(bean.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
+											<!--<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入订货人"/>-->
 										</div>
 										<!-- 订货人 结束 -->
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
@@ -214,6 +214,11 @@
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
 	
 	<script src="${application.getContextPath()}/js/record/proSaleInfo.js" type="text/javascript"></script>
+	
+	<!--订货人下拉提示-->
+	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui.min.css">
+	<script src="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui-min.js" type="text/javascript"></script>
+	<script src="${application.getContextPath()}/js/ajaxAutoComplete/ajaxCustomerName.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {

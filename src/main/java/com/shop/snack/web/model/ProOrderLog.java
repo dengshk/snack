@@ -15,6 +15,54 @@ public class ProOrderLog implements java.io.Serializable {
 	private Integer type;
 	private String orderDate;
 	private String createTime;
+	private String subtotalCost;// 成本小计
+	private String subtotalReally;// 应收款小计
+	private String subtotalProfit;// 利润小计
+
+	/**
+	 * @return the subtotalCost
+	 */
+	public String getSubtotalCost() {
+		return subtotalCost;
+	}
+
+	/**
+	 * @param subtotalCost
+	 *            the subtotalCost to set
+	 */
+	public void setSubtotalCost(String subtotalCost) {
+		this.subtotalCost = subtotalCost;
+	}
+
+	/**
+	 * @return the subtotalReally
+	 */
+	public String getSubtotalReally() {
+		return subtotalReally;
+	}
+
+	/**
+	 * @param subtotalReally
+	 *            the subtotalReally to set
+	 */
+	public void setSubtotalReally(String subtotalReally) {
+		this.subtotalReally = subtotalReally;
+	}
+
+	/**
+	 * @return the subtotalProfit
+	 */
+	public String getSubtotalProfit() {
+		return subtotalProfit;
+	}
+
+	/**
+	 * @param subtotalProfit
+	 *            the subtotalProfit to set
+	 */
+	public void setSubtotalProfit(String subtotalProfit) {
+		this.subtotalProfit = subtotalProfit;
+	}
 
 	public Integer getId() {
 		return id;

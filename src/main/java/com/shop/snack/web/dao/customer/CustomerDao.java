@@ -1,5 +1,6 @@
 package com.shop.snack.web.dao.customer;
 
+import java.util.List;
 import java.util.Map;
 
 import com.shop.snack.web.dao.commManager.PageMapper;
@@ -17,7 +18,10 @@ public interface CustomerDao extends PageMapper {
 
 	// 修改
 	Integer updOne(Map<String, Object> params);
-	
+
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);
+
+	// 搜索
+	public List<CustomerInfo> searchCustomersByName(Map<String, Object> param);
 }
