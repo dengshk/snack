@@ -113,14 +113,10 @@ $(function(){
 			        	  if($("#address").val()==""){
 			        		  $("#address").val(data.customer.address);
 			        	  }
-			        	  $('#proInfoForm').bootstrapValidator('validate');
 		              }
 		          }
 		    });
 		}
-	});
-	$("#customerName").change(function(){
-		$('#proInfoForm').bootstrapValidator('validate');
 	});
 });
 

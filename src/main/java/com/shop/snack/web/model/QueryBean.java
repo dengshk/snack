@@ -6,6 +6,7 @@ public class QueryBean implements java.io.Serializable {
 
 	private String queryTime;// 查询时间段
 	private String customerName;// 顾客姓名
+	private String productName;// 产品名称
 
 	private Integer typeId;// 产品类型ID
 	private Integer nums;// 库存数量
@@ -54,6 +55,14 @@ public class QueryBean implements java.io.Serializable {
 	 */
 	public void setNums(Integer nums) {
 		this.nums = nums;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }

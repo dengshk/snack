@@ -33,6 +33,15 @@
 		<if test="type != null">
 			and a.`type` = #{type,jdbcType=VARCHAR}
 		</if>
+		<if test="starttime != null">
+			and a.`order_date` &gt;= #{starttime,jdbcType=VARCHAR}
+		</if>
+		<if test="endtime != null">
+			and a.`order_date` &lt;= #{endtime,jdbcType=VARCHAR}
+		</if>
+		<if test="productName != null">
+			and a.`product_name` like concat('%',#{productName,jdbcType=VARCHAR},'%')
+		</if>
 		order by a.`order_date` desc
     </sql>
     

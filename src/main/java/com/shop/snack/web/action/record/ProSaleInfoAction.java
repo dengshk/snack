@@ -89,6 +89,8 @@ public class ProSaleInfoAction {
 			params.put("pageIndex", pageIndex);
 			ProSaleInfo proSaleInfo = service.queryById(params);
 			mv.addObject("proSaleInfo", proSaleInfo);
+			// 销售订单查询
+			params.put("type", 2);
 			// 订单查询
 			PageBean page = proOrderLogService.queryPage(params);
 			mv.addObject("page", page);
