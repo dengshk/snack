@@ -35,6 +35,67 @@ $(function(){
 			}
 		});
 	});
+	//表单验证
+    $('#proInfoForm').bootstrapValidator({
+	        message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+			fields: {
+				customerName: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+	            customerTel: {
+	                validators: {
+	                    notEmpty: {},
+	                    digits: {},
+	                    regexp: {
+	                        regexp: /^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/,
+	                        message: '请输入正确的11位手机号码'
+                    	}
+	                }
+	            },
+	            reallyPay:{
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            }
+			}
+		}).on('success.form.bv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $("#modal-backdrop").show();
+            $.post(contextPath+'/proSale/saveSaleInfo', $form.serialize(), function(data) {
+					$("#modal-backdrop").hide();
+					if (data.msg != "-1") {
+						$("#modal-backdrop").show();
+						$("#editChild").val(data.flowId);
+						$("#editPage").submit();
+					} else {
+						$.messager.alert('提示', "操作失败！", "error",function(){
+							$("#modal-backdrop").show();
+							$("#editChild").val(null);
+							$("#editPage").submit();
+						});
+					}
+            }, 'json');
+        });
 	//失去焦点自动补全订货人其他信息
 	$('#customerName').live('blur',function(){
 		if($("#customerTel").val()=="" || $("#address").val()==""){
@@ -45,72 +106,22 @@ $(function(){
 	    			customerName:$("#customerName").val()
 		          },
 		          success: function( data ) {
-		        	  if($("#customerTel").val()==""){
-		        		  $("#customerTel").val(data.customer.customerTel);
-		        	  }
-		        	  if($("#address").val()==""){
-		        		  $("#address").val(data.customer.address);
-		        	  }
+		              if(data.customer!=null){
+	                      if($("#customerTel").val()==""){
+			        		  $("#customerTel").val(data.customer.customerTel);
+			        	  }
+			        	  if($("#address").val()==""){
+			        		  $("#address").val(data.customer.address);
+			        	  }
+			        	  $('#proInfoForm').bootstrapValidator('validate');
+		              }
 		          }
 		    });
 		}
 	});
-	//保存
-	$("#save").live('click',function(){
-		if(unique==0){
-			var _flowId = $("#flowId").val();
-			var _customerName = $("#customerName").val();
-			var _customerTel = $("#customerTel").val();
-			var _expressPrice = $("#expressPrice").val();
-			var _express = $("#express").val();
-			var _expressNo = $("#expressNo").val();
-			var _address = $("#address").val();
-			var _reallyPay = $("#reallyPay").val();
-			var _orderDate = $("#orderDate").val();
-			$("#modal-backdrop").show();
-			$.ajax({
-				type : "post",
-				url : contextPath+"/proSale/saveSaleInfo",
-				data:{
-					flowId : _flowId,
-					customerName : _customerName,
-					customerTel : _customerTel,
-					expressPrice : _expressPrice,
-					express : _express,
-					expressNo : _expressNo,
-					address : _address,
-					reallyPay : _reallyPay,
-					orderDate : _orderDate
-				},
-				success : function(data) {
-					unique = 0;
-					$("#modal-backdrop").hide();
-					if (data.msg != "-1") {
-						$.messager.show({
-							title:'提示',
-							msg:'操作成功!',
-							showType:'show',
-							style:{
-								right:'',
-								left:0,
-								top:document.body.scrollTop+document.documentElement.scrollTop,
-								bottom:''
-							}
-						});
-						$("#flowId").val(data.flowId);
-					} else {
-						$.messager.alert('提示', "操作失败！", "error");
-					}
-				},
-				error : function() {
-					unique = 0;
-					$("#modal-backdrop").hide();
-					$.messager.alert('提示', "连接服务器失败！", "error");
-				}
-			});
-		}
+	$("#customerName").change(function(){
+		$('#proInfoForm').bootstrapValidator('validate');
 	});
-	
 });
 
 /**

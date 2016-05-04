@@ -124,7 +124,7 @@
 			#{proSaleInfo.originPay,jdbcType=VARCHAR},
 			#{proSaleInfo.reallyPay,jdbcType=VARCHAR},
 			#{proSaleInfo.profit,jdbcType=VARCHAR},
-			#{proSaleInfo.orderDate,jdbcType=VARCHAR},
+			ifnull(#{proSaleInfo.orderDate,jdbcType=VARCHAR},current_date()),
 			#{proSaleInfo.saleDate,jdbcType=VARCHAR},
 			#{proSaleInfo.createTime,jdbcType=VARCHAR}
 		)
@@ -139,7 +139,7 @@
 			`express_no`=#{proSaleInfo.expressNo,jdbcType=VARCHAR},
 			`express_price`=#{proSaleInfo.expressPrice,jdbcType=VARCHAR},
 			`really_pay`=#{proSaleInfo.reallyPay,jdbcType=VARCHAR},
-			`order_date`=#{proSaleInfo.orderDate,jdbcType=VARCHAR}
+			`order_date`=ifnull(#{proSaleInfo.orderDate,jdbcType=VARCHAR},current_date())
 		where `flow_id`=#{proSaleInfo.flowId,jdbcType=VARCHAR}
    </update>
    

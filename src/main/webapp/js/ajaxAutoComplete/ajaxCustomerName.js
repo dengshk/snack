@@ -33,5 +33,4 @@ $(function(){
 	$('#container').live('mousedown',function(){
 		$('#customerName').autocomplete('close', document.getElementById('customerName') );
 	});
-	
 });

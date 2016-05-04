@@ -134,6 +134,10 @@ public class ProSaleInfoAction {
 		String time = df.format(new Date());
 		proSaleInfo.setCreateTime(time);
 		params.put("proSaleInfo", proSaleInfo);
+		// 订单日期为空,则为当天
+		if (proSaleInfo.getOrderDate() == null || "".equals(proSaleInfo.getOrderDate())) {
+			proSaleInfo.setOrderDate(time);
+		}
 		// 判断是添加还是修改
 		if (proSaleInfo.getFlowId() != null && !proSaleInfo.getFlowId().equals("")) {
 			// 修改
@@ -172,9 +176,10 @@ public class ProSaleInfoAction {
 		msg.put("msg", re);
 		return msg;
 	}
-	
+
 	/**
 	 * 查询
+	 * 
 	 * @param request
 	 * @param customerName
 	 * @return
@@ -184,7 +189,7 @@ public class ProSaleInfoAction {
 	Map<String, Object> queryByName(HttpServletRequest request, String customerName) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
-		
+
 		params.put("customerName", customerName);
 		CustomerInfo customer = customerService.queryByName(params);
 		map.put("customer", customer);

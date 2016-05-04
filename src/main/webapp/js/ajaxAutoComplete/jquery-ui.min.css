@@ -536,9 +536,11 @@ button.ui-button::-moz-focus-inner {
 .ui-progressbar-indeterminate .ui-progressbar-value {
 	background-image: none;
 }
+/**
 .ui-resizable {
 	position: relative;
 }
+**/
 .ui-resizable-handle {
 	position: absolute;
 	font-size: 0.1px;

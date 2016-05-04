@@ -77,6 +77,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<script src="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker-dsk/bootstrap-datetimepicker.js"></script>
 	<!-- 日期引入 结束-->
 	
+	<!-- bootstrapValidator 开始 -->
+	<link href="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.css" rel="stylesheet">
+	<script src="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.js"></script>
+	<script src="${application.getContextPath()}/js/bootstrapValidator/zh_CN.js"></script>
+	<!-- bootstrapValidator 结束 -->
 	
     </head>
 <!-- END HEAD -->
@@ -100,12 +105,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<!--报表工具-->
 				<!--抬头信息-->
 				<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSale/saveSaleInfo" style="background:#fff !important;">
-					<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+					<form class="navbar-form form-inline navbar-left breadcrumb"  id="proInfoForm" onsubmit="return false;" >
 						<input name="flowId" type="hidden" id="flowId" value="${(proSaleInfo.flowId)!}"/>
 						<!-- 订货人 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">订货人:</label>
-							<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(bean.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
+							<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(proSaleInfo.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
 						</div>
 						<!-- 顾客电话 -->
 						<div class="form-group" style="margin-left:8px;">
@@ -143,7 +148,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			            <div class="form-group" style="margin-left:8px;">
 			                <div class='input-group date' id='datetimepicker1'>
 			                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			                    <input type='text' class="form-control" value="${(proSaleInfo.orderDate)!}" id="orderDate" name="orderDate" />
+			                    <input type='text' class="form-control" value="${(proSaleInfo.orderDate)!}" id="orderDate" name="orderDate" style="width:160px !important;" />
 			                </div>
 				        <script type="text/javascript">
 				            $(function () {
@@ -161,7 +166,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</div>
 						<!--修改-->
 						&nbsp;&nbsp;&nbsp;
-						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="save">
+						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" type="submit" id="save">
 							<#if proSaleInfo??>
 								<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;修改
 							<#else>
