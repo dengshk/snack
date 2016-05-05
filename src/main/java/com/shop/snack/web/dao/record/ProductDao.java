@@ -26,6 +26,12 @@ public interface ProductDao extends PageMapper {
 	// 修改状态
 	Integer updState(Map<String, Object> params);
 
+	// 更新库存
+	Integer updInventory(Map<String, Object> params);
+
+	// 查询库存
+	Integer qryInventory(Map<String, Object> params);
+
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);
 

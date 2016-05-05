@@ -6,9 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.dao.record.ProOrderLogDao;
+import com.shop.snack.web.dao.record.ProductDao;
 import com.shop.snack.web.model.ProOrderLog;
 import com.shop.snack.web.service.commManager.BaseService;
 
@@ -16,6 +18,8 @@ import com.shop.snack.web.service.commManager.BaseService;
 public class ProOrderLogService extends BaseService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProOrderLogService.class);
+	@Autowired
+	public ProductDao productDao;
 	@Autowired
 	public ProOrderLogDao dao;
 
@@ -52,9 +56,13 @@ public class ProOrderLogService extends BaseService {
 	 *            参数
 	 * @return
 	 */
+	@Transactional
 	public Integer deleteOne(Map<String, Object> params) {
 		Integer re = -1;
 		try {
+			//TODO
+			productDao.updInventory(params);
+			
 			re = dao.deleteOne(params);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

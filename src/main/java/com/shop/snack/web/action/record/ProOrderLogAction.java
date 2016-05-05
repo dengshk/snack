@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.shop.snack.web.dao.record.ProductDao;
 import com.shop.snack.web.model.ProOrderLog;
 import com.shop.snack.web.model.Product;
 import com.shop.snack.web.model.ProductType;
@@ -27,6 +28,8 @@ import com.shop.snack.web.service.record.ProOrderLogService;
 public class ProOrderLogAction {
 	private static final Logger logger = LoggerFactory.getLogger(ProOrderLogAction.class);
 
+	@Autowired
+	ProductDao productDao;
 	@Autowired
 	ProOrderLogService proOrderLogService;
 
@@ -40,7 +43,7 @@ public class ProOrderLogAction {
 		msg.put("msg", re);
 		return msg;
 	}
-	
+
 	@RequestMapping(value = "/editSaleOrder")
 	public ModelAndView editUser(HttpServletRequest request, String id) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChildChild");
@@ -55,7 +58,7 @@ public class ProOrderLogAction {
 
 		return mv;
 	}
-	
+
 	/**
 	 * 修改或者新添
 	 * 
@@ -67,22 +70,34 @@ public class ProOrderLogAction {
 	public @ResponseBody
 	Map<String, Integer> saveProduct(@ModelAttribute ProOrderLog proOrderLog, HttpServletRequest request) {
 		Map<String, Integer> re = new HashMap<String, Integer>();
+		Map<String, Object> productParams = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		Integer num = -1;
 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
-		String time = df.format(new Date());
-		proOrderLog.setCreateTime(time);
-		proOrderLog.setOrderDate(time);
-		params.put("proOrderLog", proOrderLog);
-		// 判断是添加还是修改
-		if (proOrderLog.getId() != null && !proOrderLog.getId().equals("")) {
-			// 修改
-			num = proOrderLogService.updOne(params);
+		// 通过产品名称查询产品信息
+		productParams.put("name", proOrderLog.getProductName());
+		Product product = productDao.queryByName(productParams);
+		if (product != null) {
+			proOrderLog.setTypeId(product.getTypeId());
+			proOrderLog.setProductId(product.getId());
+			
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+			String time = df.format(new Date());
+			proOrderLog.setCreateTime(time);
+			proOrderLog.setOrderDate(time);
+			params.put("proOrderLog", proOrderLog);
+			// 判断是添加还是修改
+			if (proOrderLog.getId() != null && !proOrderLog.getId().equals("")) {
+				// 修改
+				num = proOrderLogService.updOne(params);
+			} else {
+				// 添加
+				num = proOrderLogService.addOne(params);
+			}
 		} else {
-			// 添加
-			num = proOrderLogService.addOne(params);
+			num = 0;
 		}
+
 		re.put("msg", num);
 		return re;
 	}

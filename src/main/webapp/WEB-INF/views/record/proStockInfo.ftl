@@ -109,6 +109,9 @@
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
 									<!--产品名称-->
 									<input type="hidden" id="productName_query" name="productName" value="${(bean.productName)!}"/>
+									<!--分页信息-->
+									<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
+									<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
 								</form>
 								<!--表单开始   开始-->
 								<div class="table-responsive table-scrollable">
@@ -139,7 +142,7 @@
 														<td style="text-align:center;vertical-align:middle;" >${(ls.subtotalCost)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.id)!'-'}">
 															<a href="#" class="edit" fid="${(ls.id)!}">编辑</a>|
-															<a href="#" class="delete" fid="${(ls.id)!}">删除</a>
+															<a href="#" class="delete" fid="${(ls.id)!}" fname="${(ls.productName)}">删除</a>
 														</td>
 													</tr>
 												</#list>

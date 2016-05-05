@@ -303,3 +303,40 @@ CREATE TABLE `t_snack_import_log` (
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 触发器:插入
+drop trigger if exists trg_t_snack_order_log_insert;
+create trigger trg_t_snack_order_log_insert before insert on `t_snack_order_log` for each row
+begin
+    update t_snack_product a
+    set a.nums=case when new.type=1 then ifnull(a.nums,0)+ifnull(new.order_num,0)
+                    when new.type=2 then ifnull(a.nums,0)-ifnull(new.order_num,0) end,
+        a.acc_nums=case when new.type=1 then ifnull(a.acc_nums,0)+ifnull(new.order_num,0) end
+    where a.id=new.product_id
+    ;
+end;
+-- 触发器:删除
+drop trigger if exists trg_t_snack_order_log_delete;
+create trigger trg_t_snack_order_log_delete before delete on `t_snack_order_log` for each row
+begin
+    update t_snack_product a
+    set a.nums=case when old.type=1 then ifnull(a.nums,0)-ifnull(old.order_num,0)
+                    when old.type=2 then ifnull(a.nums,0)+ifnull(old.order_num,0) end,
+        a.acc_nums=case when old.type=1 then ifnull(a.acc_nums,0)-ifnull(old.order_num,0)
+                        when old.type=2 then ifnull(a.acc_nums,0)+ifnull(old.order_num,0) end
+    where a.id=old.product_id
+    ;
+end;
+-- 触发器:更新
+drop trigger if exists trg_t_snack_order_log_update;
+create trigger trg_t_snack_order_log_update before update on `t_snack_order_log` for each row
+begin
+    update t_snack_product a
+    set a.nums=case when old.type=1 then ifnull(a.nums,0)+ifnull(new.order_num,0)-ifnull(old.order_num,0)
+                    when old.type=2 then ifnull(a.nums,0)-ifnull(new.order_num,0)+ifnull(old.order_num,0) end,
+        a.acc_nums=case when old.type=1 then ifnull(a.acc_nums,0)+ifnull(new.order_num,0)-ifnull(old.order_num,0)
+                        when old.type=2 then ifnull(a.acc_nums,0)-ifnull(new.order_num,0)+ifnull(old.order_num,0) end
+    where a.id=new.product_id
+    ;
+end;

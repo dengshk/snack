@@ -89,21 +89,18 @@
 			`type`,
 			`order_date`,
 			`create_time`
-   		)
-   		select
+   		)values(
    			#{proOrderLog.flowId,jdbcType=VARCHAR},
-   			`type_id`,
-   			`id`,
-   			`name`,
+   			#{proOrderLog.typeId,jdbcType=DECIMAL},
+   			#{proOrderLog.productId,jdbcType=DECIMAL},
+   			#{proOrderLog.productName,jdbcType=VARCHAR},
    			#{proOrderLog.costPrice,jdbcType=VARCHAR},
    			#{proOrderLog.salePrice,jdbcType=VARCHAR},
    			#{proOrderLog.orderNum,jdbcType=DECIMAL},
    			#{proOrderLog.type,jdbcType=DECIMAL},
    			#{proOrderLog.orderDate,jdbcType=VARCHAR},
 			#{proOrderLog.createTime,jdbcType=VARCHAR}
-   		from t_snack_product
-   		where `name`=#{proOrderLog.productName,jdbcType=VARCHAR}
-   		limit 0,1
+   		)
    </insert>
    
    <update id="updOne">
