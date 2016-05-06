@@ -49,6 +49,12 @@
 		    margin-right: 0;
 		}
 	</style>
+	
+	<!-- bootstrapValidator 开始 -->
+	<link href="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.css" rel="stylesheet">
+	<script src="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.js"></script>
+	<script src="${application.getContextPath()}/js/bootstrapValidator/zh_CN.js"></script>
+	<!-- bootstrapValidator 结束 -->
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

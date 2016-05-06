@@ -23,7 +23,7 @@ public class ProductService extends BaseService {
 	private ProductDao productDao;
 
 	/**
-	 * 分页查询用户信息
+	 * 分页查询信息
 	 * 
 	 * @param params
 	 *            查询参数
@@ -57,7 +57,7 @@ public class ProductService extends BaseService {
 	}
 
 	/**
-	 * 查询用户信息
+	 * 查询信息
 	 * 
 	 * @param params
 	 *            查询参数
@@ -74,7 +74,7 @@ public class ProductService extends BaseService {
 	}
 	
 	/**
-	 * 查询用户信息
+	 * 查询信息
 	 * 
 	 * @param params
 	 *            查询参数
@@ -91,7 +91,7 @@ public class ProductService extends BaseService {
 	}
 
 	/**
-	 * 修改用户状态
+	 * 修改状态
 	 * 
 	 * @param params
 	 *            参数
@@ -166,5 +166,45 @@ public class ProductService extends BaseService {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
+	}
+	
+	/**
+	 * 
+	* 功能说明: 更新库存
+	* 修改者名字: dsk
+	* 修改日期 2016年5月6日
+	* 修改内容 
+	* @参数： @param params
+	* @参数： @return   
+	* @throws
+	 */
+	public Integer updInventory(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = productDao.updInventory(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
+	
+	/**
+	 * 
+	* 功能说明: 查询库存量
+	* 修改者名字: dsk
+	* 修改日期 2016年5月6日
+	* 修改内容 
+	* @参数： @param params
+	* @参数： @return   
+	* @throws
+	 */
+	public Integer queryInventory(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = productDao.queryInventory(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
 	}
 }

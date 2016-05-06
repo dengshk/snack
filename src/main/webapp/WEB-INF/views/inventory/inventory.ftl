@@ -89,7 +89,8 @@
 										<!-- 库存数量 -->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">库存数量:&lt;=</label>
-											<input class="form-control" type="text" id="qry_nums" style="width:160px !important;" value="${(bean.nums)!}" placeholder="请输入查询库存数量"/>
+											<input class="form-control" type="text" id="qry_nums" style="width:160px !important;" value="${(bean.nums)!}" placeholder="请输入查询库存数量"
+													onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 										</div>
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 									</form>

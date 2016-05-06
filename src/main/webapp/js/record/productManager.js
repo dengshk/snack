@@ -26,11 +26,92 @@ function editProduct(productId){
     //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
     $modal.load(contextPath + '/record/editProduct',{"Content-type":"application/x-www-form-urlencoded",id:productId},function(){
-	//初始化验证
-	//formValidate.init();
+	//表单验证
+    $('#editUser').bootstrapValidator({
+	        message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+			fields: {
+				name: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+	            agent1Price: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            agent2Price: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            agent3Price: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            agent4Price: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            salePrice: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            grammage: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的克数'
+		            	}
+	            	}
+	            },
+	            expiration: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的保质期'
+		            	}
+	            	}
+	            }
+			}
+		}).on('success.form.bv', function(e) {
+			// Prevent form submission
+            e.preventDefault();
+            saveUser();
+        });
 	$(".saveUser").click(function(){
-			saveUser();
-		});
+		$('#editUser').bootstrapValidator('validate');
+	});
 	$modal.modal();
 	    //价格修改
     $("#agent1Price").blur(function(){
@@ -47,14 +128,16 @@ function initPrice(){
 	var price2=$("#agent2Price").val();
 	var price3=$("#agent3Price").val();
 	var price4=$("#agent4Price").val();
-	if(price2==null||price2==""){
-		$("#agent2Price").attr("value",parseFloat(price1)+parseFloat(2));
-	}
-	if(price3==null||price3==""){
-		$("#agent3Price").attr("value",parseFloat(price1)+parseFloat(4));
-	}
-	if(price4==null||price4==""){
-		$("#agent4Price").attr("value",parseFloat(price1)+parseFloat(6));
+	if(price1!=null && price1 != ""){
+		if(price2==null||price2==""){
+			$("#agent2Price").attr("value",parseFloat(price1)+parseFloat(2));
+		}
+		if(price3==null||price3==""){
+			$("#agent3Price").attr("value",parseFloat(price1)+parseFloat(4));
+		}
+		if(price4==null||price4==""){
+			$("#agent4Price").attr("value",parseFloat(price1)+parseFloat(6));
+		}
 	}
 }
 
@@ -113,7 +196,8 @@ function saveUser(){
 			success:function(data){
 				unique = 0;
 				if(data.msg==1){
-					$.messager.alert('提示',sucMsg,"success",function(){reloadPage(contextPath + '/record/newProduct?op_menu=11',100);});
+					$('#ajax-modal').modal('hide');
+					$.messager.alert('提示',sucMsg,"success",function(){reloadPage(contextPath + '/record/newProduct',0);});
 				}else{
 					$.messager.alert('提示',"操作失败！","error");
 				}

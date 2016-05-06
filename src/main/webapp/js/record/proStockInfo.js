@@ -37,8 +37,12 @@ $(function(){
 							$("#productName_query").val($("#productName").val());
 							$("#pageForm").submit();
 						}else{
+							var info = '订单【'+_name+'】,删除失败！'; 
+							if(data.info!=null && data.info!=""){
+								info = data.info;
+							}
 							$("#modal-backdrop").hide();
-							$.messager.alert('提示', '订单【'+_name+"】,删除失败！", "error");
+							$.messager.alert('提示', info, "error");
 						}
 					},
 					error:function(data){
@@ -49,6 +53,7 @@ $(function(){
 			}
 		});
 	});
+	
 });
 
 /**
@@ -62,9 +67,48 @@ function edit(_id){
     $modal.load(contextPath + '/proStock/editStockOrder',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
 	//初始化验证
 	//formValidate.init();
+	//表单验证
+    $('#editStockChild').bootstrapValidator({
+	        message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+			fields: {
+				productName_child: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+	            costPrice_child: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+		            		message: '请输入正确的金额'
+		            	}
+	            	}
+	            },
+	            orderNum_child: {
+	            	validators: {
+		            	notEmpty: {},
+		            	regexp: {
+		            		regexp: /^[1-9]\d*$/,
+		            		message: '请输入正确的订单数'
+		            	}
+	            	}
+	            }
+			}
+		}).on('success.form.bv', function(e) {
+			// Prevent form submission
+            e.preventDefault();
+            saveOrder();
+        });
+        
 	$(".saveOrder").click(function(){
-			saveOrder();
-		});
+		$('#editStockChild').bootstrapValidator('validate');
+	});
 	$modal.modal();
     });
 }
@@ -84,7 +128,7 @@ function saveOrder(){
 
 		$.ajax({
 			type:"post",
-			url:contextPath +"/proOrderLog/saveOrder",
+			url:contextPath +"/proStock/saveOrder",
 			data:{
 				id:_id,
 				productName:_productName,
@@ -100,7 +144,11 @@ function saveOrder(){
 					$("#productName_query").val($("#productName").val());
 					$("#pageForm").submit();
 				}else{
-					$.messager.alert('提示',"操作失败！","error");
+					var info = "操作失败！"; 
+					if(data.info!=null && data.info!=""){
+						info = data.info;
+					}
+					$.messager.alert('提示',info,"error");
 				}
 			},
 			error:function(){

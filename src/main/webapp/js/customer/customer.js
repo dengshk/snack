@@ -14,11 +14,44 @@ function edit(customerId){
     //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
     $modal.load(contextPath + '/customer/edit',{"Content-type":"application/x-www-form-urlencoded",id:customerId},function(){
-	//初始化验证
-	//formValidate.init();
+	//表单验证
+    $('#editUser').bootstrapValidator({
+	        message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+			fields: {
+				customerName: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+	            customerTel: {
+	            	validators: {
+		            	notEmpty: {},
+		            	digits: {},
+	                    regexp: {
+	                        regexp: /^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/,
+	                        message: '请输入正确的11位手机号码'
+                    	}
+	            	}
+	            },
+	            address: {
+	            	validators: {
+		            	notEmpty: {}
+	            	}
+	            }
+			}
+		}).on('success.form.bv', function(e) {
+			// Prevent form submission
+            e.preventDefault();
+            save();
+        });
 	$(".save").click(function(){
-			save();
-		});
+		$('#editUser').bootstrapValidator('validate');
+	});
 	$modal.modal();
     });
 }

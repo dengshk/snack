@@ -3,7 +3,6 @@ package com.shop.snack.web.action.record;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.shop.snack.web.dao.record.ProductDao;
 import com.shop.snack.web.model.ProOrderLog;
 import com.shop.snack.web.model.Product;
-import com.shop.snack.web.model.ProductType;
 import com.shop.snack.web.service.record.ProOrderLogService;
+import com.shop.snack.web.service.record.ProductService;
 
 @Controller
 @RequestMapping("/proOrderLog")
@@ -29,7 +27,7 @@ public class ProOrderLogAction {
 	private static final Logger logger = LoggerFactory.getLogger(ProOrderLogAction.class);
 
 	@Autowired
-	ProductDao productDao;
+	ProductService productService;
 	@Autowired
 	ProOrderLogService proOrderLogService;
 
@@ -76,11 +74,11 @@ public class ProOrderLogAction {
 
 		// 通过产品名称查询产品信息
 		productParams.put("name", proOrderLog.getProductName());
-		Product product = productDao.queryByName(productParams);
+		Product product = productService.queryByName(productParams);
 		if (product != null) {
 			proOrderLog.setTypeId(product.getTypeId());
 			proOrderLog.setProductId(product.getId());
-			
+
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 			String time = df.format(new Date());
 			proOrderLog.setCreateTime(time);

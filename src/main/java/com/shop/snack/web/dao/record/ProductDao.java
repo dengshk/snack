@@ -30,7 +30,7 @@ public interface ProductDao extends PageMapper {
 	Integer updInventory(Map<String, Object> params);
 
 	// 查询库存
-	Integer qryInventory(Map<String, Object> params);
+	Integer queryInventory(Map<String, Object> params);
 
 	// 物理删除
 	Integer deleteOne(Map<String, Object> params);

@@ -61,6 +61,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		}
 	</style>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/jquery-1.10.2.min.js"></script>
+	
+	<!-- bootstrapValidator 开始 -->
+	<link href="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.css" rel="stylesheet">
+	<script src="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.js"></script>
+	<script src="${application.getContextPath()}/js/bootstrapValidator/zh_CN.js"></script>
+	<!-- bootstrapValidator 结束 -->
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
