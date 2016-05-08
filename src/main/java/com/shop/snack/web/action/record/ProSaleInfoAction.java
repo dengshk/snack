@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.CustomerInfo;
 import com.shop.snack.web.model.ProSaleInfo;
-import com.shop.snack.web.model.Product;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.customer.CustomerService;
 import com.shop.snack.web.service.record.ProOrderLogService;
@@ -79,6 +78,10 @@ public class ProSaleInfoAction {
 	@RequestMapping(value = "/child")
 	public ModelAndView child(QueryBean bean, Integer pageIndex, Integer pageSize, String flowId, HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChild");
+		// 顾客信息
+		List<CustomerInfo> customers = customerService.searchCustomersByName(null);
+		mv.addObject("customers", customers);
+
 		if (flowId == null || flowId.equals("")) {
 			mv.addObject("proSaleInfo", null);
 			mv.addObject("page", null);
@@ -139,6 +142,10 @@ public class ProSaleInfoAction {
 		// 订单日期为空,则为当天
 		if (proSaleInfo.getOrderDate() == null || "".equals(proSaleInfo.getOrderDate())) {
 			proSaleInfo.setOrderDate(time);
+		}
+		// 运费及其他
+		if (proSaleInfo.getExpressPrice() == null || "".equals(proSaleInfo.getExpressPrice())) {
+			proSaleInfo.setExpressPrice("0");
 		}
 		// 判断是添加还是修改
 		if (proSaleInfo.getFlowId() != null && !proSaleInfo.getFlowId().equals("")) {

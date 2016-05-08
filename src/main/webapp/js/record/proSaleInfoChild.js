@@ -45,20 +45,20 @@ $(function(){
             },
 			fields: {
 				customerName: {
+					selector: '#customerName',
 					validators: {
-						notEmpty: {}
+						callback: {
+	                        message: '请选择订货人',
+							callback: function(value, validator) {
+								if(value == "-1"){
+									return false;
+								}else{
+									return true;
+								}
+							}
+						}
 					}
 				},
-	            customerTel: {
-	                validators: {
-	                    notEmpty: {},
-	                    digits: {},
-	                    regexp: {
-	                        regexp: /^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/,
-	                        message: '请输入正确的11位手机号码'
-                    	}
-	                }
-	            },
 	            reallyPay:{
 	            	validators: {
 		            	notEmpty: {},
@@ -75,9 +75,6 @@ $(function(){
 
             // Get the form instance
             var $form = $(e.target);
-
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
 
             // Use Ajax to submit form data
             $("#modal-backdrop").show();
@@ -96,9 +93,9 @@ $(function(){
 					}
             }, 'json');
         });
-	//失去焦点自动补全订货人其他信息
-	$('#customerName').live('blur',function(){
-		if($("#customerTel").val()=="" || $("#address").val()==""){
+	//选项改变补全订货人其他信息
+	$('#customerName').live('change',function(){
+		if($("#customerName").val()!=-1){
 	        $.ajax({
 		          type : "post",
 		          url: contextPath+'/proSale/queryByName',
@@ -107,12 +104,8 @@ $(function(){
 		          },
 		          success: function( data ) {
 		              if(data.customer!=null){
-	                      if($("#customerTel").val()==""){
-			        		  $("#customerTel").val(data.customer.customerTel);
-			        	  }
-			        	  if($("#address").val()==""){
-			        		  $("#address").val(data.customer.address);
-			        	  }
+		        		  $("#customerTel").val(data.customer.customerTel);
+		        		  $("#address").val(data.customer.address);
 		              }
 		          }
 		    });

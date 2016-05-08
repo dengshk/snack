@@ -95,7 +95,7 @@
 						保质期限
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="expiration" type="text" class="form-control" id="expiration" value="${(product.expiration)!}" maxlength="20" placeholder="请输入产品保质期(天)">
+						<input name="expiration" type="text" class="form-control" id="expiration" value="${(product.expiration)!}" maxlength="20" placeholder="请输入产品保质期(月)">
 						<span class="help-block" for="expiration"></span>
 					</div>
 				</div>

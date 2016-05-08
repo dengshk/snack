@@ -110,7 +110,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- 订货人 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">订货人:</label>
-							<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(proSaleInfo.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
+							<select class="form-control input-small select2me" style="width:160px !important;" name="customerName" id="customerName">
+								<#if customers?? && customers?size &gt; 0>
+									<option value="-1">请选择</option>
+									<#list customers as p>
+										<option value="${(p.customerName)!}" <#if proSaleInfo?? && proSaleInfo.customerName?? && proSaleInfo.customerName == p.customerName>selected="true"</#if>>${(p.customerName)!}</option>
+									</#list>
+								</#if>
+							</select>
+							<!--<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(proSaleInfo.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>-->
 						</div>
 						<!-- 顾客电话 -->
 						<div class="form-group" style="margin-left:8px;">
@@ -119,8 +127,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</div>
 						<!-- 运费 -->
 						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">运输费用:</label>
-							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!'0'}" placeholder="请输入运费"/>
+							<label class="control-label">运费其他:</label>
+							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!}" placeholder="请输入运费/其他"/>
 						</div>
 						<!--快递详情-->
 						<#if !(proSaleInfo??) || proSaleInfo.type==2?number>
@@ -161,7 +169,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			            </div>
 						<!-- 实收款 -->
 						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">实收款:</label>
+							<label class="control-label">实收金额:</label>
 							<input class="form-control" type="text" id="reallyPay" name="reallyPay" style="width:160px !important;" value="${(proSaleInfo.reallyPay)!}" placeholder="请输入实际收款"/>
 						</div>
 						<!--修改-->

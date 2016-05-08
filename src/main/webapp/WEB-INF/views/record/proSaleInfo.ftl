@@ -150,7 +150,7 @@
 														<td style="text-align:center;vertical-align:middle;" >
 															<select class="form-control input-small select2me" style="width:165px;" name="type">
 																<#if ls.type ??>
-																	<option value="1" <#if ls.type?? && ls.type==1>selected</#if>>自送</option>
+																	<option value="1" <#if ls.type?? && ls.type==1>selected</#if>>自提</option>
 																	<option value="2" <#if ls.type?? && ls.type==2>selected</#if>>快递</option>
 																</#if>
 															</select>
