@@ -88,6 +88,7 @@ public class ProSaleInfoAction {
 		} else {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("flowId", flowId);
+			Map<String,Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
 			params.put("pageSize", pageSize);
 			params.put("pageIndex", pageIndex);
 			ProSaleInfo proSaleInfo = service.queryById(params);
@@ -97,6 +98,7 @@ public class ProSaleInfoAction {
 			// 订单查询
 			PageBean page = proOrderLogService.queryPage(params);
 			mv.addObject("page", page);
+			mv.addObject("flowTotal", flowTotal);
 		}
 		return mv;
 	}
@@ -145,7 +147,7 @@ public class ProSaleInfoAction {
 		}
 		// 运费及其他
 		if (proSaleInfo.getExpressPrice() == null || "".equals(proSaleInfo.getExpressPrice())) {
-			proSaleInfo.setExpressPrice("0");
+			proSaleInfo.setExpressPrice(null);
 		}
 		// 判断是添加还是修改
 		if (proSaleInfo.getFlowId() != null && !proSaleInfo.getFlowId().equals("")) {

@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<div class="portlet-body form">
-		<form class="form-horizontal form-bordered form-row-seperated" id="editUser" method="post">
+		<form class="form-horizontal form-bordered form-row-seperated" id="editUser" method="post" onsubmit="return false;">
 			<input name="id" type="hidden" id="id" value="${(saleOrder.id)!}"/>
 			<input name="flowId" type="hidden" id="flowId" value="${(saleOrder.flowId)!}"/>
 			<input name="productId" type="hidden" id="productId" value="${(saleOrder.productId)!}"/>
@@ -20,8 +20,14 @@
 						产品名称
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="productName" type="text" class="form-control" id="productName" value="${(saleOrder.productName)!}" maxlength="20" placeholder="请输入产品名称">
-						<span class="help-block" for="productName"></span>
+						<select class="form-control  input-small select2me" maxlength="20" name="productName" id="productName">
+							<#if products?? && products?size &gt; 0>
+								<option value="-1">请选择</option>
+								<#list products as p>
+									<option value="${(p.id)!}" <#if saleOrder?? && saleOrder.productId?? && saleOrder.productId == p.id>selected="true"</#if>>${(p.name)!}</option>
+								</#list>
+							</#if>
+						</select>
 					</div>
 				</div>
 				<!--进货单价-->
@@ -53,12 +59,13 @@
 						销售数量
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="orderNum" type="text" class="form-control" id="orderNum" value="${(saleOrder.orderNum)!}" maxlength="20" placeholder="请输入销售数量">
+						<input name="orderNum" type="text" class="form-control" id="orderNum" value="${(saleOrder.orderNum)!}" maxlength="20" placeholder="请输入销售数量"
+							onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 						<span class="help-block" for="orderNum"></span>
 					</div>
 				</div>
 			<div class="form-actions modal-footer">
-				<button type="button" class="btn blue saveOrder">确定</button>
+				<button type="button" class="btn blue saveOrder" type="submit">确定</button>
 				<button type="button" class="btn default" data-dismiss="modal">取消</button>
 			</div>
 		</form>

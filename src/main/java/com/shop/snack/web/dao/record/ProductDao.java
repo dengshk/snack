@@ -37,4 +37,7 @@ public interface ProductDao extends PageMapper {
 
 	// 根据查询条件查询
 	List<Map<String, Object>> queryInventoryByCondition(Map<String, Object> params);
+
+	// 查询所有记录
+	List<Product> queryAll();
 }

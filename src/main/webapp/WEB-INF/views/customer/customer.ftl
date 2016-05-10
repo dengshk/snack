@@ -87,6 +87,25 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<!--报表正文-->
 			<div class="portlet-body">
 			<!--报表工具-->
+			<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/customer/customer" style="background:#fff !important;">
+				<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+					<!--顾客姓名 -->
+					<div class="form-group" style="margin-left:8px;">
+						<label class="control-label">顾客姓名:</label>
+						<input class="form-control" type="text" id="qry_customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入顾客姓名" />
+					</div>
+					<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
+				</form>
+			</div>
+			<!-- 查询条件 -->
+			<form  action="${application.getContextPath()}/customer/customer" id="pageForm" role="search" method="post" >
+				<!--顾客姓名-->
+				<input type="hidden" id="customerName_submit" name="customerName" value="${(bean.customerName)!}"/>
+				<!--分页-->
+				<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
+				<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+			</form>
+			
 				<div class="table-toolbar">
 					<div class="btn-group">
 						<button class="btn blue edit">
@@ -118,7 +137,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p.customerName)!}</td>
 											<td align='center'>${(p.customerTel)!}</td>
-											<td align='center'>${(p.address)!}</td>
+											<td align='left'>${(p.address)!}</td>
 											<td align='center'>88</td>
 											<td align='center'>888.88</td>
 											<td align='center' colspan="2">
@@ -129,7 +148,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									</#list>
 								<#else>
 									<tr>
-										<td colspan="7" style="text-align:'center';">还没有数据</td>
+										<td colspan="6" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>

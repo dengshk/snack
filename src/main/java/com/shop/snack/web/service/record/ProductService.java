@@ -168,6 +168,16 @@ public class ProductService extends BaseService {
 		return null;
 	}
 	
+	public List<Product> queryAll() {
+		try {
+			List<Product> products = productDao.queryAll();
+			return products;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
+	
 	/**
 	 * 
 	* 功能说明: 更新库存

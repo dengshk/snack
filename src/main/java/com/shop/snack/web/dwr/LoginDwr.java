@@ -45,8 +45,7 @@ public class LoginDwr {
 	 *         验证码,暂时没用
 	 * @return
 	 */
-	public HashMap<String, String> validate(String username, String pwd,
-			String code) {
+	public HashMap<String, String> validate(String username, String pwd) {
 		HashMap<String, String> rtnMap = new HashMap<String, String>();
 		String encryptpassword = null;
 		try {

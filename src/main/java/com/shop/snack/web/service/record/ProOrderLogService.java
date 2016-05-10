@@ -107,4 +107,23 @@ public class ProOrderLogService extends BaseService {
 		}
 		return re;
 	}
+	
+	/**
+	 * 
+	* 功能说明: 返回一条流水的总计
+	* 修改者名字: dsk
+	* 修改日期 2016年5月9日
+	* 修改内容 
+	* @参数： @return   
+	* @throws
+	 */
+	public Map<String,Object> queryFlowIdTotal(Map<String, Object> params){
+		try {
+			Map<String,Object> flowTotal = dao.queryFlowIdTotal(params);
+			return flowTotal;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 }

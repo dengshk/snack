@@ -14,6 +14,15 @@
 		}
 		changeState(id,state);
 	});
+	/**
+	 * 查询
+	 */
+	$("#querybtn").click(function(){
+		$("#modal-backdrop").show();
+		$("#typeId").val($("#qry_typeId").val());
+		$("#productName").val($("#qry_productName").val());
+		$("#pageForm").submit();
+	});
 })(jQuery);
 
 
@@ -199,7 +208,13 @@ function saveUser(){
 					$('#ajax-modal').modal('hide');
 					$.messager.alert('提示',sucMsg,"success",function(){reloadPage(contextPath + '/record/newProduct',0);});
 				}else{
-					$.messager.alert('提示',"操作失败！","error");
+					var info="";
+					if(data.info!=null&&data.info!=""){
+						info='操作失败！' + data.info;
+					}else{
+						info='操作失败！';
+					}
+					$.messager.alert('提示',info,"error");
 				}
 			},
 			error:function(){

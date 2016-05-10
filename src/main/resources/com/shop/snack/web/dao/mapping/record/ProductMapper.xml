@@ -37,7 +37,7 @@
 			and a.`id` = #{id,jdbcType=DECIMAL}
 		</if>
 		<if test="name != null">
-			and a.`name` = #{name,jdbcType=VARCHAR}
+			and a.`name` like concat('%',#{name,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="typeId != null">
 			and a.`type_id` = #{typeId,jdbcType=DECIMAL}
@@ -50,7 +50,37 @@
     
 	<select id="queryByName" parameterType="java.lang.String"
 		resultType="com.shop.snack.web.model.Product">
-		<include refid="whereCondition"/>
+		select
+			a.`id`,
+			a.`name`,
+			a.`describe`,
+			a.`type_id` typeId,
+			b.`type_name` typeName,
+			a.`state`,
+			a.`agent1_price` agent1Price,
+			a.`agent2_price` agent2Price,
+			a.`agent3_price` agent3Price,
+			a.`agent4_price` agent4Price,
+			a.`agent1_num` agent1Num,
+			a.`agent2_num` agent2Num,
+			a.`agent3_num` agent3Num,
+			a.`agent4_num` agent4Num,
+			a.`sale_price` salePrice,
+			a.`grammage` grammage,
+			a.`expiration` expiration,
+			a.`brand`,
+			a.`place`,
+			a.`taste`,
+			a.`nums`,
+			a.`acc_nums` accNums,
+			a.`modify_time` modifyTime,
+			a.`create_time` createTime
+		from t_snack_product a,t_snack_product_classify b
+		where a.type_id=b.type_id
+		<if test="name != null">
+			and a.`name` = #{name,jdbcType=VARCHAR}
+		</if>
+		limit 0,1
 	</select>
 	
     <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
@@ -72,6 +102,15 @@
 
    <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.Product">
 	  <include refid="whereCondition"/>
+   </select>
+   
+   <select id="queryAll" resultType="com.shop.snack.web.model.Product">
+		select
+			a.`id`,
+			a.`name`
+		from t_snack_product a,t_snack_product_classify b
+		where a.type_id=b.type_id
+		order by 2
    </select>
    
    <select id="queryInventoryByCondition" parameterType="map" resultType="com.shop.snack.web.model.Product">

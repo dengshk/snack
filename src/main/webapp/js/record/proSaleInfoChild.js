@@ -2,7 +2,12 @@ unique = 0;
 $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
-		editOrder(_id);
+		if($('#flowId').val()==null||$('#flowId').val()==""){
+			$.messager.alert('提示', '请先添加订货信息!', "error");
+			$('#proInfoForm').bootstrapValidator('validate');
+		}else{
+			editOrder(_id);
+		}
 	});
 	
 	$(".delete").live('click',function(){
@@ -111,6 +116,7 @@ $(function(){
 		    });
 		}
 	});
+
 });
 
 /**
@@ -122,12 +128,84 @@ function editOrder(_id){
     //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
     $modal.load(contextPath + '/proOrderLog/editSaleOrder',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
-	//初始化验证
-	//formValidate.init();
-	$(".saveOrder").click(function(){
-			saveOrder();
+		$modal.modal();
+		$('#productName').select2();
+		//表单验证
+	    $('#editUser').bootstrapValidator({
+		        message: 'This value is not valid',
+	            feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+				fields: {
+					productName: {
+						selector: '#productName',
+						validators: {
+							callback: {
+		                        message: '请选择产品名称',
+								callback: function(value, validator) {
+									if(value == "-1"){
+										return false;
+									}else{
+										return true;
+									}
+								}
+							}
+						}
+					},
+					costPrice:{
+		            	validators: {
+			            	notEmpty: {},
+			            	regexp: {
+			            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+			            		message: '请输入正确的金额'
+			            	}
+		            	}
+		            },
+		            salePrice:{
+		            	validators: {
+			            	notEmpty: {},
+			            	regexp: {
+			            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
+			            		message: '请输入正确的金额'
+			            	}
+		            	}
+		            },
+		            orderNum:{
+		            	validators: {
+			            	notEmpty: {}
+		            	}
+		            }
+				}
+			}).on('success.form.bv', function(e) {
+				// Prevent form submission
+	            e.preventDefault();
+	            saveOrder();
+	        });
+	    //点击事件
+		$(".saveOrder").click(function(){
+			$('#editUser').bootstrapValidator('validate');
 		});
-	$modal.modal();
+		//选项改变补全产品其他信息
+		$('#productName').live('change',function(){
+			if($("#productName").val()!=-1){
+		        $.ajax({
+			          type : "post",
+			          url: contextPath+'/record/queryByID',
+			          data: {
+		    			id:$("#productName").val()
+			          },
+			          success: function( data ) {
+			              if(data.product!=null){
+			        		  $("#costPrice").val(data.product.agent2Price);
+			        		  $("#salePrice").val(data.product.salePrice);
+			              }
+			          }
+			    });
+			}
+		});
+	
     });
 }
 
@@ -146,14 +224,11 @@ var unique= 0;
 function saveOrder(){
 	if(unique==0){//防止快速多次提交
 		unique++;
-		//判断是否通过验证
-		//if(!$("#editUser").valid()){
-		//	return false; //如果不通过则不提交
-		//}
 		//获取订单信息
 		var _id = $("#id").val();
 		var _flowId =$("#flowId").val();
-		var _productName = $("#productName").val();
+		var _productId = $("#productName").val();
+		var _productName = $("#productName").find("option:selected").text();
 		var _costPrice = $("#costPrice").val();
 		var _salePrice = $("#salePrice").val();
 		var _orderNum = $("#orderNum").val();
@@ -164,6 +239,7 @@ function saveOrder(){
 			data:{
 				id:_id,
 				flowId:_flowId,
+				productId: _productId,
 				productName:_productName,
 				costPrice:_costPrice,
 				salePrice:_salePrice,

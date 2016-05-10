@@ -3,6 +3,7 @@ package com.shop.snack.web.action.record;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,8 @@ public class ProOrderLogAction {
 	@RequestMapping(value = "/editSaleOrder")
 	public ModelAndView editUser(HttpServletRequest request, String id) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChildChild");
+		List<Product> products = productService.queryAll();
+		mv.addObject("products", products);
 		if (id != null && !id.equals("")) {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("id", id);

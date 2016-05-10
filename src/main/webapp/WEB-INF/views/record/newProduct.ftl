@@ -87,6 +87,39 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<!--报表正文-->
 			<div class="portlet-body">
 			<!--报表工具-->
+			<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/record/newProduct" style="background:#fff !important;">
+				<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+					<!--产品分类-->
+					<div class="form-group" style="margin-left:8px;">
+						<label class="control-label">产品类型:</label>
+							<select class="form-control input-small select2me" style="width:165px;" id="qry_typeId">
+								<option value="-1" selected>全部</option>
+								<#if productTypes ?? && productTypes?size &gt; 0>
+									<#list productTypes as p>
+										<option value="${(p.typeId)!}" <#if bean?? && bean.typeId?? && p.typeId?number == bean.typeId?number>selected="true"</#if>>${(p.typeName)!}</option>
+									</#list>
+								</#if>
+							</select>
+					</div>
+					<!-- 产品名称 -->
+					<div class="form-group" style="margin-left:8px;">
+						<label class="control-label">产品名称:</label>
+						<input class="form-control" type="text" id="qry_productName" style="width:160px !important;" value="${(bean.productName)!}" placeholder="请输入产品名称" />
+					</div>
+					<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
+				</form>
+			</div>
+			<!-- 查询条件 -->
+			<form  action="${application.getContextPath()}/record/newProduct" id="pageForm" role="search" method="post" >
+				<!--产品分类-->
+				<input type="hidden" id="typeId" name="typeId" value="${(bean.typeId)!}"/>
+				<!--产品名称-->
+				<input type="hidden" id="productName" name="productName" value="${(bean.productName)!}"/>
+				<!--分页-->
+				<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
+				<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+			</form>
+				
 				<div class="table-toolbar">
 					<div class="btn-group">
 						<button class="btn blue editUser">
@@ -147,7 +180,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									</#list>
 								<#else>
 									<tr>
-										<td colspan="7" style="text-align:'center';">还没有数据</td>
+										<td colspan="11" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>

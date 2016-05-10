@@ -17,11 +17,11 @@
 		    a.`type` type,
 		    a.`express` express,
 		    a.`express_no` expressNo,
-		    a.`express_price`,
-		    b.`orderPrice`+a.`express_price` tatalCost,
+		    a.`express_price` expressPrice,
+		    b.`orderPrice` tatalCost,
 		    a.`origin_pay` originPay,
 		    a.`really_pay` reallyPay,
-		    a.`really_pay`-b.`orderPrice`-a.`express_price` profit,
+		    a.`really_pay`-b.`orderPrice`-ifnull(a.`express_price`,0) profit,
 		    a.`order_date` orderDate,
 		    a.`sale_date` saleDate
 		from t_snack_sale_info a

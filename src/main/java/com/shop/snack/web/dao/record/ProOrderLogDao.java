@@ -19,4 +19,7 @@ public interface ProOrderLogDao extends PageMapper {
 
 	// 修改
 	Integer updOne(Map<String, Object> params);
+	
+	// 返回一条流水的总计
+	Map<String,Object> queryFlowIdTotal(Map<String, Object> params);
 }

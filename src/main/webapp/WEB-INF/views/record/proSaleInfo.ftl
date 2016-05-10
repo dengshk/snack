@@ -124,18 +124,16 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;width:8%;" >订单号</th>
-													<th style="text-align:center;width:10%;" >订单日期</th>
-													<th style="text-align:center;width:10%;" >订货人</th>
-													<th style="text-align:center;width:10%;" >发货方式</th>
-													<th style="text-align:center;width:10%;" >是否付款</th>
-													<th style="text-align:center;width:10%;" >订单状态</th>
-													<th style="text-align:center;width:10%;" >
-														<span data-toggle="tooltip" data-placement="top" title="进货单价 * 销售数量 + 运费">总成本</span>
-													</th>
-													<th style="text-align:center;width:10%;" >实收款</th>
-													<th style="text-align:center;width:10%;" >售后利润</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:12%;" >操作</th>
+													<th style="text-align:center;width:18%;">订单号</th>
+													<th style="text-align:center;width:8%;">订单日期</th>
+													<th style="text-align:center;width:8%;">订货人</th>
+													<th style="text-align:center;width:8%;">是否付款</th>
+													<th style="text-align:center;width:8%;">订单状态</th>
+													<th style="text-align:center;width:8%;">产品成本</th>
+													<th style="text-align:center;width:8%;">运费/其他</th>
+													<th style="text-align:center;width:8%;">实收款</th>
+													<th style="text-align:center;width:8%;">售后利润</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:18%;">操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -147,14 +145,6 @@
 														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.customerName)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >
-															<select class="form-control input-small select2me" style="width:165px;" name="type">
-																<#if ls.type ??>
-																	<option value="1" <#if ls.type?? && ls.type==1>selected</#if>>自提</option>
-																	<option value="2" <#if ls.type?? && ls.type==2>selected</#if>>快递</option>
-																</#if>
-															</select>
-														</td>
 														<td style="text-align:center;vertical-align:middle;" >
 															<select class="form-control input-small select2me" style="width:165px;" name="pay">
 																<#if ls.pay ??>
@@ -173,6 +163,7 @@
 															</select>
 														</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.expressPrice)!'无'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">

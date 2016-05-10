@@ -3,6 +3,14 @@
 		var customerId = this.id;
 		edit(customerId);
 	});
+	/**
+	 * 查询
+	 */
+	$("#querybtn").click(function(){
+		$("#modal-backdrop").show();
+		$("#customerName_submit").val($("#qry_customerName").val());
+		$("#pageForm").submit();
+	});
 })(jQuery);
 
 /**
@@ -87,7 +95,13 @@ function save(){
 				if(data.msg==1){
 					window.location.href=contextPath+"/customer/customer";
 				}else{
-					$.messager.alert('提示',"操作失败！","error");
+					var info="";
+					if(data.info!=null&&data.info!=""){
+						info='操作失败！' + data.info;
+					}else{
+						info='操作失败！';
+					}
+					$.messager.alert('提示',info,"error");
 				}
 			},
 			error:function(){

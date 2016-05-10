@@ -80,26 +80,8 @@ public class ProStockInfoAction {
 		Integer re = -1;
 		// 订单ID
 		params.put("id", id);
-		// 查询订单信息
-		ProOrderLog pol = proOrderLogService.queryById(params);
-		// 查询库存信息
-		params.put("id", pol.getProductId());
-		Integer inventoryNums = productService.queryInventory(params);
-		inventoryNums = inventoryNums == null ? 0 : inventoryNums;
-		params.put("id", id);
-		// 删除订单后,判断库存数是否小于零
-		if (pol.getOrderNum() != null && !"".equals(pol.getOrderNum())) {
-			if (inventoryNums - Integer.parseInt(pol.getOrderNum()) >= 0) {
-				// 删除订单
-				re = proOrderLogService.deleteOne(params);
-				// 更新库存
-				params.put("orderNum", -Integer.parseInt(pol.getOrderNum()));
-				productService.updInventory(params);
-			} else {
-				msg.put("info", "违规操作,删除后库存为负!");
-			}
-		}
-
+		re = proOrderLogService.deleteOne(params);
+		
 		msg.put("msg", re);
 		return msg;
 	}
@@ -117,7 +99,6 @@ public class ProStockInfoAction {
 	Map<String, Object> saveOrder(@ModelAttribute ProOrderLog proOrderLog, HttpServletRequest request) {
 		Map<String, Object> re = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
-		Map<String, Object> qryParams = new HashMap<String, Object>();
 		Map<String, Object> proParams = new HashMap<String, Object>();
 		Integer num = -1;
 
@@ -136,30 +117,11 @@ public class ProStockInfoAction {
 
 			// 判断是添加还是修改
 			if (proOrderLog.getId() != null && !proOrderLog.getId().equals("")) {
-				// 修改订单后,判断库存数是否小于零
-				qryParams.put("id", proOrderLog.getId());
-				ProOrderLog pol = proOrderLogService.queryById(qryParams);
-				Integer inventoryNums = product.getNums() == null ? 0 : product.getNums();
-				if (pol.getOrderNum() != null && !"".equals(pol.getOrderNum())) {
-					if (inventoryNums - Integer.parseInt(pol.getOrderNum()) + Integer.parseInt(proOrderLog.getOrderNum()) >= 0) {
-						// 修改
-						num = proOrderLogService.updOne(params);
-						// 更新库存
-						qryParams.put("id", product.getId());
-						qryParams.put("orderNum", -Integer.parseInt(pol.getOrderNum()) + Integer.parseInt(proOrderLog.getOrderNum()));
-						productService.updInventory(qryParams);
-					} else {
-						// 更新后库存为负数
-						re.put("info", "违规操作,删除后库存为负!");
-					}
-				}
+				// 修改
+				num = proOrderLogService.updOne(params);
 			} else {
 				// 添加
 				num = proOrderLogService.addOne(params);
-				// 更新库存
-				qryParams.put("id", product.getId());
-				qryParams.put("orderNum", Integer.parseInt(proOrderLog.getOrderNum()));
-				productService.updInventory(qryParams);
 			}
 		} else {
 			re.put("info", "操作失败,产品不存在!");

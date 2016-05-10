@@ -59,7 +59,7 @@ var Login = function () {
 	            	if(result.code == 1000){
 	            		window.location.href = basePath+result.user_home_page;
 	            	}else{
-	            		 $("#imgCode").click();
+	            		// $("#imgCode").click();
 	            		$('.alert-danger', $('.login-form')).html(result.message).show();
 	            	}
 	            }
@@ -70,7 +70,7 @@ var Login = function () {
 	                if ($('.login-form').validate().form()) {
 	                	var result;
 		            	dwr.engine.setAsync(false);//同步
-		            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),$.trim($("#verifyCode").val()),null,function(data){
+		            	loginDwr.validate($.trim($("#username").val()),$.trim($("#password").val()),function(data){
 		            		result = data;
 		            	});
 		            	if(result.code == 1000){

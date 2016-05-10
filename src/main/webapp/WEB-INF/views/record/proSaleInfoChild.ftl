@@ -131,30 +131,28 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!}" placeholder="请输入运费/其他"/>
 						</div>
 						<!--快递详情-->
-						<#if !(proSaleInfo??) || proSaleInfo.type==2?number>
-							<br />
-							<br />
-							<!-- 快递商 -->
-							<div class="form-group" style="margin-left:8px;">
-								<label class="control-label">快递商:</label>
-								<input class="form-control" type="text" id="express" name="express" style="width:160px !important;" value="${(proSaleInfo.express)!}" placeholder="请输入快递商"/>
-							</div>
-							<!-- 快递单号 -->
-							<div class="form-group" style="margin-left:8px;">
-								<label class="control-label">快递单号:</label>
-								<input class="form-control" type="text" id="expressNo" name="expressNo" style="width:160px !important;" value="${(proSaleInfo.expressNo)!}" placeholder="请输入快递单号"/>
-							</div>
-							<!-- 收获地址 -->
-							<div class="form-group" style="margin-left:8px;">
-								<label class="control-label">收获地址:</label>
-								<input class="form-control" type="text" id="address" name="address" style="width:320px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
-							</div>
-						</#if>
+						<br />
+						<br />
+						<!-- 快递商 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">快递商:</label>
+							<input class="form-control" type="text" id="express" name="express" style="width:160px !important;" value="${(proSaleInfo.express)!}" placeholder="请输入快递商"/>
+						</div>
+						<!-- 快递单号 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">快递单号:</label>
+							<input class="form-control" type="text" id="expressNo" name="expressNo" style="width:160px !important;" value="${(proSaleInfo.expressNo)!}" placeholder="请输入快递单号"/>
+						</div>
+						<!-- 收获地址 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">收获地址:</label>
+							<input class="form-control" type="text" id="address" name="address" style="width:320px !important;" value="${(proSaleInfo.address)!}" placeholder="请输入收获地址"/>
+						</div>
 						<br />
 						<br />
 						<!--日期控件 -->
 			            <div class="form-group" style="margin-left:8px;">
-			                <div class='input-group date' id='datetimepicker1'>
+			                <div class='input-group date' id='datetimepicker1' style="width:160px !important;">
 			                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			                    <input type='text' class="form-control" value="${(proSaleInfo.orderDate)!}" id="orderDate" name="orderDate" style="width:160px !important;" />
 			                </div>
@@ -170,7 +168,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- 实收款 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">实收金额:</label>
-							<input class="form-control" type="text" id="reallyPay" name="reallyPay" style="width:160px !important;" value="${(proSaleInfo.reallyPay)!}" placeholder="请输入实际收款"/>
+							<input class="form-control" type="text" id="reallyPay" name="reallyPay" style="width:160px !important;" value="${(proSaleInfo.reallyPay)!'1'}" placeholder="请输入实际收款"/>
 						</div>
 						<!--修改-->
 						&nbsp;&nbsp;&nbsp;
@@ -244,6 +242,17 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											</td>
 										</tr>
 									</#list>
+									<tr style="height:37px;font-weight:bold;background-color:#EAEAEA;">
+										<td style="text-align:center;vertical-align:middle;" >总计</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.orderNum)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalCost)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalReally)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalProfit)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+									</tr>
 								<#else>
 									<tr>
 										<td colspan="9" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>

@@ -40,6 +40,9 @@ public class InventoryAction {
 		if (bean.getNums() != null && bean.getNums() >= 0) {
 			params.put("nums", bean.getNums());
 		}
+		if (bean.getProductName() != null && !bean.getProductName().equals("")) {
+			params.put("name", bean.getProductName());
+		}
 		PageBean page = productService.queryProduct(params);
 		List<ProductType> productTypes = productService.queryProductTypes(null);
 		mv.addObject("productTypes", productTypes);

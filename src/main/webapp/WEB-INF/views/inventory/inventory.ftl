@@ -86,6 +86,11 @@
 													</#if>
 												</select>
 										</div>
+										<!-- 产品名称 -->
+										<div class="form-group" style="margin-left:8px;">
+											<label class="control-label">产品名称:</label>
+											<input class="form-control" type="text" id="qry_productName" style="width:160px !important;" value="${(bean.productName)!}" placeholder="请输入产品名称" />
+										</div>
 										<!-- 库存数量 -->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">库存数量:&lt;=</label>
@@ -99,6 +104,8 @@
 								<form  action="${application.getContextPath()}/inventory/inventory" id="pageForm" role="search" method="post" >
 									<!--产品分类-->
 									<input type="hidden" id="typeId" name="typeId" value="${(bean.typeId)!}"/>
+									<!--产品名称-->
+									<input type="hidden" id="productName" name="productName" value="${(bean.productName)!}"/>
 									<!--库存数量-->
 									<input type="hidden" id="nums" name="nums" value="${(bean.nums)!}"/>
 									<!--分页-->

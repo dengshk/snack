@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
+import com.shop.snack.web.model.CustomerInfo;
 import com.shop.snack.web.model.Product;
 import com.shop.snack.web.model.ProductType;
+import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.record.ProductService;
 
 @Controller
@@ -32,13 +34,25 @@ public class ProductManagerAction {
 	private static Logger logger = LoggerFactory.getLogger(ProductManagerAction.class);
 
 	@RequestMapping(value = "/newProduct")
-	public ModelAndView proManagerPage(HttpServletRequest request, Integer pageIndex, Integer pageSize) {
+	public ModelAndView proManagerPage(QueryBean bean, HttpServletRequest request, Integer pageIndex, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("/record/newProduct");
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageSize", pageSize);
 		params.put("pageIndex", pageIndex);
+		if (bean.getTypeId() != null && bean.getTypeId() != -1) {
+			params.put("typeId", bean.getTypeId());
+		}
+		if (bean.getProductName() != null && !bean.getProductName().equals("")) {
+			params.put("name", bean.getProductName());
+		}
 		PageBean page = productService.queryProduct(params);
 		mv.addObject("page", page);
+
+		List<ProductType> productTypes = productService.queryProductTypes(null);
+		mv.addObject("productTypes", productTypes);
+		
+		mv.addObject("bean", bean);
+
 		return mv;
 	}
 
@@ -118,18 +132,11 @@ public class ProductManagerAction {
 	 */
 	@RequestMapping(value = "/saveProduct")
 	public @ResponseBody
-	Map<String, Integer> saveProduct(@ModelAttribute Product product, HttpServletRequest request) {
-		Map<String, Integer> re = new HashMap<String, Integer>();
+	Map<String, Object> saveProduct(@ModelAttribute Product product, HttpServletRequest request) {
+		Map<String, Object> re = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> queryName = new HashMap<String, Object>();
 		Integer num = -1;
-
-//		params.put("id", product.getId() != null && !product.getId().equals("") ? product.getId() : "");
-//		params.put("name", product.getName() != null && !product.getName().equals("") ? product.getName() : "");
-//		params.put("typeId", product.getTypeId() != null && !product.getTypeId().equals("") ? product.getTypeId() : "");
-//		params.put("buyPrice", product.getBuyPrice() != null && !product.getBuyPrice().equals("") ? product.getBuyPrice() : "");
-//		params.put("salePrice", product.getSalePrice() != null && !product.getSalePrice().equals("") ? product.getSalePrice() : "");
-//		params.put("expiration", product.getExpiration() != null && !product.getExpiration().equals("") ? product.getExpiration() : "");
-//		params.put("state", product.getState() != null && !product.getState().equals("") ? product.getState() : "");
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String time = df.format(new Date());
@@ -138,13 +145,41 @@ public class ProductManagerAction {
 		params.put("product", product);
 		// 判断是添加还是修改
 		if (product.getId() != null) {
-			// 修改用户
+			// 修改
 			num = productService.updOne(params);
 		} else {
-			// 添加用户
-			num = productService.addOne(params);
+			// 添加
+			// 查询产品名称是否已存在
+			queryName.put("name", product.getName());
+			Product p = productService.queryByName(queryName);
+			if (p != null && p.getName() != null) {
+				re.put("info", "已存在该产品");
+			} else {
+				num = productService.addOne(params);
+			}
 		}
 		re.put("msg", num);
 		return re;
+	}
+
+	/**
+	 * 
+	 * 功能说明: 根据ID查询产品 修改者名字: dsk 修改日期 2016年5月9日 修改内容
+	 * 
+	 * @参数： @param request
+	 * @参数： @param customerName
+	 * @参数： @return
+	 * @throws
+	 */
+	@RequestMapping(value = "/queryByID")
+	public @ResponseBody
+	Map<String, Object> queryByID(HttpServletRequest request, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("id", id);
+		Product product = productService.queryById(params);
+		map.put("product", product);
+		return map;
 	}
 }

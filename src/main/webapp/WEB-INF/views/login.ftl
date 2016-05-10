@@ -52,14 +52,14 @@
 				<label class="control-label visible-ie8 visible-ie9">用户名</label>
 				<div class="input-icon">
 					<i class="fa fa-user"></i>
-					<input id="username" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" value="admin"/>
+					<input id="username" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" value="louyao"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label visible-ie8 visible-ie9">密码</label>
 				<div class="input-icon">
 					<i class="fa fa-lock"></i>
-					<input id="password" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" value="123456"/>
+					<input id="password" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" value=""/>
 				</div>
 			</div>
 			<div class="form-actions">
