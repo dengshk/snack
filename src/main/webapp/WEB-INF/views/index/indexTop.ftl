@@ -116,7 +116,7 @@ body>div.window-mask{
 <script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/jquery-validation/dist/jquery.validate.min_amend.js"></script>
 <!--输入验证 结束-->
 <!--echart 图表 开始 -->
-<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts/www/js/echarts.js"></script>
+<!--<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts/www/js/echarts.js"></script>-->
 <!--echart 图表 结束 -->
 <!--用户菜单-->
 <script type="text/javascript" src="${application.getContextPath()}/js/index/index.js"></script>

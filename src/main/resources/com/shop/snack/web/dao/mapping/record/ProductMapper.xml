@@ -9,7 +9,6 @@
 		select
 			a.`id`,
 			a.`name`,
-			a.`describe`,
 			a.`type_id` typeId,
 			b.`type_name` typeName,
 			a.`state`,
@@ -27,12 +26,30 @@
 			a.`brand`,
 			a.`place`,
 			a.`taste`,
-			a.`nums`,
-			a.`acc_nums` accNums,
+			ifnull(c.`nums`,0) nums,
+			ifnull(c.`accNums`,0) accNums,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime
-		from t_snack_product a,t_snack_product_classify b
-		where a.type_id=b.type_id
+		from t_snack_product a
+		left join t_snack_product_classify b
+			on a.type_id=b.type_id
+		left join(
+			select
+			    product_id,
+			    sum(case when type=1 then order_num when type=2 then -order_num end) nums,
+			    sum(case when type=1 then order_num end) accNums
+			from t_snack_order_log
+			where 1=1
+			<if test="typeId != null">
+				and `type_id` = #{typeId,jdbcType=DECIMAL}
+			</if>
+			<if test="name != null">
+				and `product_name` like concat('%',#{name,jdbcType=VARCHAR},'%')
+			</if>
+			group by product_id
+		)c
+			on a.`id`=c.`product_id`
+		where 1=1
 		<if test="id != null">
 			and a.`id` = #{id,jdbcType=DECIMAL}
 		</if>
@@ -43,9 +60,8 @@
 			and a.`type_id` = #{typeId,jdbcType=DECIMAL}
 		</if>
 		<if test="nums != null">
-			and a.`nums` &lt;= #{nums,jdbcType=VARCHAR}
+			and c.`nums` &lt;= #{nums,jdbcType=VARCHAR}
 		</if>
-		order by a.`state` desc,a.`nums` asc
     </sql>
     
 	<select id="queryByName" parameterType="java.lang.String"
@@ -96,7 +112,8 @@
 		<include refid="whereCondition"/>	         
     <![CDATA[
 		   ) a
-		       limit #{lbound},#{pageSize} 
+		   order by nums desc
+		   limit #{lbound},#{pageSize} 
 	]]>
    </select>
 
@@ -114,7 +131,7 @@
    </select>
    
    <select id="queryInventoryByCondition" parameterType="map" resultType="com.shop.snack.web.model.Product">
-	  <include refid="whereCondition"/>
+       <include refid="whereCondition"/>
    </select>
 
 	<!--配置一个resultMap 指定返回的类型 -->  

@@ -1,4 +1,4 @@
-    <div class="portlet box blue" style="width:35%;margin-left:35%;margin-top:50px;">
+    <div class="portlet box blue" style="width:35%;margin-left:35%;margin-top:150px;">
 	<div class="portlet-title">
 		<div class="caption">
 			<#if (saleOrder.id)??>编辑订单</#if><#if !(saleOrder.id)??>添加订单</#if>

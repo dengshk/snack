@@ -55,7 +55,7 @@ function pageCharts(totlePage,indexPage,classStr,did){
 		substr +="<li class=\"classStr disabled\" index="+(indexPage+1)+"><a href=\"javascript:void(0);\" title=\"上一页\"><i class=\"fa fa-angle-right\"></i></a></li>";
 	}
 	
-	substr +="</ul></div>"
+	substr +="</ul></div>";
 	div.append(substr);
 }
 
@@ -95,6 +95,6 @@ function pageSevenCharts(prev,next,prevTime,nextTime,classStr,did){
 		substr +="<li class=\"classStr disabled\" pageType='next' time="+nextTime+"><a href=\"javascript:void(0);\" title=\"上一页\"><i class=\"fa fa-angle-right\"></i></a></li>";
 	}
 	
-	substr +="</ul></div>"
+	substr +="</ul></div>";
 	div.append(substr);
 }

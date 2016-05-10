@@ -28,6 +28,8 @@ public class CustomerInfo implements java.io.Serializable {
 	private String address;
 	private String modifyTime;
 	private String createTime;
+	private String totalOrder;
+	private String totalCost;
 
 	/**
 	 * @return the id
@@ -117,6 +119,22 @@ public class CustomerInfo implements java.io.Serializable {
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getTotalOrder() {
+		return totalOrder;
+	}
+
+	public void setTotalOrder(String totalOrder) {
+		this.totalOrder = totalOrder;
+	}
+
+	public String getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(String totalCost) {
+		this.totalCost = totalCost;
 	}
 
 }

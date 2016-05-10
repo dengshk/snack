@@ -138,8 +138,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<td align='center'>${(p.customerName)!}</td>
 											<td align='center'>${(p.customerTel)!}</td>
 											<td align='left'>${(p.address)!}</td>
-											<td align='center'>88</td>
-											<td align='center'>888.88</td>
+											<td align='center'>${(p.totalOrder)!}</td>
+											<td align='center'>${(p.totalCost)!}</td>
 											<td align='center' colspan="2">
 												<a class="edit" href="#" id="${(p.id)!}">编辑</a>|
 												<a class="delete" href="#" id="${(p.id)!}" cname="${(p.customerName)!}">删除</a>

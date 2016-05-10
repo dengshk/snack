@@ -12,8 +12,19 @@
 			a.`customer_tel` customerTel,
 			a.`address`,
 			a.`modify_time` modifyTime,
-			a.`create_time` createTime
+			a.`create_time` createTime,
+			ifnull(b.cnt,0) totalOrder,
+			ifnull(b.really_pay,0) totalCost
 		from t_snack_customer_info a
+		left join(
+			select
+				customer_name,
+				count(1) cnt,
+				sum(really_pay) really_pay
+			from t_snack_sale_info
+			group by customer_name
+		)b
+			on a.customer_name=b.customer_name
 		where 1=1
 		<if test="id != null">
 			and a.`id` = #{id,jdbcType=DECIMAL}
@@ -21,7 +32,6 @@
 		<if test="customerName != null">
 			and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
 		</if>
-		order by a.`customer_name`
     </sql>
     
 	<select id="queryByName" parameterType="java.lang.String"
@@ -53,7 +63,8 @@
 		<include refid="whereCondition"/>	         
     <![CDATA[
 		   ) a
-		       limit #{lbound},#{pageSize} 
+		   order by totalOrder desc
+		   limit #{lbound},#{pageSize} 
 	]]>
    </select>
 
