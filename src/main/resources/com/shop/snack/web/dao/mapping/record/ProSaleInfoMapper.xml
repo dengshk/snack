@@ -11,7 +11,8 @@
 		    a.`flow_id` flowId,
 		    a.`state` state,
 		    a.`pay` pay,
-		    a.`customer_name` customerName,
+		    a.`customer_id` customerId,
+		    c.`customer_name` customerName,
 		    a.`customer_tel` customerTel,
 		    a.`address` address,
 		    a.`type` type,
@@ -33,6 +34,8 @@
 			group by `flow_id`
 		)b
 			on a.`flow_id`=b.`flow_id`
+		left join t_snack_customer_info c
+			on a.`customer_id` = c.`id`
 		where 1=1
 		<if test="flowId != null">
 			and a.`flow_id` = #{flowId,jdbcType=VARCHAR}
@@ -95,6 +98,7 @@
 			`flow_id`,
 			`state`,
 			`pay`,
+			`customer_id`,
 			`customer_name`,
 			`customer_tel`,
 			`address`,
@@ -113,6 +117,7 @@
 			#{proSaleInfo.flowId,jdbcType=VARCHAR},
 			#{proSaleInfo.state,jdbcType=DECIMAL},
 			#{proSaleInfo.pay,jdbcType=DECIMAL},
+			#{proSaleInfo.customerId,jdbcType=DECIMAL},
 			#{proSaleInfo.customerName,jdbcType=VARCHAR},
 			#{proSaleInfo.customerTel,jdbcType=VARCHAR},
 			#{proSaleInfo.address,jdbcType=VARCHAR},
@@ -132,7 +137,8 @@
    
    <update id="updOne">
 		update t_snack_sale_info
-		set `customer_name`=#{proSaleInfo.customerName,jdbcType=VARCHAR},
+		set `customer_id`=#{proSaleInfo.customerId,jdbcType=VARCHAR},
+		    `customer_name`=#{proSaleInfo.customerName,jdbcType=VARCHAR},
 			`customer_tel`=#{proSaleInfo.customerTel,jdbcType=VARCHAR},
 			`address`=#{proSaleInfo.address,jdbcType=VARCHAR},
 			`express`=#{proSaleInfo.express,jdbcType=VARCHAR},

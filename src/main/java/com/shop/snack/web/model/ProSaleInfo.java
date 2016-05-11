@@ -27,6 +27,7 @@ public class ProSaleInfo implements java.io.Serializable {
 	private String flowId;
 	private Integer state;
 	private Integer pay;
+	private Integer customerId;
 	private String customerName;
 	private String customerTel;
 	private String address;
@@ -184,6 +185,20 @@ public class ProSaleInfo implements java.io.Serializable {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	/**
+	 * @return the customerId
+	 */
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * @param customerId the customerId to set
+	 */
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 }

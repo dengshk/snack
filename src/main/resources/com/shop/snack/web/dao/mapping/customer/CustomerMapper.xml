@@ -10,6 +10,14 @@
 			a.`id`,
 			a.`customer_name` customerName,
 			a.`customer_tel` customerTel,
+			a.`customer_level` customerLevel,
+			case when a.`customer_level`=1 then '省级代理'
+			     when a.`customer_level`=2 then '市级代理'
+			     when a.`customer_level`=3 then '特约代理'
+			     when a.`customer_level`=4 then '终端代理'
+			     when a.`customer_level`=5 then '普通客户'
+			     else '其他'
+			end customerLevelName,
 			a.`address`,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime,
@@ -18,13 +26,13 @@
 		from t_snack_customer_info a
 		left join(
 			select
-				customer_name,
+				customer_id,
 				count(1) cnt,
 				sum(really_pay) really_pay
 			from t_snack_sale_info
-			group by customer_name
+			group by customer_id
 		)b
-			on a.customer_name=b.customer_name
+			on a.id=b.customer_id
 		where 1=1
 		<if test="id != null">
 			and a.`id` = #{id,jdbcType=DECIMAL}
@@ -39,7 +47,15 @@
 		select
 			a.`id`,
 			a.`customer_name` customerName,
+			a.`customer_level` customerLevel,
 			a.`customer_tel` customerTel,
+			case when a.`customer_level`=1 then '省级代理'
+			     when a.`customer_level`=2 then '市级代理'
+			     when a.`customer_level`=3 then '特约代理'
+			     when a.`customer_level`=4 then '终端代理'
+			     when a.`customer_level`=5 then '普通客户'
+			     else '其他'
+			end customerLevelName,
 			a.`address`,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime
@@ -69,13 +85,33 @@
    </select>
 
    <select id="queryById" parameterType="map" resultType="com.shop.snack.web.model.CustomerInfo">
-	  <include refid="whereCondition"/>
+		select
+			a.`id`,
+			a.`customer_name` customerName,
+			a.`customer_level` customerLevel,
+			a.`customer_tel` customerTel,
+			case when a.`customer_level`=1 then '省级代理'
+			     when a.`customer_level`=2 then '市级代理'
+			     when a.`customer_level`=3 then '特约代理'
+			     when a.`customer_level`=4 then '终端代理'
+			     when a.`customer_level`=5 then '普通客户'
+			     else '其他'
+			end customerLevelName,
+			a.`address`,
+			a.`modify_time` modifyTime,
+			a.`create_time` createTime
+		from t_snack_customer_info a
+		where 1=1
+		<if test="id != null">
+			and a.`id` = #{id,jdbcType=VARCHAR}
+		</if>
    </select>
 
    <insert id="addOne">
    		insert into t_snack_customer_info (
 			`customer_name`,
 			`customer_tel`,
+			`customer_level`,
 			`address`,
 			`modify_time`,
 			`create_time`
@@ -83,6 +119,7 @@
    		values(
 			#{customerInfo.customerName,jdbcType=VARCHAR},
 			#{customerInfo.customerTel,jdbcType=VARCHAR},
+			#{customerInfo.customerLevel,jdbcType=VARCHAR},
 			#{customerInfo.address,jdbcType=VARCHAR},
 			#{customerInfo.modifyTime,jdbcType=VARCHAR},
 			#{customerInfo.createTime,jdbcType=VARCHAR}
@@ -93,6 +130,7 @@
    		update t_snack_customer_info
    		set `customer_name`=#{customerInfo.customerName,jdbcType=VARCHAR},
    		    `customer_tel`=#{customerInfo.customerTel,jdbcType=VARCHAR},
+   		    `customer_level`=#{customerInfo.customerLevel,jdbcType=VARCHAR},
 			`address`=#{customerInfo.address,jdbcType=VARCHAR},
 			`modify_time`=#{customerInfo.modifyTime,jdbcType=VARCHAR}
    		where id = #{customerInfo.id,jdbcType=DECIMAL}
@@ -109,6 +147,14 @@
 			a.`id`,
 			a.`customer_name` customerName,
 			a.`customer_tel` customerTel,
+			a.`customer_level` customerLevel,
+			case when a.`customer_level`=1 then '省级代理'
+			     when a.`customer_level`=2 then '市级代理'
+			     when a.`customer_level`=3 then '特约代理'
+			     when a.`customer_level`=4 then '终端代理'
+			     when a.`customer_level`=5 then '普通客户'
+			     else '其他'
+			end customerLevelName,
 			a.`address`,
 			a.`modify_time` modifyTime,
 			a.`create_time` createTime

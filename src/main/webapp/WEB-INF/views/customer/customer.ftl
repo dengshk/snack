@@ -123,12 +123,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
 								<tr style="background-color:#EAEAEA;">
-									<th style="text-align:center;width:15%;">顾客姓名</th>
-									<th style="text-align:center;width:15%;">联系电话</th>
-									<th style="text-align:center;width:20%;">收获地址</th>
-									<th style="text-align:center;width:15%;">订单笔数(累计)</th>
-									<th style="text-align:center;width:15%;">消费金额(累计)</th>
-									<th style="text-align:center;width:20%;" colspan="2">操作</th>
+									<th style="text-align:center;width:12%;">顾客姓名</th>
+									<th style="text-align:center;width:12%;">顾客等级</th>
+									<th style="text-align:center;width:12%;">联系电话</th>
+									<th style="text-align:center;width:25%;">收获地址</th>
+									<th style="text-align:center;width:12%;">订单笔数(累计)</th>
+									<th style="text-align:center;width:12%;">消费金额(累计)</th>
+									<th style="text-align:center;width:15%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -136,11 +137,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p.customerName)!}</td>
+											<td align='center'>${(p.customerLevelName)!}</td>
 											<td align='center'>${(p.customerTel)!}</td>
 											<td align='left'>${(p.address)!}</td>
 											<td align='center'>${(p.totalOrder)!}</td>
 											<td align='center'>${(p.totalCost)!}</td>
-											<td align='center' colspan="2">
+											<td align='center'>
 												<a class="edit" href="#" id="${(p.id)!}">编辑</a>|
 												<a class="delete" href="#" id="${(p.id)!}" cname="${(p.customerName)!}">删除</a>
 											</td>
@@ -148,7 +150,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									</#list>
 								<#else>
 									<tr>
-										<td colspan="6" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+										<td colspan="7" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>

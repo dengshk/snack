@@ -22,8 +22,10 @@ function edit(customerId){
     //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
     $modal.load(contextPath + '/customer/edit',{"Content-type":"application/x-www-form-urlencoded",id:customerId},function(){
+    $modal.modal();
+	$('#customerLevel').select2();
 	//表单验证
-    $('#editUser').bootstrapValidator({
+    $('#editCustomer').bootstrapValidator({
 	        message: 'This value is not valid',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -55,29 +57,26 @@ function edit(customerId){
 		}).on('success.form.bv', function(e) {
 			// Prevent form submission
             e.preventDefault();
-            save();
+            saveCustomer();
         });
-	$(".save").click(function(){
-		$('#editUser').bootstrapValidator('validate');
-	});
-	$modal.modal();
+        //点击事件
+		$(".save").click(function(){
+			$('#editCustomer').bootstrapValidator('validate');
+		});
     });
 }
 
 /**
  * 保存新添或者修改
  */
-var unique= 0;
-function save(){
-	if(unique==0){//防止快速多次提交
-		unique++;
-		//判断是否通过验证
-		//if(!$("#editUser").valid()){
-		//	return false; //如果不通过则不提交
-		//}
+var uniqueFlag= 0;
+function saveCustomer(){
+	if(uniqueFlag==0){//防止快速多次提交
+		uniqueFlag++;
 		//获取信息
 		var _id = $("#id").val();
-		var _customerName =$("#customerName").val();
+		var _customerName = $("#customerName").val();
+		var _customerLevel = $("#customerLevel").val();
 		var _customerTel = $("#customerTel").val();
 		var _address = $("#address").val();
 		
@@ -87,11 +86,12 @@ function save(){
 			data:{
 				id:_id,
 				customerName:_customerName,
+				customerLevel:_customerLevel,
 				customerTel:_customerTel,
 				address:_address
 			},
 			success:function(data){
-				unique = 0;
+				uniqueFlag = 0;
 				if(data.msg==1){
 					window.location.href=contextPath+"/customer/customer";
 				}else{
@@ -105,6 +105,7 @@ function save(){
 				}
 			},
 			error:function(){
+				uniqueFlag = 0;
 				$.messager.alert('提示',"连接服务器失败！","error");
 			}
 		});

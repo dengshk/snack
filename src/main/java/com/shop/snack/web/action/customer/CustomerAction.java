@@ -127,4 +127,23 @@ public class CustomerAction {
 		map.put("customers", customers);
 		return map;
 	}
+	
+	/**
+	 * 查询
+	 * 
+	 * @param request
+	 * @param customerId
+	 * @return
+	 */
+	@RequestMapping(value = "/queryById")
+	public @ResponseBody
+	Map<String, Object> queryById(HttpServletRequest request, Integer customerId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("id", customerId);
+		CustomerInfo customer = customerService.queryById(params);
+		map.put("customer", customer);
+		return map;
+	}
 }

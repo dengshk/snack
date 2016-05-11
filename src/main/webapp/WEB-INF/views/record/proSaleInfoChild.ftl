@@ -110,15 +110,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<!-- 订货人 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">订货人:</label>
-							<select class="form-control input-small select2me" style="width:160px !important;" name="customerName" id="customerName">
+							<select class="form-control input-small select2me" style="width:160px !important;" name="customerId" id="customerId">
 								<#if customers?? && customers?size &gt; 0>
 									<option value="-1">请选择</option>
 									<#list customers as p>
-										<option value="${(p.customerName)!}" <#if proSaleInfo?? && proSaleInfo.customerName?? && proSaleInfo.customerName == p.customerName>selected="true"</#if>>${(p.customerName)!}</option>
+										<option value="${(p.id)!}" <#if proSaleInfo?? && proSaleInfo.customerId?? && proSaleInfo.customerId?number == p.id?number>selected="true"</#if>>${(p.customerName)!}</option>
 									</#list>
 								</#if>
 							</select>
 							<!--<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(proSaleInfo.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>-->
+						</div>
+						<!-- 顾客等级 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">顾客等级:</label>
+							<select class="form-control input-small select2me" style="width:160px !important;" name="customerLevel" id="customerLevel" disabled="disabled">
+								<option value="1" <#if customer?? && customer.customerLevel?? && customer.customerLevel == 1>selected="true"</#if>>省级代理</option>
+								<option value="2" <#if customer?? && customer.customerLevel?? && customer.customerLevel == 2>selected="true"</#if>>市级代理</option>
+								<option value="3" <#if customer?? && customer.customerLevel?? && customer.customerLevel == 3>selected="true"</#if>>特约代理</option>
+								<option value="4" <#if customer?? && customer.customerLevel?? && customer.customerLevel == 4>selected="true"</#if>>终端代理</option>
+								<option value="5" <#if customer?? && customer.customerLevel?? && customer.customerLevel == 5>selected="true"</#if>>普通客户</option>
+							</select>
 						</div>
 						<!-- 顾客电话 -->
 						<div class="form-group" style="margin-left:8px;">
@@ -278,11 +289,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
 
 	<script src="${application.getContextPath()}/js/record/proSaleInfoChild.js" type="text/javascript"></script>
-	
-	<!--订货人下拉提示-->
-	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui.min.css">
-	<script src="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui-min.js" type="text/javascript"></script>
-	<script src="${application.getContextPath()}/js/ajaxAutoComplete/ajaxCustomerName.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {    

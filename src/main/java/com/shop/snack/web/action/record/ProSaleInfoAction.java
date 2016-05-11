@@ -88,7 +88,7 @@ public class ProSaleInfoAction {
 		} else {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("flowId", flowId);
-			Map<String,Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
+			Map<String, Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
 			params.put("pageSize", pageSize);
 			params.put("pageIndex", pageIndex);
 			ProSaleInfo proSaleInfo = service.queryById(params);
@@ -99,6 +99,10 @@ public class ProSaleInfoAction {
 			PageBean page = proOrderLogService.queryPage(params);
 			mv.addObject("page", page);
 			mv.addObject("flowTotal", flowTotal);
+			// 客户信息
+			params.put("customerName", proSaleInfo.getCustomerName());
+			CustomerInfo customer = customerService.queryByName(params);
+			mv.addObject("customer", customer);
 		}
 		return mv;
 	}
@@ -187,26 +191,7 @@ public class ProSaleInfoAction {
 		msg.put("msg", re);
 		return msg;
 	}
-
-	/**
-	 * 查询
-	 * 
-	 * @param request
-	 * @param customerName
-	 * @return
-	 */
-	@RequestMapping(value = "/queryByName")
-	public @ResponseBody
-	Map<String, Object> queryByName(HttpServletRequest request, String customerName) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<String, Object>();
-
-		params.put("customerName", customerName);
-		CustomerInfo customer = customerService.queryByName(params);
-		map.put("customer", customer);
-		return map;
-	}
-
+	
 	@RequestMapping(value = "/createExport")
 	public @ResponseBody
 	String createExport(QueryBean bean, HttpServletRequest request) {

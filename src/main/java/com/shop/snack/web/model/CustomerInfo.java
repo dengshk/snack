@@ -25,6 +25,8 @@ public class CustomerInfo implements java.io.Serializable {
 	private Integer id;
 	private String customerName;
 	private String customerTel;
+	private Integer customerLevel;
+	private String customerLevelName;
 	private String address;
 	private String modifyTime;
 	private String createTime;
@@ -135,6 +137,34 @@ public class CustomerInfo implements java.io.Serializable {
 
 	public void setTotalCost(String totalCost) {
 		this.totalCost = totalCost;
+	}
+
+	/**
+	 * @return the customerLevel
+	 */
+	public Integer getCustomerLevel() {
+		return customerLevel;
+	}
+
+	/**
+	 * @param customerLevel the customerLevel to set
+	 */
+	public void setCustomerLevel(Integer customerLevel) {
+		this.customerLevel = customerLevel;
+	}
+
+	/**
+	 * @return the customerLevelName
+	 */
+	public String getCustomerLevelName() {
+		return customerLevelName;
+	}
+
+	/**
+	 * @param customerLevelName the customerLevelName to set
+	 */
+	public void setCustomerLevelName(String customerLevelName) {
+		this.customerLevelName = customerLevelName;
 	}
 
 }

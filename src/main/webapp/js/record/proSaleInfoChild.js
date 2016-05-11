@@ -3,8 +3,8 @@ $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
 		if($('#flowId').val()==null||$('#flowId').val()==""){
-			$.messager.alert('提示', '请先添加订货信息!', "error");
-			$('#proInfoForm').bootstrapValidator('validate');
+			$.messager.alert('提示', '请先保存一笔订货信息!', "error");
+			//$('#proInfoForm').bootstrapValidator('validate');
 		}else{
 			editOrder(_id);
 		}
@@ -99,18 +99,19 @@ $(function(){
             }, 'json');
         });
 	//选项改变补全订货人其他信息
-	$('#customerName').live('change',function(){
-		if($("#customerName").val()!=-1){
+	$('#customerId').live('change',function(){
+		if($("#customerId").val()!=-1){
 	        $.ajax({
 		          type : "post",
-		          url: contextPath+'/proSale/queryByName',
+		          url: contextPath+'/customer/queryById',
 		          data: {
-	    			customerName:$("#customerName").val()
+	    		      customerId:$("#customerId").val()
 		          },
 		          success: function( data ) {
 		              if(data.customer!=null){
 		        		  $("#customerTel").val(data.customer.customerTel);
 		        		  $("#address").val(data.customer.address);
+		        		  $("#customerLevel").select2("val", data.customer.customerLevel);
 		              }
 		          }
 		    });
@@ -190,6 +191,7 @@ function editOrder(_id){
 		//选项改变补全产品其他信息
 		$('#productName').live('change',function(){
 			if($("#productName").val()!=-1){
+				var customerLevel = $("#customerLevel").val();
 		        $.ajax({
 			          type : "post",
 			          url: contextPath+'/record/queryByID',
@@ -199,7 +201,17 @@ function editOrder(_id){
 			          success: function( data ) {
 			              if(data.product!=null){
 			        		  $("#costPrice").val(data.product.agent2Price);
-			        		  $("#salePrice").val(data.product.salePrice);
+			        		  if(customerLevel==1){
+				        		  $("#salePrice").val(data.product.agent1Price);
+			        		  }else if(customerLevel==2){
+			        		      $("#salePrice").val(data.product.agent2Price);
+			        		  }else if(customerLevel==3){
+			        		      $("#salePrice").val(data.product.agent3Price);
+			        		  }else if(customerLevel==4){
+			        		      $("#salePrice").val(data.product.agent4Price);
+			        		  }else if(customerLevel==5){
+			        		      $("#salePrice").val(data.product.salePrice);
+			        		  }
 			              }
 			          }
 			    });
