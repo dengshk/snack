@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.snack.web.dao.record.ProStockInfoDao">
+
+	<!-- 销售信息 开始 -->
+	<sql id="whereCondition">	
+		select
+			a.`id` id,
+		    a.`flow_id` flowId,
+		    a.`really_pay` reallyPay,
+		    a.`stock_num` stockNum,
+		    a.`express` express,
+		    a.`express_no` expressNo,
+		    a.`express_price` expressPrice,
+		    a.`tatal_cost` tatalCost,
+		    a.`stock_date` stockDate,
+		    a.`create_time` createTime
+		from t_snack_stock_info a
+		where 1=1
+		<if test="flowId != null">
+			and a.`flow_id` = #{flowId,jdbcType=VARCHAR}
+		</if>
+		<if test="starttime != null">
+			and a.`stock_date` &gt;= #{starttime,jdbcType=VARCHAR}
+		</if>
+		<if test="endtime != null">
+			and a.`stock_date` &lt;= #{endtime,jdbcType=VARCHAR}
+		</if>
+    </sql>
+    
+    <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
+		select count(b.flowId)
+  			from (<include refid="whereCondition"/> ) b
+	</select>
+
+ <select id="queryForList" parameterType="map" resultType="com.shop.snack.web.model.ProStockInfo">
+   <![CDATA[
+	   select a.*
+		          from (
+	 ]]>
+		<include refid="whereCondition"/>	         
+    <![CDATA[
+		   ) a
+		   order by stockDate desc
+		   limit #{lbound},#{pageSize} 
+	]]>
+   </select>
+   
+   <select id="queryByFlowId" parameterType="java.lang.String" resultType="com.shop.snack.web.model.ProStockInfo">
+		select
+			a.`id` id,
+		    a.`flow_id` flowId,
+		    a.`really_pay` reallyPay,
+		    a.`stock_num` stockNum,
+		    a.`express` express,
+		    a.`express_no` expressNo,
+		    a.`express_price` expressPrice,
+		    a.`tatal_cost` tatalCost,
+		    a.`stock_date` stockDate,
+		    a.`create_time` createTime
+		from t_snack_stock_info a
+		where 1=1
+			and a.`flow_id` = #{flowId}
+   </select>
+   
+   <!-- 物理删除用户 -->
+   <update id="deleteOne" parameterType="map">
+   		delete from  t_snack_stock_info
+   		where `flow_id` = #{flowId,jdbcType=DECIMAL}
+   </update>
+   
+</mapper>

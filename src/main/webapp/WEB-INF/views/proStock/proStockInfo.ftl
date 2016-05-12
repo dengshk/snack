@@ -49,12 +49,6 @@
 		    margin-right: 0;
 		}
 	</style>
-	
-	<!-- bootstrapValidator 开始 -->
-	<link href="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.css" rel="stylesheet">
-	<script src="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.js"></script>
-	<script src="${application.getContextPath()}/js/bootstrapValidator/zh_CN.js"></script>
-	<!-- bootstrapValidator 结束 -->
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -78,7 +72,7 @@
 							<div class="portlet-body">
 								<!--报表工具-->
 								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proStock/proStock" style="background:#fff !important;">
-									<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+									<form class="navbar-form form-inline navbar-left breadcrumb"  id="stockForm" onsubmit="return false;" >
 										<!--时间范围控件       开始-->
 										<div class="form-group">
 											<label class="control-label">时间范围:</label>
@@ -90,12 +84,6 @@
 										</div>
 										<a href="#" onclick="document.getElementById('queryTime').value=''"><i class="fa fa-rotate-left"></i></a>
 										<!--时间范围控件       结束-->
-										<!-- 产品名称开始 -->
-										<div class="form-group" style="margin-left:8px;">
-											<label class="control-label">产品名称:</label>
-											<input class="form-control" type="text" id="productName" name="productName" style="width:160px !important;" value="${(bean.productName)!}" placeholder="请输入产品名称"/>
-										</div>
-										<!-- 产品名称 结束 -->
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 									</form>
 								</div>
@@ -110,14 +98,16 @@
 									</div>
 								</div>
 								<!-- 查询条件 -->
-								<form  action="${application.getContextPath()}/proStock/proStock" id="pageForm" role="search" method="post" >
+								<form  action="${application.getContextPath()}/proStock/proStock" id="queryForm" role="search" method="post" >
 									<!--时间-->
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
-									<!--产品名称-->
-									<input type="hidden" id="productName_query" name="productName" value="${(bean.productName)!}"/>
-									<!--分页信息-->
-									<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
-									<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
+								</form>
+								<form  action="${application.getContextPath()}/proStock/flowInfo" id="flowInfoPage" role="search" method="post" >
+									<!--分页-->
+									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
+									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+									<!--修改id-->
+									<input type="hidden" id="editFlowId" name="flowId" value=""/>
 								</form>
 								<!--表单开始   开始-->
 								<div class="table-responsive table-scrollable">
@@ -125,13 +115,12 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;width:14%;" >进货日期</th>
-													<th style="text-align:center;width:14%;" >产品名称</th>
-													<th style="text-align:center;width:14%;" >产品类型</th>
-													<th style="text-align:center;width:14%;" >进货单价</th>
-													<th style="text-align:center;width:14%;" >进货数量</th>
-													<th style="text-align:center;width:14%;" >成本小计</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:16%;" >操作</th>
+													<th style="text-align:center;width:15%;">订单号</th>
+													<th style="text-align:center;width:12%;">进货日期</th>
+													<th style="text-align:center;width:12%;">成本总计</th>
+													<th style="text-align:center;width:12%;">邮费其他</th>
+													<th style="text-align:center;width:12%;">实付款</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:15%;">操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -140,15 +129,14 @@
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.productName)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.typeName)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.costPrice)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.orderNum)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.subtotalCost)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" name="${(ls.id)!'-'}">
-															<a href="#" class="edit" fid="${(ls.id)!}">编辑</a>|
-															<a href="#" class="delete" fid="${(ls.id)!}" fname="${(ls.productName)}">删除</a>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.stockDate)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.expressPrice)!'无'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
+															<a href="#" class="edit" fid="${(ls.flowId)!}">详单</a>|
+															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
 														</td>
 													</tr>
 												</#list>
@@ -183,7 +171,8 @@
 	<script src="${application.getContextPath()}/js/ejs_production.js" type="text/javascript"></script>
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
 	
-	<script src="${application.getContextPath()}/js/record/proStockInfo.js" type="text/javascript"></script>
+	<!--页面脚本-->
+	<script src="${application.getContextPath()}/js/proStock/proStockInfo.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
