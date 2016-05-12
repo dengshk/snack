@@ -21,7 +21,6 @@ $(function(){
 	//删除
 	$(".delete").live('click',function(){
 		var _id=$(this).attr("fid");
-		var _name=$(this).attr('fname');
 		$.messager.confirm('提示',"是否确定删除? ",function(data){
 			if(data){
 				$("#modal-backdrop").show();
@@ -35,7 +34,7 @@ $(function(){
 						if(data.msg==1){
 							$("#modal-backdrop").show();
 							$("#queryTime_query").val($("#queryTime").val());
-							$("#pageForm").submit();
+							$("#queryForm").submit();
 						}else{
 							$("#modal-backdrop").hide();
 							$.messager.alert('提示', '删除失败！', "error");

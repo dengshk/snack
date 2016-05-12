@@ -34,7 +34,7 @@ public class ProOrderLogAction {
 
 	@RequestMapping(value = "/deleteOne")
 	public @ResponseBody
-	Map<String, Object> deleteProduct(HttpServletRequest request, String id) {
+	Map<String, Object> deleteOne(HttpServletRequest request, String id) {
 		Map<String, Object> msg = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);

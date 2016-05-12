@@ -111,7 +111,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			            <div class="form-group" style="margin-left:8px;">
 			                <div class='input-group date' id='datetimepicker1' style="width:160px !important;">
 			                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			                    <input type='text' class="form-control" value="${(proStockInfo.stockDate)!}" id="orderDate" name="orderDate" style="width:160px !important;" />
+			                    <input type='text' class="form-control" value="${(proStockInfo.stockDate)!}" id="stockDate" name="stockDate" style="width:160px !important;" />
 			                </div>
 				        <script type="text/javascript">
 				            $(function () {
@@ -160,7 +160,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				</div>
 				<!--分页信息-->
 				<form id="editPage" action="${application.getContextPath()}/proStock/flowInfo" method="post">
-					<input type="hidden" id="editChild" name="flowId" value="${(proStockInfo.flowId)!}"/>
+					<input type="hidden" id="editFlowId" name="flowId" value="${(proStockInfo.flowId)!}"/>
 					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
 					<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
 				</form>

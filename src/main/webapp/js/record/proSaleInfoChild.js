@@ -49,8 +49,8 @@ $(function(){
                 validating: 'glyphicon glyphicon-refresh'
             },
 			fields: {
-				customerName: {
-					selector: '#customerName',
+				customerId: {
+					selector: '#customerId',
 					validators: {
 						callback: {
 	                        message: '请选择订货人',
@@ -175,7 +175,8 @@ function editOrder(_id){
 		            },
 		            orderNum:{
 		            	validators: {
-			            	notEmpty: {}
+			            	notEmpty: {},
+			            	digits: {}
 		            	}
 		            }
 				}

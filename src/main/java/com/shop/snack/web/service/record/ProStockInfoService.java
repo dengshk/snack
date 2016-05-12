@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.shop.snack.support.PageBean;
 import com.shop.snack.web.dao.record.ProStockInfoDao;
-import com.shop.snack.web.model.ProSaleInfo;
 import com.shop.snack.web.model.ProStockInfo;
 import com.shop.snack.web.service.commManager.BaseService;
 
@@ -68,5 +67,39 @@ public class ProStockInfoService extends BaseService {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
+	}
+	
+	/**
+	 * 添加
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer addOne(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = proStockInfoDao.addOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public Integer updOne(Map<String, Object> params) {
+		Integer re = -1;
+		try {
+			re = proStockInfoDao.updOne(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return re;
 	}
 }

@@ -121,7 +121,10 @@
 		    sum(order_num*sale_price) subtotalReally,
 		    sum(order_num*sale_price)-sum(order_num*cost_price) subtotalProfit
 		from t_snack_order_log
-		where type=2
+		where 1=1
+		<if test="type != null">
+			and `type` = #{type,jdbcType=DECIMAL}
+		</if>
 		<if test="flowId != null">
 			and `flow_id` = #{flowId,jdbcType=VARCHAR}
 		</if>

@@ -87,8 +87,11 @@ public class ProSaleInfoAction {
 			mv.addObject("page", null);
 		} else {
 			Map<String, Object> params = new HashMap<String, Object>();
+			//查询销售订单总计
+			params.put("type", 2);
 			params.put("flowId", flowId);
 			Map<String, Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
+			
 			params.put("pageSize", pageSize);
 			params.put("pageIndex", pageIndex);
 			ProSaleInfo proSaleInfo = service.queryById(params);

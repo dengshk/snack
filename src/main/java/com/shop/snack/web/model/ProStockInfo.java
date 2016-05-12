@@ -31,6 +31,7 @@ public class ProStockInfo implements java.io.Serializable {
 	private String expressPrice;
 	private String tatalCost;
 	private String stockDate;
+	private String modifyTime;
 	private String createTime;
 
 	/**
@@ -181,6 +182,14 @@ public class ProStockInfo implements java.io.Serializable {
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(String modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

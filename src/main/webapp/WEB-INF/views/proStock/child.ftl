@@ -19,8 +19,14 @@
 						产品名称
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="productName_child" type="text" class="form-control" id="productName_child" value="${(stockOrder.productName)!}" maxlength="20" placeholder="请输入产品名称">
-						<span class="help-block" for="productName_child"></span>
+						<select class="form-control  input-small select2me" maxlength="20" name="productName_child" id="productName_child">
+							<#if products?? && products?size &gt; 0>
+								<option value="-1">请选择</option>
+								<#list products as p>
+									<option value="${(p.id)!}" <#if stockOrder?? && stockOrder.productId?? && stockOrder.productId == p.id>selected="true"</#if>>${(p.name)!}</option>
+								</#list>
+							</#if>
+						</select>
 					</div>
 				</div>
 				<!--进货单价-->

@@ -1,6 +1,9 @@
 package com.shop.snack.web.action.record;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +13,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.support.PageBean;
+import com.shop.snack.web.model.ProOrderLog;
 import com.shop.snack.web.model.ProStockInfo;
+import com.shop.snack.web.model.Product;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.record.ProOrderLogService;
 import com.shop.snack.web.service.record.ProStockInfoService;
+import com.shop.snack.web.service.record.ProductService;
+import com.shop.snack.web.utils.StringUtils;
 import com.shop.snack.web.utils.TimeUtils;
 import com.shop.snack.web.utils.WebConstants;
 
@@ -32,6 +40,8 @@ public class ProStockInfoAction {
 	protected ProStockInfoService proStockInfoService;
 	@Autowired
 	protected ProOrderLogService proOrderLogService;
+	@Autowired
+	protected ProductService productService;
 
 	@RequestMapping(value = "/proStock")
 	public ModelAndView proStock(QueryBean bean, Integer pageIndex, Integer pageSize, HttpServletResponse response, HttpServletRequest request) {
@@ -72,8 +82,13 @@ public class ProStockInfoAction {
 		} else {
 			ProStockInfo proStockInfo = proStockInfoService.queryByFlowId(flowId);
 			PageBean page = proOrderLogService.queryPage(params);
+
+			//查询订单总计
+			params.put("type", 1);
+			Map<String, Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
 			
 			mv.addObject("proStockInfo", proStockInfo);
+			mv.addObject("flowTotal", flowTotal);
 			mv.addObject("page", page);
 		}
 
@@ -99,4 +114,123 @@ public class ProStockInfoAction {
 		return msg;
 	}
 
+	/**
+	 * 删除
+	 * 
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/saveStockInfo")
+	public @ResponseBody
+	Map<String, Object> saveStockInfo(@ModelAttribute ProStockInfo proStockInfo, HttpServletRequest request) {
+		Map<String, Object> msg = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Integer re = -1;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String time = df.format(new Date());
+		proStockInfo.setCreateTime(time);
+		proStockInfo.setModifyTime(time);
+		params.put("proStockInfo", proStockInfo);
+		// 进货日期为空,则为当天
+		if (proStockInfo.getStockDate() == null || "".equals(proStockInfo.getStockDate())) {
+			proStockInfo.setStockDate(time);
+		}
+		// 运费及其他
+		if (proStockInfo.getExpressPrice() == null || "".equals(proStockInfo.getExpressPrice())) {
+			proStockInfo.setExpressPrice(null);
+		}
+		// 判断是添加还是修改
+		if (proStockInfo.getFlowId() != null && !proStockInfo.getFlowId().equals("")) {
+			// 修改
+			re = proStockInfoService.updOne(params);
+		} else {
+			// 流水号生成
+			proStockInfo.setFlowId(StringUtils.getFlowId());
+			// 添加
+			re = proStockInfoService.addOne(params);
+		}
+		msg.put("flowId", proStockInfo.getFlowId());
+		msg.put("msg", re);
+		return msg;
+	}
+
+	@RequestMapping(value = "/editStockOrder")
+	public ModelAndView editUser(HttpServletRequest request, String id) {
+		ModelAndView mv = new ModelAndView("/proStock/child");
+		List<Product> products = productService.queryAll();
+		mv.addObject("products", products);
+		if (id != null && !id.equals("")) {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			ProOrderLog proOrderLog = proOrderLogService.queryById(params);
+			mv.addObject("stockOrder", proOrderLog);
+		} else {
+			mv.addObject("stockOrder", null);
+		}
+
+		return mv;
+	}
+
+	/**
+	 * 修改或者新添
+	 * 
+	 * @param ProOrderLog
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/saveOrder")
+	public @ResponseBody
+	Map<String, Integer> saveProduct(@ModelAttribute ProOrderLog proOrderLog, HttpServletRequest request) {
+		Map<String, Integer> re = new HashMap<String, Integer>();
+		Map<String, Object> productParams = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Integer num = -1;
+
+		// 通过产品名称查询产品信息
+		productParams.put("name", proOrderLog.getProductName());
+		Product product = productService.queryByName(productParams);
+		if (product != null) {
+			proOrderLog.setTypeId(product.getTypeId());
+			proOrderLog.setProductId(product.getId());
+
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+			String time = df.format(new Date());
+			proOrderLog.setCreateTime(time);
+			proOrderLog.setOrderDate(time);
+			params.put("proOrderLog", proOrderLog);
+			// 判断是添加还是修改
+			if (proOrderLog.getId() != null && !proOrderLog.getId().equals("")) {
+				// 修改
+				num = proOrderLogService.updOne(params);
+			} else {
+				// 添加
+				num = proOrderLogService.addOne(params);
+			}
+		} else {
+			num = 0;
+		}
+
+		re.put("msg", num);
+		return re;
+	}
+	
+	/**
+	 * 删除一比订单
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteOneOrder")
+	public @ResponseBody
+	Map<String, Object> deleteOneOrder(HttpServletRequest request, String id) {
+		Map<String, Object> msg = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		Integer re = proOrderLogService.deleteOne(params);
+		msg.put("msg", re);
+		return msg;
+	}
 }
