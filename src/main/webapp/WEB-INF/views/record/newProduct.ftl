@@ -145,7 +145,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<th style="text-align:center;width:8%;">终端代理</th>
 									<th style="text-align:center;width:8%;">统一零售价</th>
 									<th style="text-align:center;width:8%;">克数(g)</th>
-									<th style="text-align:center;width:8%;">保质期(天)</th>
+									<th style="text-align:center;width:8%;">保质期(月)</th>
 									<th style="text-align:center;width:8%;">产品状态</th>
 									<th style="text-align:center;width:16%;">操作</th>
 								</tr>

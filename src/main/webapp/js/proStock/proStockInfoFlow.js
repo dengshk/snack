@@ -11,6 +11,7 @@ $(function(){
 	//删除
 	$(".delete").live('click',function(){
 		var _id=$(this).attr("fid");
+		var _flowId =$("#flowId").val();
 		var _name=$(this).attr('fname');
 		$.messager.confirm('提示',"是否删除订单【"+_name+"】? ",function(data){
 			if(data){
@@ -19,7 +20,8 @@ $(function(){
 					type:"post", 
 					url:contextPath + "/proStock/deleteOneOrder",
 					data:{
-						id:_id
+						id:_id,
+						flowId:_flowId
 					},
 					success:function(data){
 						$("#modal-backdrop").hide();

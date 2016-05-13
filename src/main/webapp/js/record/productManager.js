@@ -172,7 +172,7 @@ function saveUser(){
 		var _salePrice = $("#salePrice").val();
 		var _grammage = $("#grammage").val();
 		var _expiration = $("#expiration").val();
-		var _typeId =$("#typeId").val();
+		var _typeId =$("#typeId_child").val();
 		var _state = -1;
 		if($("#state").is(':checked')){
 			_state=1;

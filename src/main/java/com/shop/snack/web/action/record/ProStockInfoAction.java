@@ -208,6 +208,8 @@ public class ProStockInfoAction {
 				// 添加
 				num = proOrderLogService.addOne(params);
 			}
+			// 更新订单数据
+			proStockInfoService.updOrderData(proOrderLog.getFlowId());
 		} else {
 			num = 0;
 		}
@@ -217,7 +219,7 @@ public class ProStockInfoAction {
 	}
 	
 	/**
-	 * 删除一比订单
+	 * 删除一笔订单
 	 * 
 	 * @param id
 	 * @param request
@@ -225,11 +227,13 @@ public class ProStockInfoAction {
 	 */
 	@RequestMapping(value = "/deleteOneOrder")
 	public @ResponseBody
-	Map<String, Object> deleteOneOrder(HttpServletRequest request, String id) {
+	Map<String, Object> deleteOneOrder(HttpServletRequest request, String id,String flowId) {
 		Map<String, Object> msg = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		Integer re = proOrderLogService.deleteOne(params);
+		// 更新订单数据
+		proStockInfoService.updOrderData(flowId);
 		msg.put("msg", re);
 		return msg;
 	}

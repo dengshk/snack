@@ -17,4 +17,7 @@ public interface ProStockInfoDao extends PageMapper {
 
 	// 修改
 	Integer updOne(Map<String, Object> params);
+	
+	// 更新订单数据
+	void updOrderData(String flowId);
 }

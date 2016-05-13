@@ -106,7 +106,7 @@
 						产品分类
 					</label>
 					<div class="input-icon right col-md-7">
-						<select class="form-control select2me" name="typeId" id="typeId">
+						<select class="form-control select2me" name="typeId" id="typeId_child">
 							<#if productTypes ?? && productTypes?size &gt; 0>
 								<#list productTypes as p>
 									<option value="${(p.typeId)!}" <#if product?? && product.typeId?? && p.typeId?number == product.typeId?number>selected="true"</#if>>${(p.typeName)!}</option>

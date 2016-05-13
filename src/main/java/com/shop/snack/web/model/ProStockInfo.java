@@ -26,10 +26,10 @@ public class ProStockInfo implements java.io.Serializable {
 	private String flowId;
 	private String reallyPay;
 	private Integer stockNum;
+	private String subtotalCost;
 	private String express;
 	private String expressNo;
 	private String expressPrice;
-	private String tatalCost;
 	private String stockDate;
 	private String modifyTime;
 	private String createTime;
@@ -140,21 +140,6 @@ public class ProStockInfo implements java.io.Serializable {
 	}
 
 	/**
-	 * @return the tatalCost
-	 */
-	public String getTatalCost() {
-		return tatalCost;
-	}
-
-	/**
-	 * @param tatalCost
-	 *            the tatalCost to set
-	 */
-	public void setTatalCost(String tatalCost) {
-		this.tatalCost = tatalCost;
-	}
-
-	/**
 	 * @return the stockDate
 	 */
 	public String getStockDate() {
@@ -190,6 +175,20 @@ public class ProStockInfo implements java.io.Serializable {
 
 	public void setModifyTime(String modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	/**
+	 * @return the subtotalCost
+	 */
+	public String getSubtotalCost() {
+		return subtotalCost;
+	}
+
+	/**
+	 * @param subtotalCost the subtotalCost to set
+	 */
+	public void setSubtotalCost(String subtotalCost) {
+		this.subtotalCost = subtotalCost;
 	}
 
 }

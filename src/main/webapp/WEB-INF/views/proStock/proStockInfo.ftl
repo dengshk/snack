@@ -90,9 +90,11 @@
 								<div class="table-toolbar">
 									<div class="btn-group">
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">新增&nbsp;<i class="fa fa-plus"></i></button>
+										<!--
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="export">导出&nbsp;<i class="fa fa-download"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="import">导入&nbsp;<i class="fa fa-upload"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" fileName="ImportTemplate" id="demo">导入模板&nbsp;<i class="fa fa-file-text-o"></i></button>
+										-->
 									</div>
 									<div class="btn-group pull-right">
 									</div>
@@ -115,12 +117,13 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;width:15%;">订单号</th>
+													<th style="text-align:center;width:20%;">订单号</th>
 													<th style="text-align:center;width:12%;">进货日期</th>
+													<th style="text-align:center;width:12%;">进货数量</th>
 													<th style="text-align:center;width:12%;">成本总计</th>
 													<th style="text-align:center;width:12%;">邮费其他</th>
 													<th style="text-align:center;width:12%;">实付款</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:15%;">操作</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:20%;">操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -131,7 +134,8 @@
 													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.stockDate)!'-'}</td>
-														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.stockNum)!'-'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.subtotalCost)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.expressPrice)!'无'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">

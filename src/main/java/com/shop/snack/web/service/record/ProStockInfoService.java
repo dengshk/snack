@@ -102,4 +102,19 @@ public class ProStockInfoService extends BaseService {
 		}
 		return re;
 	}
+	
+	/**
+	 * 修改
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public void updOrderData(String flowId) {
+		try {
+			proStockInfoDao.updOrderData(flowId);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
 }

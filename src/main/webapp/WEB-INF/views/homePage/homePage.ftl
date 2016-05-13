@@ -27,7 +27,6 @@
 	
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts3/echarts.min.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts3/macarons.js"></script>
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts3/echartsTools.js"></script>
 </head>
 <body class="page-header-fixed">
 	<!-- 上框 开始 -->   
@@ -42,57 +41,20 @@
 		<div class="page-content">
 			<div class="row">
 				<div class="col-md-12">
-					<!--无线宽带覆盖率-->
-					<div id="wirelessCover" style="width:80%;height:400px;float:left;margin-top:20px;margin-left:20px;"></div>
+					<!--累计盈利-->
+					<div id="chart4profit" style="width:95%;height:500px;float:left;margin-top:20px;margin-left:30px;"></div>
+					<!-- 分隔线  -->
+					<div style="width: 97%;float: left;margin-top:30px;margin-left:10px;argin-bottom:30px;vertical-align:middle;">
+						<div style="border-top:3px solid #ddd;height:1px;width: 100%;float: left;"></div>
+					</div>
+					<!--收支情况-->
+					<div id="chart4IO" style="width:95%;height:500px;float:left;margin-top:30px;margin-left:30px;"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-    <script type="text/javascript">
-    	var name = ['利润', '支出', '收入'];
-    	var ax = ['周一','周二','周三','周四','周五','周六','周日'];
-    	var series = [
-	        {
-	            name:'利润',
-	            type:'bar',
-	            label: {
-	                normal: {
-	                    show: true,
-	                    position: 'inside'
-	                }
-	            },
-	            data:[200, 170, 240, 244, 200, 220, 210]
-	        },
-	        {
-	            name:'收入',
-	            type:'bar',
-	            stack: '总量',
-	            label: {
-	                normal: {
-	                    show: true
-	                }
-	            },
-	            data:[320, 302, 341, 374, 390, 450, 420]
-	        },
-	        {
-	            name:'支出',
-	            type:'bar',
-	            stack: '总量',
-	            label: {
-	                normal: {
-	                    show: true,
-	                    position: 'left'
-	                }
-	            },
-	            data:[-120, -132, -101, -134, -190, -230, -210]
-	        }
-    	];
-		var quota = createData('收支情况' ,'vertical',name,ax,'金额(元)',series ,false,'line',0);
-		var quotaChart = echarts.init(document.getElementById('wirelessCover'), 'macarons');
-		quotaChart.setOption(quota);
-		window.onresize = quotaChart.resize;
-    </script>
-	<!--自定义js 结束-->
+	<script type="text/javascript" src="${application.getContextPath()}/js/homePage/homePage.js"></script>
+	<!--自定义js-->
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var winHeight = window.screen.height;

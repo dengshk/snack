@@ -340,3 +340,93 @@ begin
     where a.id=new.product_id
     ;
 end;
+
+
+
+
+/*==============================================================*/
+/* Procedure: pr_qry_snack_analysis 盈利情况分析                */
+/*==============================================================*/
+drop procedure if exists pr_qry_snack_analysis;
+delimiter //
+create procedure pr_qry_snack_analysis(
+    in p_qry_uid varchar(32),         -- 查询UUID
+    out rs int(1)                     -- 返回信息: -1 异常, 0 失败, 1 成功
+)
+sql security invoker comment '盈利情况分析'
+prc:
+begin
+    declare v_exe_sta_time datetime default now(); -- 统计执行时间: 默认为当前系统时间
+    
+    -- 默认值
+    set rs=0;
+    
+    -- 插入
+    delete from qry_snack_analysis where create_time<=date_sub(now(),interval 15 minute);
+    delete from qry_snack_analysis where qry_uuid=p_qry_uid;
+    insert into qry_snack_analysis(
+        qry_uuid,
+        cal_time,
+        day_express,
+        day_income,
+        day_expend,
+        day_profit,
+        total_express,
+        total_income,
+        total_expend,
+        total_profit,
+        create_time
+    )
+    select
+        p_qry_uid,
+        cal_time,
+        day_express,
+        day_income,
+        day_expend,
+        day_profit,
+        @express:=@express+day_express total_express,
+        @income:=@income+day_income total_income,
+        @expend:=@expend+day_expend total_expend,
+        @profit:=@profit+day_profit total_profit,
+        now()
+    from(
+        select
+            max(order_date) cal_time,
+            ifnull(sum(express_price),0) day_express,
+            ifnull(sum(case when type=2 then really_pay end),0) day_income,
+            ifnull(sum(case when type=1 then really_pay end),0) day_expend,
+            ifnull(sum(case when type=1 then -really_pay when type=2 then really_pay end)-ifnull(sum(express_price),0),0) day_profit
+        from(
+            select
+                2 type,
+                max(order_date) order_date,
+                sum(express_price) express_price,
+                sum(really_pay) really_pay
+            from t_snack_sale_info
+            group by order_date
+        union all
+            select
+                1 type,
+                max(stock_date),
+                sum(express_price),
+                sum(really_pay)
+            from t_snack_stock_info
+            group by stock_date
+        )a
+        group by order_date
+        order by cal_time asc
+    )a,(
+        select @express:=0,@income:=0,@expend:=0,@profit:=0
+    )b
+    ;
+    -- 提交
+    commit;
+    
+    -- 成功
+    set rs=1;
+end
+//
+delimiter ;
+
+call pr_qry_snack_analysis('dsk');
+select * from qry_snack_analysis;

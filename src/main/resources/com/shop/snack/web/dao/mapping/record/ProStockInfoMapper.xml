@@ -11,10 +11,10 @@
 		    a.`flow_id` flowId,
 		    a.`really_pay` reallyPay,
 		    a.`stock_num` stockNum,
+		    a.`subtotal_cost` subtotalCost,
 		    a.`express` express,
 		    a.`express_no` expressNo,
 		    a.`express_price` expressPrice,
-		    a.`tatal_cost` tatalCost,
 		    a.`stock_date` stockDate,
 		    a.`create_time` createTime
 		from t_snack_stock_info a
@@ -54,10 +54,10 @@
 		    a.`flow_id` flowId,
 		    a.`really_pay` reallyPay,
 		    a.`stock_num` stockNum,
+		    a.`subtotal_cost` subtotalCost,
 		    a.`express` express,
 		    a.`express_no` expressNo,
 		    a.`express_price` expressPrice,
-		    a.`tatal_cost` tatalCost,
 		    a.`stock_date` stockDate,
 		    a.`create_time` createTime
 		from t_snack_stock_info a
@@ -76,10 +76,10 @@
 			`flow_id`,
 			`really_pay`,
 			`stock_num`,
+			`subtotal_cost`,
 			`express`,
 			`express_no`,
 			`express_price`,
-			`tatal_cost`,
 			`stock_date`,
 			`modify_time`,
 			`create_time`
@@ -87,10 +87,10 @@
 			#{proStockInfo.flowId},
             #{proStockInfo.reallyPay},
             #{proStockInfo.stockNum},
+			#{proStockInfo.subtotalCost},
 			#{proStockInfo.express},
 			#{proStockInfo.expressNo},
 			#{proStockInfo.expressPrice},
-			#{proStockInfo.tatalCost},
 			#{proStockInfo.stockDate},
 			#{proStockInfo.modifyTime},
 			#{proStockInfo.createTime}
@@ -104,5 +104,21 @@
 			`stock_date`=#{proStockInfo.stockDate},
 			`modify_time`=#{proStockInfo.modifyTime}
 		where `flow_id`=#{proStockInfo.flowId,jdbcType=VARCHAR}
+   </update>
+   
+   <!-- 更新订单数据 -->
+   <update id="updOrderData">
+		update t_snack_stock_info a,(
+			select
+		        sum(order_num) order_num,
+		        sum(order_num*cost_price) subtotal_cost
+		    from t_snack_order_log
+		    where `type`=1
+		        and flow_id=#{flowId}
+		)b
+		set a.stock_num=b.order_num,
+		    a.subtotal_cost=b.subtotal_cost,
+		    a.modify_time=now()
+		where a.flow_id=#{flowId}
    </update>
 </mapper>
