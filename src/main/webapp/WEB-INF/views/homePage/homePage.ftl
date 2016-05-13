@@ -42,7 +42,11 @@
 			<div class="row">
 				<div class="col-md-12">
 					<!--累计盈利-->
-					<div id="chart4profit" style="width:95%;height:500px;float:left;margin-top:20px;margin-left:30px;"></div>
+					<div style="width:95%;height:500px;float:left;">
+						<div id="chart4profit" style="width:90%;height:400px;float:left;margin-top:20px;margin-left:30px;">
+							<div class="clearfix"></div>
+						</div>
+					</div>
 					<!-- 分隔线  -->
 					<div style="width: 97%;float: left;margin-top:30px;margin-left:10px;argin-bottom:30px;vertical-align:middle;">
 						<div style="border-top:3px solid #ddd;height:1px;width: 100%;float: left;"></div>
