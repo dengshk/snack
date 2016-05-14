@@ -1,4 +1,3 @@
-unique = 0;
 $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
@@ -132,7 +131,7 @@ function editOrder(_id){
 		$modal.modal();
 		$('#productName').select2();
 		//表单验证
-	    $('#editUser').bootstrapValidator({
+	    $('#editChildPage').bootstrapValidator({
 		        message: 'This value is not valid',
 	            feedbackIcons: {
 	                valid: 'glyphicon glyphicon-ok',
@@ -186,8 +185,8 @@ function editOrder(_id){
 	            saveOrder();
 	        });
 	    //点击事件
-		$("#saveBtn").click(function(){
-			$('#editUser').bootstrapValidator('validate');
+		$("#saveBtn_child").click(function(){
+			$('#editChildPage').bootstrapValidator('validate');
 		});
 		//选项改变补全产品其他信息
 		$('#productName').live('change',function(){

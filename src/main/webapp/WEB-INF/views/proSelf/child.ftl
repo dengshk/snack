@@ -18,7 +18,7 @@
 						产品名称
 					</label>
 					<div class="input-icon right col-md-7">
-						<select class="form-control  input-small select2me" maxlength="20" name="productName" id="productName_child">
+						<select class="form-control  input-small select2me" maxlength="20" name="productName_child" id="productName_child">
 							<#if products?? && products?size &gt; 0>
 								<option value="-1">请选择</option>
 								<#list products as p>
@@ -35,7 +35,7 @@
 						进货单价
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="costPrice" type="text" class="form-control" id="costPrice_child" value="${(saleOrder.costPrice)!}" maxlength="20" placeholder="请输入进货单价">
+						<input name="costPrice_child" type="text" class="form-control" id="costPrice_child" value="${(saleOrder.costPrice)!}" maxlength="20" placeholder="请输入进货单价">
 						<span class="help-block" for="costPrice"></span>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 						自销数量
 					</label>
 					<div class="input-icon right col-md-7">
-						<input name="orderNum" type="text" class="form-control" id="orderNum_child" value="${(saleOrder.orderNum)!}" maxlength="20" placeholder="请输入销售数量"
+						<input name="orderNum_child" type="text" class="form-control" id="orderNum_child" value="${(saleOrder.orderNum)!}" maxlength="20" placeholder="请输入销售数量"
 							onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 						<span class="help-block" for="orderNum"></span>
 					</div>

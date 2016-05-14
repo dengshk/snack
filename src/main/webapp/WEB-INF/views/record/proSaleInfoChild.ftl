@@ -195,7 +195,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				<!--新增-->
 				<div class="table-toolbar">
 					<div class="btn-group">
-						<button class="btn blue editOrder" style="height:31px;width:82px;margin-top:8px;margin-left:0px;">新增&nbsp;<i class="fa fa-plus"></i></button>
+						<button class="btn blue editUser" style="height:31px;width:82px;margin-top:8px;margin-left:0px;">新增&nbsp;<i class="fa fa-plus"></i></button>
 						<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;"  id="back"  onClick="goBack();">返回&nbsp;<i class="fa fa-mail-reply"></i></button>
 					</div>
 				</div>

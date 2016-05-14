@@ -153,7 +153,7 @@ function editOrder(_id){
 	            saveOrder();
 	        });
 	    //点击事件
-		$("#saveBtn").click(function(){
+		$("#save_child").click(function(){
 			$('#editStockChild').bootstrapValidator('validate');
 		});
 		//选项改变补全产品其他信息

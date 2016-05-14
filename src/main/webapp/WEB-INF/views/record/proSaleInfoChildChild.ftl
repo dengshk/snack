@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<div class="portlet-body form">
-		<form class="form-horizontal form-bordered form-row-seperated" id="editUser" method="post" onsubmit="return false;">
+		<form class="form-horizontal form-bordered form-row-seperated" id="editChildPage" method="post" onsubmit="return false;">
 			<input name="id" type="hidden" id="id" value="${(saleOrder.id)!}"/>
 			<input name="flowId" type="hidden" id="flowId" value="${(saleOrder.flowId)!}"/>
 			<input name="productId" type="hidden" id="productId" value="${(saleOrder.productId)!}"/>
@@ -65,7 +65,7 @@
 					</div>
 				</div>
 			<div class="form-actions modal-footer">
-				<button type="button" class="btn blue saveOrder" type="submit">确定</button>
+				<button type="button" class="btn blue saveOrder" id="saveBtn_child" type="submit">确定</button>
 				<button type="button" class="btn default" data-dismiss="modal">取消</button>
 			</div>
 		</form>
