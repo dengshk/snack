@@ -21,6 +21,7 @@ import com.shop.snack.support.PageBean;
 import com.shop.snack.web.model.CustomerInfo;
 import com.shop.snack.web.model.QueryBean;
 import com.shop.snack.web.service.customer.CustomerService;
+import com.shop.snack.web.service.record.ProSaleInfoService;
 
 @Controller
 @RequestMapping("/customer")
@@ -28,6 +29,8 @@ public class CustomerAction {
 
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private ProSaleInfoService proSaleInfoService;
 
 	private static Logger logger = LoggerFactory.getLogger(CustomerAction.class);
 
@@ -35,10 +38,19 @@ public class CustomerAction {
 	public ModelAndView customer(QueryBean bean, HttpServletRequest request, Integer pageIndex, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("/customer/customer");
 		Map<String, Object> params = new HashMap<String, Object>();
+
+		// 更新销售数据
+		proSaleInfoService.updSaleInfoData();
+
 		params.put("pageSize", pageSize);
 		params.put("pageIndex", pageIndex);
+		// 顾客名称
 		if (bean.getCustomerName() != null && !bean.getCustomerName().equals("")) {
 			params.put("customerName", bean.getCustomerName());
+		}
+		// 顾客等级
+		if (bean.getCustomerLevel() != null && !bean.getCustomerLevel().equals("") && bean.getCustomerLevel() != -1) {
+			params.put("customerLevel", bean.getCustomerLevel());
 		}
 		PageBean page = customerService.queryCustomer(params);
 		mv.addObject("page", page);
@@ -127,7 +139,7 @@ public class CustomerAction {
 		map.put("customers", customers);
 		return map;
 	}
-	
+
 	/**
 	 * 查询
 	 * 

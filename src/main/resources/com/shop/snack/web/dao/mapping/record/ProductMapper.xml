@@ -28,7 +28,7 @@
 			a.`taste`,
 			ifnull(c.`nums`,0) nums,
 			ifnull(c.`accNums`,0) accNums,
-			a.`modify_time` modifyTime,
+			date_format(modify_time,'%Y/%m/%d %T') modifyTime,
 			a.`create_time` createTime
 		from t_snack_product a
 		left join t_snack_product_classify b

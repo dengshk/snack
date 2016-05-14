@@ -26,4 +26,7 @@ public interface ProSaleInfoDao extends PageMapper {
 
 	// 导出查询
 	List<Map<String, Object>> query4Export(Map<String, Object> params);
+	
+	// 更新销售数据
+	void updSaleInfoData();
 }

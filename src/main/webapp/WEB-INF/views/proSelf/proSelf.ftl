@@ -18,8 +18,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<meta content="" name="description" />
 	<meta content="" name="yaon" />
 	<meta name="MobileOptimized" content="320">       	
-	<link href="${application.getContextPath()}/scripts/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 	<link href="${application.getContextPath()}/scripts/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="${application.getContextPath()}/scripts/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 	<link href="${application.getContextPath()}/scripts/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL PLUGIN STYLES --> 
@@ -37,7 +37,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-datepicker/css/datepicker.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-timepicker/compiled/timepicker.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-colorpicker/css/colorpicker.css" />
-	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+	
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/jquery-multi-select/css/multi-select.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-switch/static/stylesheets/bootstrap-switch-metro.css"/>
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/jquery-tags-input/jquery.tagsinput.css" />
@@ -60,14 +60,19 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		margin-right: 0px !important;
 		}
 	</style>
-	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/jquery-1.10.2.min.js"></script>
 	
 	<!-- bootstrapValidator 开始 -->
 	<link href="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.css" rel="stylesheet">
 	<script src="${application.getContextPath()}/js/bootstrapValidator/bootstrapValidator.js"></script>
 	<script src="${application.getContextPath()}/js/bootstrapValidator/zh_CN.js"></script>
 	<!-- bootstrapValidator 结束 -->
-</head>
+	
+	<!-- 开始    日期范围控件脚本  -->
+	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-daterangepicker/daterangepicker_amend.js"></script>
+	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/form-dateRanges_amend.js"></script>
+	
+    </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed">
@@ -87,8 +92,19 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<!--报表正文-->
 			<div class="portlet-body">
 			<!--报表工具-->
-			<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/record/newProduct" style="background:#fff !important;">
-				<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+			<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSelf/proSelf" style="background:#fff !important;">
+				<form class="navbar-form form-inline navbar-left breadcrumb"  id="conditionForm" onsubmit="return false;" >
+					<!--时间范围控件       开始-->
+					<div class="form-group">
+						<label class="control-label">时间范围:</label>
+						<div class="form-group" id="reportrange" dateFormat="YYYY.MM.DD" beforNdays="1" timeP="false" timeM="false" showDays="true"  style="width:165px;">
+							<div class="input-icon right" data-date-start-date="-30d"  style="width:165px;">
+								<input type="text" class="form-control report-input" id="queryTime" name="queryTime" value="${(bean.queryTime)!}" readOnly style=" padding-right: 15px !important;width:165px !important;" />
+							</div>
+						</div>
+					</div>
+					<a href="#" onclick="document.getElementById('queryTime').value=''"><i class="fa fa-rotate-left"></i></a>
+					<!--时间范围控件       结束-->
 					<!--产品分类-->
 					<div class="form-group" style="margin-left:8px;">
 						<label class="control-label">产品类型:</label>
@@ -109,76 +125,76 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 					<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 				</form>
 			</div>
-			<!-- 查询条件 -->
-			<form  action="${application.getContextPath()}/record/newProduct" id="pageForm" role="search" method="post" >
-				<!--产品分类-->
-				<input type="hidden" id="typeId" name="typeId" value="${(bean.typeId)!}"/>
-				<!--产品名称-->
-				<input type="hidden" id="productName" name="productName" value="${(bean.productName)!}"/>
-				<!--分页-->
-				<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
-				<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
-			</form>
-				
+				<!--新增-->
 				<div class="table-toolbar">
 					<div class="btn-group">
-						<button class="btn blue editUser">
-						 <i class="fa fa-plus"></i> &nbsp;新增产品
-						</button>
+						<button class="btn blue editOrder" style="height:31px;width:82px;margin-top:8px;margin-left:0px;">新增&nbsp;<i class="fa fa-plus"></i></button>
 					</div>
 				</div>
+				<!--分页信息-->
+				<form id="editPage" action="${application.getContextPath()}/proSelf/proSelf" method="post">
+					<input type="hidden" id="flowId_query" name="flowId" value="${(Session.user.userid)!}"/>
+					<!--时间-->
+					<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
+					<!--产品分类-->
+					<input type="hidden" id="typeId_query" name="typeId" value="${(bean.typeId)!}"/>
+					<!--产品名称-->
+					<input type="hidden" id="productName_query" name="productName" value="${(bean.productName)!}"/>
+					<!--分页-->
+					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
+					<input type="hidden" name="pageSize" value="${(page.pageSize)!50}" />
+				</form>
 				<!--报表列属性名-->
-				<form id="submitform" action="${application.getContextPath()}/record/newProduct" method="post">
-					<div class="table-responsive table-scrollable" style="height:<#if !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
+				<form id="submitform" action="${application.getContextPath()}//proSelf/proSelf" method="post">
+					<div class="table-responsive table-scrollable" style="height:<#if !(page??) || !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
 								<tr style="background-color:#EAEAEA;">
-									<th style="text-align:center;width:12%;">产品名称</th>
-									<th style="text-align:center;width:7%;">产品类型</th>
-									<th style="text-align:center;width:7%;">省级代理</th>
-									<th style="text-align:center;width:7%;">市级代理</th>
-									<th style="text-align:center;width:7%;">特约代理</th>
-									<th style="text-align:center;width:7%;">终端代理</th>
-									<th style="text-align:center;width:7%;">统一零售价</th>
-									<th style="text-align:center;width:7%;">克数(g)</th>
-									<th style="text-align:center;width:7%;">保质期(月)</th>
-									<th style="text-align:center;width:7%;">产品状态</th>
-									<th style="text-align:center;width:12%;">修改时间</th>
-									<th style="text-align:center;width:13%;">操作</th>
+									<!--<th class="table-checkbox">
+										<span>
+											<input class="group-checkable" data-set="#childs .checkboxes" type="checkbox" >
+										</span>
+									</th>-->
+									<th style="text-align:center;width:6%;">序号</th>
+									<th style="text-align:center;width:14%;">产品名称</th>
+									<th style="text-align:center;width:12%;">产品类型</th>
+									<th style="text-align:center;width:12%;">进货单价</th>
+									<th style="text-align:center;width:12%;">自销数量</th>
+									<th style="text-align:center;width:12%;">成本小计</th>
+									<th style="text-align:center;width:16%;">修改时间</th>
+									<th style="text-align:center;width:16%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								 <#if page.list?? &&  page.list?size &gt; 0>
+								 <#if page?? && page.list?? &&  page.list?size &gt; 0>
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
-											<td align='center'>${(p.name)!}</td>
+											<td align='center'>${(p_index)!}</td>
+											<td align='center'>${(p.productName)!}</td>
 											<td align='center'>${(p.typeName)!}</td>
-											<td align='center'>${(p.agent1Price)!}</td>
-											<td align='center'>${(p.agent2Price)!}</td>
-											<td align='center'>${(p.agent3Price)!}</td>
-											<td align='center'>${(p.agent4Price)!}</td>
-											<td align='center'>${(p.salePrice)!}</td>
-											<td align='center'>${(p.grammage)!}</td>
-											<td align='center'>${(p.expiration)!}</td>
-											<td align='center'>
-												<#if (p.state)?? && p.state==1>在售</#if>
-												<#if (p.state)?? && p.state==0>下架</#if>
-											</td>
+											<td align='center'>${(p.costPrice)!}</td>
+											<td align='center'>${(p.orderNum)!}</td>
+											<td align='center'>${(p.subtotalCost)!}</td>
 											<td align='center'>${(p.modifyTime)!}</td>
-											<td align='center' colspan="3">
-												<a class="editUser" href="#" id="${(p.id)!}">修改</a>|
-												<a class="resSta changeUserState" align='center' href="#" id="${(p.id)!}" _islock="${(p.state)!}" >
-													<#if (p.state)?? && p.state==1>下架</#if>
-													<#if (p.state)?? && p.state==0>在售</#if>
-												</a>
-													|
-												<a class="deleteUser" href="#" id="${(p.id)!}" un="${(p.name)!}" userid="${(p.id)!}">删除</a>
+											<td align='center'>
+												<a class="editOrder" href="#" fid="${(p.id)!}">修改</a>|
+												<a class="delete" href="#" fid="${(p.id)!}" fname="${(p.productName)}">删除</a>
 											</td>
 										</tr>
 									</#list>
+									<tr style="height:37px;font-weight:bold;background-color:#EAEAEA;">
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >总计</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.orderNum)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalCost)!}</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+									</tr>
 								<#else>
 									<tr>
-										<td colspan="11" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+										<td colspan="8" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>
@@ -192,33 +208,27 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 	</div>
 </div>
 		</div>
-	
 		<!--dialog请求层-->
 		<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
-		<div class="modal fade" id="ajax" tabindex="-1" role="basic" aria-hidden="true">
-		</div>
+		<div class="modal fade" id="ajax" tabindex="-1" role="basic" aria-hidden="true"></div>
 	</div>
 	<!--分页-->
 	<script type="text/javascript" src="${application.getContextPath()}/js/ejs_production.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-pages.js"></script>	
-	
-	<script type="text/javascript" src="${application.getContextPath()}/js/record/productManager.js"></script>
-	<!--<script type="text/javascript" src="${application.getContextPath()}/js/userManager/initSelect.js"></script>-->
-	<!--复选框 -->
-	<script src="${application.getContextPath()}/scripts/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
-	<!--验证--> 	
-	<script type="text/javascript" src="${application.getContextPath()}/js/record/validater.js"></script>	
-	
+	<!--页面脚本-->
+	<script src="${application.getContextPath()}/js/proSelf/proSelf.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	jQuery(document).ready(function() {    
+	jQuery(document).ready(function() {
+		   //设置日期控件
+		   DateRanges.init('reportrange'); 
 		   PageUtils.init({
 				"sync" : true, //异步或者form提交,默认form提交
 				"method" : -1,
 			   	"lengthMenu": [10, 15, 20, 50],
-		        "defaultLength": ${(page.pageSize)!10},      
+		        "defaultLength": ${(page.pageSize)!50},      
 		        "pageIndex":${(page.pageIndex)!1},
 		        "total": ${(page.totalPage)!1},     
-		        "form":"pageForm",
+		        "form":"editPage",
 		        "displayContainer":"containerPage",
 		        "language": "zh"         //语言  zh or en
 		   });
@@ -227,7 +237,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		var winHeight = window.screen.height;
 		$('.page-content').css('min-height',winHeight);
 		$("#modal-backdrop").hide();
-    });	
+    });
 	</script>
 </body>
 <!-- END BODY -->

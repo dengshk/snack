@@ -59,8 +59,6 @@ public class ProSaleInfoAction {
 		// 分页条件
 		params.put("pageIndex", pageIndex == null ? WebConstants.PAGE_DEFAULT_PAGEINDEX : pageIndex);
 		params.put("pageSize", pageSize == null ? WebConstants.PAGE_DEFAULT_PAGESIZE : pageSize);
-		// 订货人
-		params.put("customerName", (bean.getCustomerName() == null || bean.getCustomerName().equals("") ? null : bean.getCustomerName()));
 		// 时间条件
 		if (bean != null && bean.getQueryTime() != null && !bean.getQueryTime().equals("")) {
 			Map<String, String> time = TimeUtils.getSETime(bean.getQueryTime());
@@ -68,15 +66,21 @@ public class ProSaleInfoAction {
 			params.put("endtime", time.get("endtime") + " 23:59:59");
 		}
 
-		PageBean page = service.queryPage(params);
+		// 订货人
+		List<CustomerInfo> customers = customerService.searchCustomersById(null);
+		Integer customerId = (bean.getCustomerId() == null || bean.getCustomerId().equals("") || bean.getCustomerId() == -1) ? null : bean.getCustomerId();
+		params.put("customerId", customerId);
 
+		PageBean page = service.queryPage(params);
+		
+		mv.addObject("customers", customers);
 		mv.addObject("bean", bean);
 		mv.addObject("page", page);
 		return mv;
 	}
 
 	@RequestMapping(value = "/child")
-	public ModelAndView child(QueryBean bean, Integer pageIndex, Integer pageSize, String flowId, HttpServletResponse response, HttpServletRequest request) {
+	public ModelAndView child(Integer pageIndex, Integer pageSize, String flowId, HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/record/proSaleInfoChild");
 		// 顾客信息
 		List<CustomerInfo> customers = customerService.searchCustomersByName(null);
@@ -87,13 +91,14 @@ public class ProSaleInfoAction {
 			mv.addObject("page", null);
 		} else {
 			Map<String, Object> params = new HashMap<String, Object>();
-			//查询销售订单总计
+			// 查询销售订单总计
 			params.put("type", 2);
 			params.put("flowId", flowId);
 			Map<String, Object> flowTotal = proOrderLogService.queryFlowIdTotal(params);
-			
-			params.put("pageSize", pageSize);
-			params.put("pageIndex", pageIndex);
+
+			// 分页条件
+			params.put("pageIndex", pageIndex == null ? WebConstants.PAGE_DEFAULT_PAGEINDEX : pageIndex);
+			params.put("pageSize", pageSize == null ? 50 : pageSize);
 			ProSaleInfo proSaleInfo = service.queryById(params);
 			mv.addObject("proSaleInfo", proSaleInfo);
 			// 销售订单查询
@@ -194,7 +199,7 @@ public class ProSaleInfoAction {
 		msg.put("msg", re);
 		return msg;
 	}
-	
+
 	@RequestMapping(value = "/createExport")
 	public @ResponseBody
 	String createExport(QueryBean bean, HttpServletRequest request) {

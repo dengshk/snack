@@ -35,6 +35,7 @@ public class ProSaleInfo implements java.io.Serializable {
 	private String express;
 	private String expressNo;
 	private String expressPrice;
+	private Integer saleNum;
 	private String tatalCost;
 	private String originPay;
 	private String reallyPay;
@@ -199,6 +200,14 @@ public class ProSaleInfo implements java.io.Serializable {
 	 */
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public Integer getSaleNum() {
+		return saleNum;
+	}
+
+	public void setSaleNum(Integer saleNum) {
+		this.saleNum = saleNum;
 	}
 
 }

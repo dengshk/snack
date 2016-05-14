@@ -5,7 +5,9 @@ public class QueryBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String queryTime;// 查询时间段
+	private Integer customerId;// 顾客姓名
 	private String customerName;// 顾客姓名
+	private Integer customerLevel;// 顾客等级
 	private String productName;// 产品名称
 
 	private Integer typeId;// 产品类型ID
@@ -63,6 +65,22 @@ public class QueryBean implements java.io.Serializable {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public Integer getCustomerLevel() {
+		return customerLevel;
+	}
+
+	public void setCustomerLevel(Integer customerLevel) {
+		this.customerLevel = customerLevel;
 	}
 
 }

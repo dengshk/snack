@@ -19,6 +19,7 @@
 		    a.`express` express,
 		    a.`express_no` expressNo,
 		    a.`express_price` expressPrice,
+		    b.saleNum,
 		    b.`orderPrice` tatalCost,
 		    a.`origin_pay` originPay,
 		    a.`really_pay` reallyPay,
@@ -29,6 +30,7 @@
 		left join(
 			select
 				`flow_id`,
+				sum(order_num) saleNum,
 				sum(`cost_price`*`order_num`) orderPrice
 			from t_snack_order_log
 			group by `flow_id`
@@ -42,6 +44,9 @@
 		</if>
 		<if test="customerName != null">
 			and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="customerId != null">
+			and a.`customer_id` = #{customerId,jdbcType=DECIMAL}
 		</if>
 		<if test="starttime != null">
 			and a.`order_date` &gt;= #{starttime,jdbcType=VARCHAR}
@@ -182,4 +187,22 @@
 		order by a.flow_id
    </select>
    
+   <!-- 更新销售数据 -->
+   <update id="updSaleInfoData">
+	   update t_snack_sale_info a,(
+		    select
+		            flow_id,
+		            sum(order_num) sale_num,
+		            sum(order_num*cost_price) tatal_cost,
+		            sum(order_num*sale_price) origin_pay    
+		    from t_snack_order_log a
+		    where a.type=2
+		    group by flow_id
+		)b
+		set a.sale_num=b.sale_num,
+		    a.tatal_cost=b.tatal_cost,
+		    a.origin_pay=b.origin_pay,
+		    a.profit=a.really_pay-ifnull(b.tatal_cost,0)-ifnull(a.express_price,0)
+		where a.flow_id=b.flow_id
+	</update>
 </mapper>

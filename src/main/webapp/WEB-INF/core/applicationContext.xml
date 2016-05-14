@@ -22,6 +22,7 @@
 				/home/** = authc
 				/record/** = authc
 				/proSale/** = authc
+				/proSelf/** = authc
 				/proStock/** = authc
 				/inventory/** = authc
 				/customer/** = authc

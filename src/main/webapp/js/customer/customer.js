@@ -9,6 +9,7 @@
 	$("#querybtn").click(function(){
 		$("#modal-backdrop").show();
 		$("#customerName_submit").val($("#qry_customerName").val());
+		$("#customerLevel_submit").val($("#qry_customerLevel").val());
 		$("#pageForm").submit();
 	});
 })(jQuery);

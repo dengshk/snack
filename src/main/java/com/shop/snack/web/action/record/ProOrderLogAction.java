@@ -85,6 +85,7 @@ public class ProOrderLogAction {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 			String time = df.format(new Date());
 			proOrderLog.setCreateTime(time);
+			proOrderLog.setModifyTime(time);
 			proOrderLog.setOrderDate(time);
 			params.put("proOrderLog", proOrderLog);
 			// 判断是添加还是修改

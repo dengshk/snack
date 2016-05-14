@@ -72,7 +72,7 @@ public class ProStockInfoAction {
 
 		// 分页条件
 		params.put("pageIndex", pageIndex == null ? WebConstants.PAGE_DEFAULT_PAGEINDEX : pageIndex);
-		params.put("pageSize", pageSize == null ? WebConstants.PAGE_DEFAULT_PAGESIZE : pageSize);
+		params.put("pageSize", pageSize == null ? 50 : pageSize);
 		params.put("flowId", flowId);
 
 		// 流水ID(新增/修改)
@@ -182,7 +182,7 @@ public class ProStockInfoAction {
 	 */
 	@RequestMapping(value = "/saveOrder")
 	public @ResponseBody
-	Map<String, Integer> saveProduct(@ModelAttribute ProOrderLog proOrderLog, HttpServletRequest request) {
+	Map<String, Integer> saveOrder(@ModelAttribute ProOrderLog proOrderLog, HttpServletRequest request) {
 		Map<String, Integer> re = new HashMap<String, Integer>();
 		Map<String, Object> productParams = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -198,6 +198,7 @@ public class ProStockInfoAction {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 			String time = df.format(new Date());
 			proOrderLog.setCreateTime(time);
+			proOrderLog.setModifyTime(time);
 			proOrderLog.setOrderDate(time);
 			params.put("proOrderLog", proOrderLog);
 			// 判断是添加还是修改

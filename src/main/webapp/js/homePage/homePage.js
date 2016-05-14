@@ -1,6 +1,6 @@
 $(function(){
 	loadChart4profit();
-	loadChart4IO();
+	//loadChart4IO();
 });
 
 //加载累计利益图
@@ -8,8 +8,23 @@ function loadChart4profit(){
 	var quota = {
 	    title: {
 	        text: '累计盈亏图',
-	        subtext: '累计盈利与亏损分析'
+	        x: 'center',
+	        textStyle:{
+	        	fontSize: 20,
+	            fontFamily:'微软雅黑',
+	        },
+	        subtext: '累计盈利与支出情况'
 	    },
+	    legend: {
+	    	show:true,
+	    	orient:'horizontal',
+	    	x: 'right',
+	        y: 'top',
+	        padding: [25,60],
+	        data:['支出','盈利']
+	    },
+	    backgroundColor:'rgba(255,255,255,1)',
+		calculable: false,//禁止拖拽
 	    tooltip : {
 	        trigger: 'axis',
 	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -31,13 +46,11 @@ function loadChart4profit(){
 	            return params[0].name + '<br/>' + '累计盈利' + ' : ' + (Number(p0)+Number(p1)) + '<br/>' + '当天' + _state.seriesName + ' : ' + _state.value;
 	        }
 	    },
-	    legend: {
-	        data:['亏损','盈利']
-	    },
 	    grid: {
 	        left: '3%',
 	        right: '4%',
-	        bottom: '3%',
+	        bottom: '5%',
+	        y:80,
 	        containLabel: true
 	    },
 	    xAxis: {
@@ -51,8 +64,6 @@ function loadChart4profit(){
 	            return list;
 	        }()
 	    },
-	    backgroundColor:'rgba(255,255,255,1)',
-		calculable: false,//禁止拖拽
 	    yAxis: {
 	        type : 'value'
 	    },
@@ -86,7 +97,7 @@ function loadChart4profit(){
 	            data: [900, 345, 393, '-', '-', 135, 178, 286, '-', '-', '-']
 	        },
 	        {
-	            name: '亏损',
+	            name: '支出',
 	            type: 'bar',
 	            stack: '总量',
 	            label: {

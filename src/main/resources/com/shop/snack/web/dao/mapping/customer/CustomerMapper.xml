@@ -19,7 +19,7 @@
 			     else '其他'
 			end customerLevelName,
 			a.`address`,
-			a.`modify_time` modifyTime,
+			date_format(modify_time,'%Y/%m/%d %T') modifyTime,
 			a.`create_time` createTime,
 			ifnull(b.cnt,0) totalOrder,
 			ifnull(b.really_pay,0) totalCost
@@ -27,7 +27,7 @@
 		left join(
 			select
 				customer_id,
-				count(1) cnt,
+				sum(sale_num) cnt,
 				sum(really_pay) really_pay
 			from t_snack_sale_info
 			group by customer_id
@@ -39,6 +39,9 @@
 		</if>
 		<if test="customerName != null">
 			and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="customerLevel != null">
+			and a.`customer_level`=#{customerLevel}
 		</if>
     </sql>
     
@@ -163,7 +166,18 @@
 			<if test="customerName != null">
 				and a.`customer_name` like concat('%',#{customerName,jdbcType=VARCHAR},'%')
 			</if>
-		limit 0,10
+	</select>
+	
+	<select id="searchCustomersById" parameterType="java.lang.Integer" resultType="com.shop.snack.web.model.CustomerInfo">
+		select
+			a.`id`,
+			a.`customer_name` customerName
+		from t_snack_customer_info a
+		where 1=1
+			<if test="customerId != null">
+				and a.`id`=#{customerId,jdbcType=DECIMAL}
+			</if>
+		order by 2
 	</select>
    
 </mapper>

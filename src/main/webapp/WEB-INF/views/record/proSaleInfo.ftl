@@ -71,7 +71,7 @@
 						<div class="portlet ">
 							<div class="portlet-body">
 								<!--报表工具-->
-								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/epinfo/epinfo" style="background:#fff !important;">
+								<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/proSale/fetchPage" style="background:#fff !important;">
 									<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
 										<!--时间范围控件       开始-->
 										<div class="form-group">
@@ -84,13 +84,19 @@
 										</div>
 										<a href="#" onclick="document.getElementById('queryTime').value=''"><i class="fa fa-rotate-left"></i></a>
 										<!--时间范围控件       结束-->
-										<!-- 订货人 开始 -->
+										<!-- 订货人 -->
 										<div class="form-group" style="margin-left:8px;">
 											<label class="control-label">订货人:</label>
-											<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(bean.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>
-											<!--<input class="form-control" type="text" id="customerName" name="customerName" style="width:160px !important;" value="${(bean.customerName)!}" placeholder="请输入订货人"/>-->
+											<select class="form-control input-small select2me" style="width:160px !important;" name="customerId" id="customerId">
+												<#if customers?? && customers?size &gt; 0>
+													<option value="-1">请选择</option>
+													<#list customers as p>
+														<option value="${(p.id)!}" <#if bean?? && bean.customerId?? && bean.customerId?number == p.id?number>selected="true"</#if>>${(p.customerName)!}</option>
+													</#list>
+												</#if>
+											</select>
+											<!--<input class="form-control customerName_auto" name="customerName" nonull="0" value="${(proSaleInfo.customerName)!''}" id="customerName" placeholder="全部" style="width:160px !important;" onclick="$('#customerName').autocomplete('search', document.getElementById('customerName') );"/>-->
 										</div>
-										<!-- 订货人 结束 -->
 										<button class="btn blue" style="height:31px;width:62px;margin-top:-6px;margin-left:10px;" id="querybtn">查询</button>
 									</form>
 								</div>
@@ -108,13 +114,13 @@
 								<form  action="${application.getContextPath()}/proSale/fetchPage" id="pageForm" role="search" method="post" >
 									<!--时间-->
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
-									<!--订货人-->
-									<input type="hidden" id="customerName_query" name="customerName" value="${(bean.customerName)!}"/>
-								</form>
-								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
+									<!--订货人ID-->
+									<input type="hidden" id="customerId_query" name="customerId" value="${(bean.customerId)!}"/>
 									<!--分页-->
 									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
 									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+								</form>
+								<form  action="${application.getContextPath()}/proSale/child" id="editPage" role="search" method="post" >
 									<!--修改id-->
 									<input type="hidden" id="editChild" name="flowId" value=""/>
 								</form>
@@ -124,16 +130,17 @@
 										<!--表单title 开始-->
 										<thead>
 											<tr style="background-color:#EAEAEA;">
-													<th style="text-align:center;width:18%;">订单号</th>
+													<th style="text-align:center;width:14%;">订单号</th>
 													<th style="text-align:center;width:8%;">订单日期</th>
 													<th style="text-align:center;width:8%;">订货人</th>
 													<th style="text-align:center;width:8%;">是否付款</th>
 													<th style="text-align:center;width:8%;">订单状态</th>
 													<th style="text-align:center;width:8%;">产品成本</th>
 													<th style="text-align:center;width:8%;">运费/其他</th>
+													<th style="text-align:center;width:8%;">销售数量</th>
 													<th style="text-align:center;width:8%;">实收款</th>
 													<th style="text-align:center;width:8%;">售后利润</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:18%;">操作</th>
+													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:14%;">操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -164,6 +171,7 @@
 														</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.expressPrice)!'无'}</td>
+														<td style="text-align:center;vertical-align:middle;" >${(ls.saleNum)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
@@ -175,7 +183,7 @@
 												</#list>
 											<#else>
 												<tr>
-													<td colspan="10"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+													<td colspan="11"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 												</tr>
 											</#if>
 										</tbody>
@@ -205,11 +213,6 @@
 	<script src="${application.getContextPath()}/scripts/scripts/table-pages.js" type="text/javascript"></script>
 	
 	<script src="${application.getContextPath()}/js/record/proSaleInfo.js" type="text/javascript"></script>
-	
-	<!--订货人下拉提示-->
-	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui.min.css">
-	<script src="${application.getContextPath()}/js/ajaxAutoComplete/jquery-ui-min.js" type="text/javascript"></script>
-	<script src="${application.getContextPath()}/js/ajaxAutoComplete/ajaxCustomerName.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 	jQuery(document).ready(function() {

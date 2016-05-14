@@ -108,6 +108,20 @@ public class ProSaleInfoService extends BaseService {
 	}
 
 	/**
+	 * 更新销售数据
+	 * 
+	 * @param params
+	 *            参数
+	 * @return
+	 */
+	public void updSaleInfoData(){
+		try {
+			dao.updSaleInfoData();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+	/**
 	 * 删除
 	 * 
 	 * @param params

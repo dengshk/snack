@@ -14,6 +14,7 @@ public class ProOrderLog implements java.io.Serializable {
 	private String orderNum;
 	private Integer type;
 	private String orderDate;
+	private String modifyTime;
 	private String createTime;
 	private String subtotalCost;// 成本小计
 	private String subtotalReally;// 应收款小计
@@ -158,6 +159,14 @@ public class ProOrderLog implements java.io.Serializable {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(String modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

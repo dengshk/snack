@@ -136,11 +136,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 							<label class="control-label">联系电话:</label>
 							<input class="form-control" type="text" id="customerTel" name="customerTel" style="width:160px !important;" value="${(proSaleInfo.customerTel)!}" placeholder="请输入联系电话"/>
 						</div>
-						<!-- 运费 -->
-						<div class="form-group" style="margin-left:8px;">
-							<label class="control-label">运费其他:</label>
-							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!}" placeholder="请输入运费/其他"/>
-						</div>
 						<!--快递详情-->
 						<br />
 						<br />
@@ -176,6 +171,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				            });
 				        </script>
 			            </div>
+			            <!-- 运费 -->
+						<div class="form-group" style="margin-left:8px;">
+							<label class="control-label">运费其他:</label>
+							<input class="form-control" type="text" id="expressPrice" name="expressPrice" style="width:160px !important;" value="${(proSaleInfo.expressPrice)!}" placeholder="请输入运费/其他"/>
+						</div>
 						<!-- 实收款 -->
 						<div class="form-group" style="margin-left:8px;">
 							<label class="control-label">实收金额:</label>
@@ -183,38 +183,30 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</div>
 						<!--修改-->
 						&nbsp;&nbsp;&nbsp;
-						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" type="submit" id="save">
+						<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" type="submit" id="saveBtn">
 							<#if proSaleInfo??>
 								<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;修改
 							<#else>
 								<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;保存
 							</#if>
 						</button>
-						<!--返回按钮-->
-						<div class="btn-group">
-							<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" id="back"  onClick="goBack();">
-								<i class="fa fa-mail-reply"></i>
-								&nbsp;返回
-							</button>
-						</div>
 					</form>
 				</div>
 				<!--新增-->
 				<div class="table-toolbar">
 					<div class="btn-group">
-						<button class="btn blue editUser">
-						 <i class="fa fa-plus"></i> &nbsp;新增清单
-						</button>
+						<button class="btn blue editOrder" style="height:31px;width:82px;margin-top:8px;margin-left:0px;">新增&nbsp;<i class="fa fa-plus"></i></button>
+						<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;"  id="back"  onClick="goBack();">返回&nbsp;<i class="fa fa-mail-reply"></i></button>
 					</div>
 				</div>
 				<!--分页信息-->
 				<form id="editPage" action="${application.getContextPath()}/proSale/child" method="post">
 					<input type="hidden" id="editChild" name="flowId" value="${(proSaleInfo.flowId)!}"/>
 					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
-					<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
+					<input type="hidden" name="pageSize" value="${(page.pageSize)!50}" />
 				</form>
 				<!--报表列属性名-->
-				<form id="submitform" action="${application.getContextPath()}/record/newProduct" method="post">
+				<form id="submitform" action="${application.getContextPath()}/proSale/child" method="post">
 					<div class="table-responsive table-scrollable" style="height:<#if !(page??) || !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
@@ -224,15 +216,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<input class="group-checkable" data-set="#childs .checkboxes" type="checkbox" >
 										</span>
 									</th>-->
-									<th style="text-align:center;width:18%;">产品名称</th>
-									<th style="text-align:center;width:10%;">产品类型</th>
-									<th style="text-align:center;width:10%;">进货单价</th>
-									<th style="text-align:center;width:10%;">销售单价</th>
-									<th style="text-align:center;width:10%;">销售数量</th>
-									<th style="text-align:center;width:10%;">成本小计</th>
-									<th style="text-align:center;width:10%;">应收款小计</th>
-									<th style="text-align:center;width:10%;">利润小计</th>
-									<th style="text-align:center;width:12%;">操作</th>
+									<th style="text-align:center;width:12%;">产品名称</th>
+									<th style="text-align:center;width:9%;">产品类型</th>
+									<th style="text-align:center;width:9%;">进货单价</th>
+									<th style="text-align:center;width:9%;">销售单价</th>
+									<th style="text-align:center;width:9%;">销售数量</th>
+									<th style="text-align:center;width:9%;">成本小计</th>
+									<th style="text-align:center;width:9%;">应收款小计</th>
+									<th style="text-align:center;width:9%;">利润小计</th>
+									<th style="text-align:center;width:12%;">修改时间</th>
+									<th style="text-align:center;width:13%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -247,6 +240,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<td align='center'>${(p.subtotalCost)!}</td>
 											<td align='center'>${(p.subtotalReally)!}</td>
 											<td align='center'>${(p.subtotalProfit)!}</td>
+											<td align='center'>${(p.modifyTime)!}</td>
 											<td align='center'>
 												<a class="editUser" href="#" fid="${(p.id)!}">修改</a>|
 												<a class="delete" href="#" fid="${(p.id)!}" fname="${(p.productName)}">删除</a>
@@ -263,10 +257,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalReally)!}</td>
 										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.subtotalProfit)!}</td>
 										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
 									</tr>
 								<#else>
 									<tr>
-										<td colspan="9" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+										<td colspan="10" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>
@@ -296,10 +291,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 				"sync" : true, //异步或者form提交,默认form提交
 				"method" : -1,
 			   	"lengthMenu": [10, 15, 20, 50],
-		        "defaultLength": ${(page.pageSize)!10},      
+		        "defaultLength": ${(page.pageSize)!50},      
 		        "pageIndex":${(page.pageIndex)!1},
 		        "total": ${(page.totalPage)!1},     
-		        "form":"submitform",
+		        "form":"editPage",
 		        "displayContainer":"containerPage",
 		        "language": "zh"         //语言  zh or en
 		   });

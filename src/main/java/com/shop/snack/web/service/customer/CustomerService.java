@@ -132,4 +132,15 @@ public class CustomerService extends BaseService {
 		list = customerDao.searchCustomersByName(param);
 		return list;
 	}
+	
+	public List<CustomerInfo> searchCustomersById(Integer customerId){
+		try {
+			List<CustomerInfo> list = new ArrayList<CustomerInfo>();
+			list = customerDao.searchCustomersById(customerId);
+			return list;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 }

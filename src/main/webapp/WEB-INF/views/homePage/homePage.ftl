@@ -42,8 +42,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<!--累计盈利-->
-					<div style="width:95%;height:500px;float:left;">
-						<div id="chart4profit" style="width:90%;height:400px;float:left;margin-top:20px;margin-left:30px;">
+					<div style="width:95%;height:600px;float:left;margin-top:20px;margin-left:40px;">
+						<div id="chart4profit" class="main" style="width:100%;height:600px;float:left;">
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 						<div style="border-top:3px solid #ddd;height:1px;width: 100%;float: left;"></div>
 					</div>
 					<!--收支情况-->
-					<div id="chart4IO" style="width:95%;height:500px;float:left;margin-top:30px;margin-left:30px;"></div>
+					<div id="chart4IO" style="width:95%;height:0px;float:left;margin-top:30px;margin-left:30px;"></div>
 				</div>
 			</div>
 		</div>

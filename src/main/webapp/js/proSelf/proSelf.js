@@ -1,27 +1,29 @@
 $(function(){
-	//编辑/新增订单
+	/**
+	 * 查询
+	 */
+	$("#querybtn").click(function(){
+		$("#modal-backdrop").show();
+		$("#queryTime_query").val($("#queryTime").val());
+		$("#typeId_query").val($("#qry_typeId").val());
+		$("#productName_query").val($("#qry_productName").val());
+		$("#editPage").submit();
+	});
 	$(".editOrder").click(function(){
 		var _id = $(this).attr("fid");
-		if($('#flowId').val()==null||$('#flowId').val()==""){
-			$.messager.alert('提示', '请先保存一笔进货信息!', "error");
-		}else{
-			editOrder(_id);
-		}
+		editOrder(_id);
 	});
-	//删除
 	$(".delete").live('click',function(){
 		var _id=$(this).attr("fid");
-		var _flowId =$("#flowId").val();
 		var _name=$(this).attr('fname');
 		$.messager.confirm('提示',"是否删除订单【"+_name+"】? ",function(data){
 			if(data){
 				$("#modal-backdrop").show();
 				$.ajax({
 					type:"post", 
-					url:contextPath + "/proStock/deleteOneOrder",
+					url:contextPath + "/proSelf/deleteOneOrder",
 					data:{
-						id:_id,
-						flowId:_flowId
+						id:_id
 					},
 					success:function(data){
 						$("#modal-backdrop").hide();
@@ -40,75 +42,18 @@ $(function(){
 			}
 		});
 	});
-	//表单验证
-    $('#proStockForm').bootstrapValidator({
-	        message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-			fields: {
-				expressPrice:{
-	            	validators: {
-		            	regexp: {
-		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
-		            		message: '请输入正确的金额'
-		            	}
-	            	}
-	            },
-	            reallyPay:{
-	            	validators: {
-		            	notEmpty: {},
-		            	regexp: {
-		            		regexp: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,
-		            		message: '请输入正确的金额'
-		            	}
-	            	}
-	            }
-			}
-		}).on('success.form.bv', function(e) {
-            // Prevent form submission
-            e.preventDefault();
-
-            // Get the form instance
-            var $form = $(e.target);
-
-            // Use Ajax to submit form data
-            $("#modal-backdrop").show();
-            $.post(contextPath+'/proStock/saveStockInfo', $form.serialize(), function(data) {
-					$("#modal-backdrop").hide();
-					if (data.msg != "-1") {
-						$("#modal-backdrop").show();
-						$("#editFlowId").val(data.flowId);
-						$("#editPage").submit();
-					} else {
-						$.messager.alert('提示', "保存失败！", "error");
-					}
-            }, 'json');
-        });
 });
 
-
-/**
- * 返回
- */
-function goBack(){
-	$("#modal-backdrop").show();
-	window.location.href=contextPath+"/proStock/proStock";
-}
-
-/**
- * 打开编辑页面
- **/
 function editOrder(_id){
 	var $modal = $('#ajax-modal');
+	// create the backdrop and wait for next modal to be triggered
+    //$('body').modalmanager('loading');
 	$.fn.modal.Constructor.prototype.enforceFocus = function () { };
-    $modal.load(contextPath + '/proStock/editStockOrder',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
+    $modal.load(contextPath + '/proSelf/child',{"Content-type":"application/x-www-form-urlencoded",id:_id},function(){
 		$modal.modal();
 		$('#productName_child').select2();
 		//表单验证
-	    $('#editStockChild').bootstrapValidator({
+	    $('#editOrderChild').bootstrapValidator({
 		        message: 'This value is not valid',
 	            feedbackIcons: {
 	                valid: 'glyphicon glyphicon-ok',
@@ -154,7 +99,7 @@ function editOrder(_id){
 	        });
 	    //点击事件
 		$("#saveBtn").click(function(){
-			$('#editStockChild').bootstrapValidator('validate');
+			$('#editOrderChild').bootstrapValidator('validate');
 		});
 		//选项改变补全产品其他信息
 		$('#productName_child').live('change',function(){
@@ -186,7 +131,7 @@ function saveOrder(){
 		unique++;
 		//获取订单信息
 		var _id = $("#id_child").val();
-		var _flowId =$("#flowId").val();
+		var _flowId =$("#flowId_query").val();
 		var _productId = $("#productName_child").val();
 		var _productName = $("#productName_child").find("option:selected").text();
 		var _costPrice = $("#costPrice_child").val();
@@ -194,7 +139,7 @@ function saveOrder(){
 
 		$.ajax({
 			type:"post",
-			url:contextPath +"/proStock/saveOrder",
+			url:contextPath +"/proSelf/saveOrder",
 			data:{
 				id:_id,
 				flowId:_flowId,
@@ -202,13 +147,12 @@ function saveOrder(){
 				productName:_productName,
 				costPrice:_costPrice,
 				orderNum:_orderNum,
-				type:1
+				type:2
 			},
 			success:function(data){
 				unique = 0;
 				if(data.msg==1){
 					$("#modal-backdrop").show();
-					$("#editFlowId").val($("#flowId").val());
 					$("#editPage").submit();
 				}else{
 					$.messager.alert('提示',"操作失败！","error");

@@ -21,17 +21,21 @@
 		    a.`order_num`*a.`sale_price`-a.`order_num`*a.`cost_price` subtotalProfit,
 		    a.`type` type,
 		    a.`order_date` orderDate,
+		    date_format(a.modify_time,'%Y/%m/%d %T') modifyTime,
 		    a.`create_time` createTime
 		from t_snack_order_log a,t_snack_product_classify b
 		where a.`type_id`=b.`type_id`
 		<if test="id != null">
-			and a.`id` = #{id,jdbcType=VARCHAR}
+			and a.`id` = #{id,jdbcType=DECIMAL}
 		</if>
 		<if test="flowId != null">
 			and a.`flow_id` = #{flowId,jdbcType=VARCHAR}
 		</if>
 		<if test="type != null">
-			and a.`type` = #{type,jdbcType=VARCHAR}
+			and a.`type` = #{type,jdbcType=DECIMAL}
+		</if>
+		<if test="typeId != null">
+			and a.`type_id` = #{typeId,jdbcType=DECIMAL}
 		</if>
 		<if test="starttime != null">
 			and a.`order_date` &gt;= #{starttime,jdbcType=VARCHAR}
@@ -42,7 +46,6 @@
 		<if test="productName != null">
 			and a.`product_name` like concat('%',#{productName,jdbcType=VARCHAR},'%')
 		</if>
-		order by a.`order_date` desc
     </sql>
     
     <select id="queryForCount" parameterType="map" resultType="java.lang.Integer">
@@ -58,7 +61,8 @@
 		<include refid="whereCondition"/>	         
     <![CDATA[
 		   ) a
-		       limit #{lbound},#{pageSize} 
+		       order by orderNum desc,typeName,productName
+		       limit #{lbound},#{pageSize}
 	]]>
    </select>
 
@@ -88,6 +92,7 @@
 			`order_num`,
 			`type`,
 			`order_date`,
+			`modify_time`,
 			`create_time`
    		)values(
    			#{proOrderLog.flowId,jdbcType=VARCHAR},
@@ -99,6 +104,7 @@
    			#{proOrderLog.orderNum,jdbcType=DECIMAL},
    			#{proOrderLog.type,jdbcType=DECIMAL},
    			#{proOrderLog.orderDate,jdbcType=VARCHAR},
+			#{proOrderLog.modifyTime,jdbcType=VARCHAR},
 			#{proOrderLog.createTime,jdbcType=VARCHAR}
    		)
    </insert>
@@ -109,7 +115,8 @@
    		    `product_name`=#{proOrderLog.productName,jdbcType=VARCHAR},
 			`cost_price`=#{proOrderLog.costPrice,jdbcType=VARCHAR},
 			`sale_price`=#{proOrderLog.salePrice,jdbcType=VARCHAR},
-			`order_num`=#{proOrderLog.orderNum,jdbcType=DECIMAL}
+			`order_num`=#{proOrderLog.orderNum,jdbcType=DECIMAL},
+			`modify_time`=#{proOrderLog.modifyTime,jdbcType=VARCHAR}
    		where id = #{proOrderLog.id,jdbcType=DECIMAL}
    </update>
    

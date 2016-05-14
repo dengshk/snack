@@ -92,7 +92,7 @@ $(function(){
 	$("#querybtn").click(function(){
 		$("#modal-backdrop").show();
 		$("#queryTime_query").val($("#queryTime").val());
-		$("#customerName_query").val($("#customerName").val());
+		$("#customerId_query").val($("#customerId").val());
 		$("#pageForm").submit();
 	});
 	/**

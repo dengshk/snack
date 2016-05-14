@@ -186,7 +186,7 @@ function editOrder(_id){
 	            saveOrder();
 	        });
 	    //点击事件
-		$(".saveOrder").click(function(){
+		$("#saveBtn").click(function(){
 			$('#editUser').bootstrapValidator('validate');
 		});
 		//选项改变补全产品其他信息

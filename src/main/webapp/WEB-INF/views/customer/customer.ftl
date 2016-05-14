@@ -89,6 +89,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<!--报表工具-->
 			<div class="navbar navbar-default" role="navigation" method="post" action="${application.getContextPath()}/customer/customer" style="background:#fff !important;">
 				<form class="navbar-form form-inline navbar-left breadcrumb"  id="epinfoForm" onsubmit="return false;" >
+					<!--顾客等级-->
+					<div class="form-group" style="margin-left:8px;">
+						<label class="control-label">顾客等级:</label>
+							<select class="form-control select2me" style="width:165px;" id="qry_customerLevel">
+								<option value="-1">全部</option>
+								<option value="5" <#if bean?? && bean.customerLevel?? && bean.customerLevel == 5>selected="true"</#if>>普通客户</option>
+								<option value="4" <#if bean?? && bean.customerLevel?? && bean.customerLevel == 4>selected="true"</#if>>终端代理</option>
+								<option value="3" <#if bean?? && bean.customerLevel?? && bean.customerLevel == 3>selected="true"</#if>>特约代理</option>
+								<option value="2" <#if bean?? && bean.customerLevel?? && bean.customerLevel == 2>selected="true"</#if>>市级代理</option>
+								<option value="1" <#if bean?? && bean.customerLevel?? && bean.customerLevel == 1>selected="true"</#if>>省级代理</option>
+							</select>
+					</div>
 					<!--顾客姓名 -->
 					<div class="form-group" style="margin-left:8px;">
 						<label class="control-label">顾客姓名:</label>
@@ -101,6 +113,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<form  action="${application.getContextPath()}/customer/customer" id="pageForm" role="search" method="post" >
 				<!--顾客姓名-->
 				<input type="hidden" id="customerName_submit" name="customerName" value="${(bean.customerName)!}"/>
+				<!--顾客等级-->
+				<input type="hidden" id="customerLevel_submit" name="customerLevel" value="${(bean.customerLevel)!}"/>
 				<!--分页-->
 				<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
 				<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
@@ -113,12 +127,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						</button>
 					</div>
 				</div>
-				<form id="pageForm" action="${application.getContextPath()}/record/newProduct" method="post">
-					<input type="hidden" name="pageIndex" value="${(page.pageIndex)!1}" />
-					<input type="hidden" name="pageSize" value="${(page.pageSize)!10}" />
-				</form>
 				<!--报表列属性名-->
-				<form id="submitform" action="${application.getContextPath()}/record/newProduct" method="post">
+				<form id="submitform" action="${application.getContextPath()}/customer/customer" method="post">
 					<div class="table-responsive table-scrollable" style="height:<#if !(page.list??) ||  page.list?size == 0>111<#else>${((page.list?size+2)*37)!}</#if>px;">
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
@@ -126,10 +136,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<th style="text-align:center;width:12%;">顾客姓名</th>
 									<th style="text-align:center;width:12%;">顾客等级</th>
 									<th style="text-align:center;width:12%;">联系电话</th>
-									<th style="text-align:center;width:25%;">收获地址</th>
-									<th style="text-align:center;width:12%;">订单笔数(累计)</th>
-									<th style="text-align:center;width:12%;">消费金额(累计)</th>
-									<th style="text-align:center;width:15%;">操作</th>
+									<th style="text-align:center;width:22%;">收获地址</th>
+									<th style="text-align:center;width:9%;">定购数量(累计)</th>
+									<th style="text-align:center;width:9%;">消费金额(累计)</th>
+									<th style="text-align:center;width:12%;">修改时间</th>
+									<th style="text-align:center;width:12%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -142,6 +153,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<td align='left'>${(p.address)!}</td>
 											<td align='center'>${(p.totalOrder)!}</td>
 											<td align='center'>${(p.totalCost)!}</td>
+											<td align='center'>${(p.modifyTime)!}</td>
 											<td align='center'>
 												<a class="edit" href="#" id="${(p.id)!}">编辑</a>|
 												<a class="delete" href="#" id="${(p.id)!}" cname="${(p.customerName)!}">删除</a>
@@ -185,7 +197,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		        "defaultLength": ${(page.pageSize)!10},      
 		        "pageIndex":${(page.pageIndex)!1},
 		        "total": ${(page.totalPage)!1},     
-		        "form":"submitform",
+		        "form":"pageForm",
 		        "displayContainer":"containerPage",
 		        "language": "zh"         //语言  zh or en
 		   });

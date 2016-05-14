@@ -103,15 +103,16 @@
 								<form  action="${application.getContextPath()}/proStock/proStock" id="queryForm" role="search" method="post" >
 									<!--时间-->
 									<input type="hidden" id="queryTime_query" name="queryTime" value="${(bean.queryTime)!}"/>
-								</form>
-								<form  action="${application.getContextPath()}/proStock/flowInfo" id="flowInfoPage" role="search" method="post" >
 									<!--分页-->
 									<input type="hidden" id="pageIndex" name="pageIndex" value="${(page.pageIndex)!1}"/>
 									<input type="hidden" id="pageSize" name="pageSize" value="${(page.pageSize)!10}"/>
+								</form>
+								<form  action="${application.getContextPath()}/proStock/flowInfo" id="flowInfoPage" role="search" method="post" >
 									<!--修改id-->
 									<input type="hidden" id="editFlowId" name="flowId" value=""/>
 								</form>
 								<!--表单开始   开始-->
+								<!--报表列属性名-->
 								<div class="table-responsive table-scrollable">
 									<table class="table table-striped table-hover table-bordered mytable" id="sample_editable_1">
 										<!--表单title 开始-->
@@ -120,9 +121,9 @@
 													<th style="text-align:center;width:20%;">订单号</th>
 													<th style="text-align:center;width:12%;">进货日期</th>
 													<th style="text-align:center;width:12%;">进货数量</th>
-													<th style="text-align:center;width:12%;">成本总计</th>
+													<th style="text-align:center;width:12%;">进货应付款</th>
 													<th style="text-align:center;width:12%;">邮费其他</th>
-													<th style="text-align:center;width:12%;">实付款</th>
+													<th style="text-align:center;width:12%;">进货实付款</th>
 													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:20%;">操作</th>
 											</tr>
 										</thead>
@@ -194,7 +195,7 @@
 		        "defaultLength": ${(page.pageSize)!10},      
 		        "pageIndex":${(page.pageIndex)!1},
 		        "total": ${(page.totalPage)!1},     
-		        "form":"pageForm",
+		        "form":"queryForm",
 		        "displayContainer":"resoucesPage",
 		        "language": "zh"         //语言  zh or en
 		   });

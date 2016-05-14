@@ -3,6 +3,8 @@ package com.shop.snack.web.dao.customer;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.shop.snack.web.dao.commManager.PageMapper;
 import com.shop.snack.web.model.CustomerInfo;
 
@@ -24,4 +26,6 @@ public interface CustomerDao extends PageMapper {
 
 	// 搜索
 	public List<CustomerInfo> searchCustomersByName(Map<String, Object> param);
+
+	public List<CustomerInfo> searchCustomersById(@Param("customerId") Integer customerId);
 }
