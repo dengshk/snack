@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.snack.web.model.User;
 import com.shop.snack.web.service.homePage.HomeService;
+import com.shop.snack.web.utils.StringUtils;
 import com.shop.snack.web.utils.TimeUtils;
 import com.shop.snack.web.utils.WebConstants;
 
@@ -28,69 +29,44 @@ import com.shop.snack.web.utils.WebConstants;
 @RequestMapping("/home")
 public class HomeAction {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeAction.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(HomeAction.class);
+
 	@Autowired
 	HomeService homeService;
-	
+
 	/**
 	 * 跳转首页并查询采样点和topn数据
+	 * 
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/homePage")
-	public ModelAndView netWorkHome(HttpServletRequest request){
+	public ModelAndView netWorkHome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/homePage/homePage");
-		try {
-			//获取用户信息
-			HttpSession session = request.getSession();
-//			User user = (User) session.getAttribute(WebConstants.USER);
-//			
-//			Map<String ,Object> map = homeService.getPointInfo(user ,TimeUtils.getYesterday());
-//			
-//			mv.addObject("pointList",map.get("pointList"));
-//			mv.addObject("coverList",map.get("coverList"));
-		} catch (Exception e) {
-			logger.error("query info for point in HomeAction.netWorkHome",e);
-		}
 		return mv;
 	}
-	
+
 	/**
-	 * 查询覆盖率图和占比图数据
+	 * 查询首页图片数据
+	 * 
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/getChartsInfo" ,method=RequestMethod.POST)
-	public @ResponseBody Map<String ,Object> getChartsInfo(HttpServletRequest request){
-		Map<String ,Object> map = new HashMap<String ,Object>();
+	@RequestMapping(value = "/getChartsInfo", method = RequestMethod.POST)
+	public @ResponseBody
+	Map<String, Object> getChartsInfo(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 获取用户信息
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute(WebConstants.USER);
+		String userid = user.getUserid() + "";
+		String uuid = StringUtils.getUuid();
 		try {
-			//获取用户信息
-			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute(WebConstants.USER);
-//			//默认时间为今天
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//			Date date = new Date();
-//			String time = sdf.format(date);
-//			List<String> timeList = TimeUtils.getPrevSeven(time);
-//			
-//			Map<String ,Object> wirelessCover = homeService.getCoverRate(user,timeList,"wireless");//无线覆盖率查询
-//			Map<String ,Object> broadbandCover = homeService.getCoverRate(user,timeList,"broadband");//下行链路宽带查询
-//			Map<String ,Object> networkRate = homeService.getCoverRate(user,timeList,"networkRate");//网络掉线率
-//			Map<String ,Object> pingRate = homeService.getCoverRate(user,timeList,"pingRate");//业务掉线率
-//			Map<String ,Object> total = homeService.getQuotaProportion(TimeUtils.getYesterday(),user);//RSRP区间占比,SNR区间占比
-//			
-//			map.put("wirelessCover", wirelessCover);
-//			map.put("broadbandCover", broadbandCover);
-//			map.put("networkRate", networkRate);
-//			map.put("pingRate", pingRate);
-//			map.put("rsrpTotal", total.get("rsrpTotal"));
-//			map.put("snrTotal", total.get("snrTotal"));
+			map = homeService.getChartsInfo(uuid,userid);
 		} catch (Exception e) {
-			logger.error("query info for charts of cover,Accounting chart in HomeAction.getChartsInfo",e);
+			logger.error("query info for charts of homePage,Accounting chart in HomeAction.getChartsInfo", e);
 		}
 		return map;
 	}
-	
+
 }

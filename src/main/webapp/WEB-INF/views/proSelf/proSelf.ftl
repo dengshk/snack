@@ -156,13 +156,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										</span>
 									</th>-->
 									<th style="text-align:center;width:6%;">序号</th>
-									<th style="text-align:center;width:14%;">产品名称</th>
-									<th style="text-align:center;width:12%;">产品类型</th>
-									<th style="text-align:center;width:12%;">进货单价</th>
-									<th style="text-align:center;width:12%;">自销数量</th>
-									<th style="text-align:center;width:12%;">成本小计</th>
-									<th style="text-align:center;width:16%;">修改时间</th>
-									<th style="text-align:center;width:16%;">操作</th>
+									<th style="text-align:center;width:10%;">自销日期</th>
+									<th style="text-align:center;width:12%;">产品名称</th>
+									<th style="text-align:center;width:11%;">产品类型</th>
+									<th style="text-align:center;width:11%;">进货单价</th>
+									<th style="text-align:center;width:11%;">自销数量</th>
+									<th style="text-align:center;width:11%;">成本小计</th>
+									<th style="text-align:center;width:14%;">修改时间</th>
+									<th style="text-align:center;width:14%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -170,6 +171,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									<#list page.list as p>
 										 <tr style="height:37px;<#if p_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 											<td align='center'>${(p_index)!}</td>
+											<td align='center'>${(p.orderDate)!}</td>
 											<td align='center'>${(p.productName)!}</td>
 											<td align='center'>${(p.typeName)!}</td>
 											<td align='center'>${(p.costPrice)!}</td>
@@ -183,8 +185,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 										</tr>
 									</#list>
 									<tr style="height:37px;font-weight:bold;background-color:#EAEAEA;">
-										<td style="text-align:center;vertical-align:middle;" >-</td>
 										<td style="text-align:center;vertical-align:middle;" >总计</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
+										<td style="text-align:center;vertical-align:middle;" >-</td>
 										<td style="text-align:center;vertical-align:middle;" >-</td>
 										<td style="text-align:center;vertical-align:middle;" >-</td>
 										<td style="text-align:center;vertical-align:middle;" >${(flowTotal.orderNum)!}</td>
@@ -194,7 +197,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									</tr>
 								<#else>
 									<tr>
-										<td colspan="8" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+										<td colspan="9" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>
