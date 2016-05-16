@@ -16,11 +16,13 @@
 				day_expend    dayExpend,
 				day_self      daySelf,
 				day_profit    dayProfit,
+				day_cost      dayCost,
 				total_express totalExpress,
 				total_income  totalIncome,
 				total_expend  totalExpend,
 				total_self    totalSelf,
 				total_profit  totalProfit,
+				total_cost    totalCost,
 				create_time   createTime
 			from qry_snack_analysis
 			where 1=1
@@ -30,7 +32,21 @@
 		)a
 		order by calTime asc
 	</select>
-		<select id="kpiAnalysis" statementType="CALLABLE"
+	
+	<select id="querySaleTop" resultType="map" parameterType="map">
+		select
+		    product_name productName,
+		    sum(order_num) saleNum    
+		from t_snack_order_log
+		where type=2
+			and order_date &lt;= current_date()
+			and order_date &gt;= date_sub(current_date(),interval 7 day)
+		group by product_name
+		order by saleNum desc
+		limit 0,10
+	</select>
+	
+	<select id="kpiAnalysis" statementType="CALLABLE"
 		parameterType="map">    
 		<![CDATA[
 			call pr_qry_snack_analysis(
@@ -40,4 +56,5 @@
 			)
 		]]>
 	</select>
+	
 </mapper>

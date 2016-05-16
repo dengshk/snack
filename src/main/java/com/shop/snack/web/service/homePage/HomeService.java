@@ -1,6 +1,5 @@
 package com.shop.snack.web.service.homePage;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,9 @@ public class HomeService {
 		List<String> serTotalProfit = new ArrayList<String>();// 累计收益
 		List<String> serDayProfit = new ArrayList<String>();// 当天盈利
 		List<String> serDayExpend = new ArrayList<String>();// 当天亏损
+		Map<String, List<String>> saleTop = new HashMap<String, List<String>>();// 热销产品
+
+		List<Map<String, Object>> pieDayExpend = new ArrayList<Map<String, Object>>();// 饼图日支出分布
 		try {
 			// 执行存储过程
 			params1.put("uuid", uuid);
@@ -43,7 +45,23 @@ public class HomeService {
 				serTotalProfit.add(map.get("totalProfit") + "");
 				serDayProfit.add(map.get("dayProfit") + "");
 				serDayExpend.add(map.get("dayExpend") + "");
+				// 饼图数据
+				Map<String, Object> pieDetail = new HashMap<String, Object>();// 饼图支出明细
+				pieDetail.put("cost", map.get("dayCost"));// 进货
+				pieDetail.put("self", map.get("daySelf"));// 自销
+				pieDetail.put("express", map.get("dayExpress"));// 邮费
+				pieDayExpend.add(pieDetail);
 			}
+			// 热销产品
+			List<Map<String, Object>> queryMapSaleTop = dao.querySaleTop(null);
+			List<String> productNameList = new ArrayList<String>();// 产品名称
+			List<String> saleNumList = new ArrayList<String>();// 销售数量
+			for (Map<String, Object> map : queryMapSaleTop) {
+				productNameList.add(map.get("productName") + "");
+				saleNumList.add(map.get("saleNum") + "");
+			}
+			saleTop.put("productName", productNameList);
+			saleTop.put("saleNum", saleNumList);
 		} catch (Exception e) {
 			logger.error("query infomation homePage", e);
 		}
@@ -51,6 +69,8 @@ public class HomeService {
 		reMap.put("serTotalProfit", serTotalProfit);
 		reMap.put("serDayProfit", serDayProfit);
 		reMap.put("serDayExpend", serDayExpend);
+		reMap.put("pieDayExpend", pieDayExpend);
+		reMap.put("saleTop", saleTop);
 		return reMap;
 	}
 

@@ -1,15 +1,11 @@
 $(function(){
 	loadChart();
-	//loadChart4IO();
 });
 
 /**
- * 		reMap.put("xAxisData", xAxisData);
-		reMap.put("serAUX", serAUX);
-		reMap.put("serIncome", serIncome);
-		reMap.put("serExpend", serExpend);
  * 加载首页数据
  */
+ var pieDayExpend;
 function loadChart(){
 	$("#modal-backdrop").show();
 	var xAxisData,serTotalProfit,serDayProfit,serDayExpend;
@@ -22,32 +18,44 @@ function loadChart(){
 			serTotalProfit = data.serTotalProfit;
 			serDayProfit = data.serDayProfit;
 			serDayExpend = data.serDayExpend;
-			//加载图表
-			loadChart4profit(xAxisData,serTotalProfit,serDayProfit,serDayExpend);
+			pieDayExpend = data.pieDayExpend;
+			saleTop = data.saleTop;
+			//加载折线图
+			loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend);
+			//加载饼图
+			loadChart4Pie('最近一天',14,pieDayExpend);
+			//加载柱状图
+			loadChart4Bar(saleTop);
 		}
 	});
 	$("#modal-backdrop").hide();
 }
 
-//加载累计利益图
-function loadChart4profit(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
+//加载折线图
+function loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	var quota = {
 	    title: {
-	        text: '收支趋势分析',
+	        text: '收支趋势情况',
 	        x: 'center',
-	        textStyle:{
-	        	fontSize: 20,
-	            fontFamily:'微软雅黑',
-	        },
-	        subtext: '支出:<邮费+自销+进货>\n盈利:<实收款-支出>'
+	        textStyle : {
+	            color : 'rgba(30,144,255,0.8)',
+	            fontFamily : '微软雅黑',
+	            fontSize : 17,
+	            fontWeight : 'bolder'
+	        }
+	        //subtext: '支出:<邮费+自销+进货>\n盈利:<实收款-支出>'
 	    },
 	    legend: {
 	    	show:true,
 	    	orient:'horizontal',
 	    	x: 'right',
 	        y: 'top',
-	        padding: [25,60],
-	        data:['累计盈利','当天盈利','当天支出']
+	        padding: [40,40],
+	        textStyle:{
+                    fontSize: 10,
+                    color: '#444'
+           	},
+	        data:['累计盈利','当日盈利','当日支出']
 	    },
 	    backgroundColor:'rgba(255,255,255,1)',
 		calculable: false,//禁止拖拽
@@ -92,13 +100,13 @@ function loadChart4profit(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	            data: serTotalProfit
 	        },
 	        {
-	            name: '当天盈利',
+	            name: '当日盈利',
 	            type: 'line',
 	            stack: '总量',
 	            data: serDayProfit
 	        },
 	        {
-	            name: '当天支出',
+	            name: '当日支出',
 	            type: 'line',
 	            stack: '总量',
 	            data: serDayExpend
@@ -106,90 +114,144 @@ function loadChart4profit(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	    ]
 	};
 
-	var quotaChart = echarts.init(document.getElementById('chart4profit'), 'macarons');
+	var quotaChart = echarts.init(document.getElementById('chart4Line'), 'macarons');
+	quotaChart.setOption(quota);
+	window.onresize = quotaChart.resize;
+	
+	// 处理鼠标事件
+	quotaChart.on('mouseover', function (params) {
+		loadChart4Pie(params.name,params.dataIndex,pieDayExpend);
+	});
+}
+
+//加载饼图
+function loadChart4Pie(qryData,qryIndex,pieDayExpend){
+	var varCost=0;
+	var varSelf=0;
+	var varExpress=0;
+	//当天数据
+	if(typeof(pieDayExpend) != "undefined"){
+		var currentData = pieDayExpend[qryIndex];
+		varCost = currentData.cost;
+		varSelf = currentData.self;
+		varExpress = currentData.express;
+	}
+	
+	var quota = {
+	    title: {
+	        text: '钱花哪儿了?',
+	        x: 'center',
+	        y: 'center',
+	        textStyle : {
+	            color : 'rgba(30,144,255,0.8)',
+	            fontFamily : '微软雅黑',
+	            fontSize : 17,
+	            fontWeight : 'bolder'
+	        },
+	        subtext: qryData+'\n支出: '+(Number(varCost)+Number(varSelf)+Number(varExpress)) + ' 元'
+	    },
+	    tooltip: {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b}: {c} ({d}%)"
+	    },
+	    legend: {
+	    	show:true,
+	    	orient:'vertical',
+	    	x: 'right',
+	        y: 'top',
+	        padding: [25,20],
+	        textStyle:{
+                    fontSize: 10,
+                    color: '#444'
+           	},
+	        data:['进货','邮费','自销']
+	    },
+	    backgroundColor:'rgba(255,255,255,1)',
+		calculable: false,//禁止拖拽
+	    series: [
+	        {
+	            name:'支出分布',
+	            type:'pie',
+	            radius: ['50%', '70%'],
+	            avoidLabelOverlap: true,
+	            itemStyle: {
+				    normal: {
+				        label: {show:true},
+				        labelLine: {show:true}
+				    }
+				},
+	            data:[
+	                {value: varCost, name:'进货'},
+	                {value: varExpress, name:'邮费'},
+	                {value: varSelf, name:'自销'}
+	            ]
+	        }
+	    ]
+	};
+	var quotaChart = echarts.init(document.getElementById('chart4Pie'), 'macarons');
 	quotaChart.setOption(quota);
 	window.onresize = quotaChart.resize;
 }
 
-//加载收支图表
-function loadChart4IO(){
-	var quota = option = {
-	    title: {
-	        text: '近期收支图',
-	        subtext: '近期收入与支出情况'
-	    },
-	    tooltip : {
-	        trigger: 'axis',
-	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+//加载柱状图
+function loadChart4Bar(saleTop){
+	var varProductName = [];
+	var varSaleNum = [];
+	
+	if(typeof(pieDayExpend) != "undefined"){
+		varProductName = saleTop.productName;
+		varSaleNum = saleTop.saleNum;
+	}
+	
+	var quota = {
+	    title : {
+	        text: '近七日热销产品',
+	        x: 'center',
+	        textStyle : {
+	            color : 'rgba(30,144,255,0.8)',
+	            fontFamily : '微软雅黑',
+	            fontSize : 17,
+	            fontWeight : 'bolder'
 	        }
 	    },
-	    legend: {
-	        data:['利润', '支出', '收入']
+	    tooltip : {
+	        trigger: 'axis'
 	    },
 	    grid: {
 	        left: '3%',
 	        right: '4%',
-	        bottom: '3%',
+	        bottom: '5%',
+	        y:80,
 	        containLabel: true
 	    },
 	    backgroundColor:'rgba(255,255,255,1)',
 		calculable: false,//禁止拖拽
 	    xAxis : [
 	        {
-	            type : 'value',
-	            areaStyle:{
-	        	color: [
-	        	        'rgba(250,250,250,1)'
-	        	    ]
-	        	}
+	            type : 'category',
+	            data : varProductName
 	        }
 	    ],
 	    yAxis : [
 	        {
-	            type : 'category',
-	            axisTick : {show: false},
-	            data : ['05/07','05/07','05/07','05/07','05/07','05/07','05/07']
+	            type: 'value',
+	            nameTextStyle:{
+	            	fontSize: 12,
+		            color: '#939393'
+	            },
+	            'name': '销售数量'
 	        }
 	    ],
 	    series : [
 	        {
-	            name:'利润',
+	            name:'销售数量',
 	            type:'bar',
-	            label: {
-	                normal: {
-	                    show: true,
-	                    position: 'inside'
-	                }
-	            },
-	            data:[200, 170, 240, 244, 200, 220, 210]
-	        },
-	        {
-	            name:'收入',
-	            type:'bar',
-	            stack: '总量',
-	            label: {
-	                normal: {
-	                    show: true
-	                }
-	            },
-	            data:[320, 302, 341, 374, 390, 450, 420]
-	        },
-	        {
-	            name:'支出',
-	            type:'bar',
-	            stack: '总量',
-	            label: {
-	                normal: {
-	                    show: true,
-	                    position: 'left'
-	                }
-	            },
-	            data:[-120, -132, -101, -134, -190, -230, -210]
+	            data: varSaleNum
 	        }
 	    ]
 	};
-	var quotaChart = echarts.init(document.getElementById('chart4IO'), 'macarons');
+                    
+	var quotaChart = echarts.init(document.getElementById('chart4Bar'), 'macarons');
 	quotaChart.setOption(quota);
 	window.onresize = quotaChart.resize;
 }
