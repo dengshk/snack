@@ -74,10 +74,10 @@ public class HomeService {
 		return reMap;
 	}
 
-	public Map<String, Object> getTotalStatus() {
+	public Map<String, Object> getTotalStatus(Map<String, Object> params) {
 		Map<String, Object> reMap = new HashMap<String, Object>();// 返回结果
 		try {
-			reMap = dao.queryTotalStatus();
+			reMap = dao.queryTotalStatus(params);
 		} catch (Exception e) {
 			logger.error("query infomation homePage", e);
 		}

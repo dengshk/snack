@@ -39,7 +39,15 @@ public class HomeAction {
 	public ModelAndView netWorkHome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/homePage/homePage");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map = homeService.getTotalStatus();
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		// 获取用户信息
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute(WebConstants.USER);
+		String userid = user.getUserid() + "";
+		params.put("userId", userid);
+
+		map = homeService.getTotalStatus(params);
 		mv.addObject("total", map);
 		return mv;
 	}

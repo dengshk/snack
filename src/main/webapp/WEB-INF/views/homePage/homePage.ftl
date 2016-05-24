@@ -54,7 +54,7 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="${(total.totalProfit)!'0.00'}">${(total.totalProfit)!'0.00'}</span>￥
+                                <span data-counter="counterup" data-value="${(total.totalProfit)!'0.00'}">0.00</span>￥
                              </div>
                             <div class="desc">累计利润</div>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="${(total.totalStock)!'0'}">${(total.totalStock)!'0'}</span>
+                                <span data-counter="counterup" data-value="${(total.totalStock)!'0'}">0</span>
                             </div>
                             <div class="desc">累计进货</div>
                         </div>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="${(total.stockNums)!'0'}">${(total.stockNums)!'0'}</span>
+                                <span data-counter="counterup" data-value="${(total.stockNums)!'0'}">0</span>
                             </div>
                             <div class="desc">库存数量</div>
                         </div>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="${(total.customerNums)!'0'}">${(total.customerNums)!'0'}</span>
+                                <span data-counter="counterup" data-value="${(total.customerNums)!'0'}">0</span>
                             </div>
                             <div class="desc">拥有客户</div>
                         </div>

@@ -36,10 +36,34 @@
 	<!--查询总体情况-->
 	<select id="queryTotalStatus" resultType="map" parameterType="map">
 		select
-			154.54 totalProfit,
-			456 totalStock,
-			34 stockNums,
-			35 customerNums
+		    ifnull(sum(case when type in(1,3) then -really_pay when type=2 then really_pay end),0)-ifnull(sum(express_price),0) totalProfit,
+		    ifnull(sum(case when type=1 then nums end),0) totalStock,
+		    (select ifnull(sum(case when type=1 then order_num when type=2 then -order_num end),0) from t_snack_order_log) stockNums,
+		    (select count(1) from t_snack_customer_info) customerNums
+		from(
+		    select
+		        2 type,-- 销售
+		        sum(express_price) express_price,
+		        sum(really_pay) really_pay,
+		        sum(sale_num) nums
+		    from t_snack_sale_info
+		union all
+		    select
+		        1 type,-- 进货
+		        sum(express_price),
+		        sum(really_pay),
+		        sum(stock_num)
+		    from t_snack_stock_info
+		union all
+		    select
+		        3 type,-- 自销
+		        0,
+		        sum(cost_price*order_num),
+		        sum(order_num)
+		    from t_snack_order_log
+		    where type=2
+		        and flow_id=#{userId}
+		)a
 	</select>
 	
 	<select id="querySaleTop" resultType="map" parameterType="map">
