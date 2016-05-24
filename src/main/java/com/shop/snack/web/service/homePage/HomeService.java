@@ -26,9 +26,9 @@ public class HomeService {
 
 		Map<String, Object> reMap = new HashMap<String, Object>();// 返回结果
 		List<String> xAxisData = new ArrayList<String>();// 时间
-		List<String> serTotalProfit = new ArrayList<String>();// 累计收益
-		List<String> serDayProfit = new ArrayList<String>();// 当天盈利
-		List<String> serDayExpend = new ArrayList<String>();// 当天亏损
+		List<String> serDayIncome = new ArrayList<String>();// 单日收入
+		List<String> serDayProfit = new ArrayList<String>();// 当日盈利
+		List<String> serDayExpend = new ArrayList<String>();// 当日支出
 		Map<String, List<String>> saleTop = new HashMap<String, List<String>>();// 热销产品
 
 		List<Map<String, Object>> pieDayExpend = new ArrayList<Map<String, Object>>();// 饼图日支出分布
@@ -42,7 +42,7 @@ public class HomeService {
 			List<Map<String, Object>> queryMap = dao.queryDefaultSize(params2);
 			for (Map<String, Object> map : queryMap) {
 				xAxisData.add(map.get("calTime") + "");
-				serTotalProfit.add(map.get("totalProfit") + "");
+				serDayIncome.add(map.get("dayIncome") + "");
 				serDayProfit.add(map.get("dayProfit") + "");
 				serDayExpend.add(map.get("dayExpend") + "");
 				// 饼图数据
@@ -66,11 +66,21 @@ public class HomeService {
 			logger.error("query infomation homePage", e);
 		}
 		reMap.put("xAxisData", xAxisData);
-		reMap.put("serTotalProfit", serTotalProfit);
+		reMap.put("serDayIncome", serDayIncome);
 		reMap.put("serDayProfit", serDayProfit);
 		reMap.put("serDayExpend", serDayExpend);
 		reMap.put("pieDayExpend", pieDayExpend);
 		reMap.put("saleTop", saleTop);
+		return reMap;
+	}
+
+	public Map<String, Object> getTotalStatus() {
+		Map<String, Object> reMap = new HashMap<String, Object>();// 返回结果
+		try {
+			reMap = dao.queryTotalStatus();
+		} catch (Exception e) {
+			logger.error("query infomation homePage", e);
+		}
 		return reMap;
 	}
 

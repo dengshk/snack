@@ -103,9 +103,11 @@
 								<div class="table-toolbar">
 									<div class="btn-group">
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:0px;" id="add">新增&nbsp;<i class="fa fa-plus"></i></button>
+										<!--
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="export">导出&nbsp;<i class="fa fa-download"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" id="import">导入&nbsp;<i class="fa fa-upload"></i></button>
 										<button class="btn blue" style="height:31px;width:82px;margin-top:8px;margin-left:10px;" fileName="ImportTemplate" id="demo">导入模板&nbsp;<i class="fa fa-file-text-o"></i></button>
+										-->
 									</div>
 									<div class="btn-group pull-right">
 									</div>
@@ -133,8 +135,10 @@
 													<th style="text-align:center;width:14%;">订单号</th>
 													<th style="text-align:center;width:8%;">订单日期</th>
 													<th style="text-align:center;width:8%;">订货人</th>
+													<!--
 													<th style="text-align:center;width:8%;">是否付款</th>
 													<th style="text-align:center;width:8%;">订单状态</th>
+													-->
 													<th style="text-align:center;width:8%;">产品成本</th>
 													<th style="text-align:center;width:8%;">运费/其他</th>
 													<th style="text-align:center;width:8%;">销售数量</th>
@@ -152,6 +156,7 @@
 														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.customerName)!'-'}</td>
+														<!--
 														<td style="text-align:center;vertical-align:middle;" >
 															<select class="form-control input-small select2me" style="width:165px;" name="pay">
 																<#if ls.pay ??>
@@ -169,6 +174,7 @@
 																</#if>
 															</select>
 														</td>
+														-->
 														<td style="text-align:center;vertical-align:middle;" >${(ls.tatalCost)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.expressPrice)!'无'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.saleNum)!'-'}</td>
@@ -176,7 +182,9 @@
 														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
 															<a href="#" class="edit" fid="${(ls.flowId)!}">详单</a>|
+															<!--
 															<a href="#" class="save" fid="${(ls.flowId)!}">保存</a>|
+															-->
 															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
 														</td>
 													</tr>

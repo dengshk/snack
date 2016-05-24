@@ -28,9 +28,18 @@
 			where 1=1
 				and qry_uuid = #{qryUuid}
 			order by cal_time desc
-			limit 0,15
+			limit 0,7
 		)a
 		order by calTime asc
+	</select>
+	
+	<!--查询总体情况-->
+	<select id="queryTotalStatus" resultType="map" parameterType="map">
+		select
+			154.54 totalProfit,
+			456 totalStock,
+			34 stockNums,
+			35 customerNums
 	</select>
 	
 	<select id="querySaleTop" resultType="map" parameterType="map">

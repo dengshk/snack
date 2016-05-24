@@ -1,6 +1,19 @@
 $(function(){
 	loadChart();
+	handleCounterup(); // handle counterup instances
 });
+
+// Handles counterup plugin wrapper
+var handleCounterup = function() {
+    if (!$().counterUp) {
+        return;
+    }
+
+    $("[data-counter='counterup']").counterUp({
+        delay: 10,
+        time: 1000
+    });
+};
 
 /**
  * 加载首页数据
@@ -8,22 +21,22 @@ $(function(){
  var pieDayExpend;
 function loadChart(){
 	$("#modal-backdrop").show();
-	var xAxisData,serTotalProfit,serDayProfit,serDayExpend;
+	var xAxisData,serDayIncome,serDayProfit,serDayExpend;
 	$.ajax({
 		type:"post",
 		url:contextPath + "/home/getChartsInfo",
 		async: false,
 		success:function(data){
 			xAxisData = data.xAxisData;
-			serTotalProfit = data.serTotalProfit;
+			serDayIncome = data.serDayIncome;
 			serDayProfit = data.serDayProfit;
 			serDayExpend = data.serDayExpend;
 			pieDayExpend = data.pieDayExpend;
 			saleTop = data.saleTop;
 			//加载折线图
-			loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend);
+			loadChart4Line(xAxisData,serDayIncome,serDayProfit,serDayExpend);
 			//加载饼图
-			loadChart4Pie('最近一天',14,pieDayExpend);
+			loadChart4Pie('最近一天',6,pieDayExpend);
 			//加载柱状图
 			loadChart4Bar(saleTop);
 		}
@@ -32,7 +45,7 @@ function loadChart(){
 }
 
 //加载折线图
-function loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
+function loadChart4Line(xAxisData,serDayIncome,serDayProfit,serDayExpend){
 	var quota = {
 	    title: {
 	        text: '收支趋势情况',
@@ -52,10 +65,10 @@ function loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	        y: 'top',
 	        padding: [40,40],
 	        textStyle:{
-                    fontSize: 10,
+                    fontSize: 12,
                     color: '#444'
            	},
-	        data:['累计盈利','当日盈利','当日支出']
+	        data:['收入','支出','利润']
 	    },
 	    backgroundColor:'rgba(255,255,255,1)',
 		calculable: false,//禁止拖拽
@@ -78,10 +91,10 @@ function loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	        data : xAxisData,
 	        axisLabel: { 
             	textStyle:{
-                    fontSize: 10,
+                    fontSize: 12,
                     color: '#444'
             	},
-            	rotate:-45
+            	rotate:0
             }
 	    },
 	    yAxis: {
@@ -94,19 +107,19 @@ function loadChart4Line(xAxisData,serTotalProfit,serDayProfit,serDayExpend){
 	    },
 	    series: [
 	        {
-	            name: '累计盈利',
+	            name: '收入',
 	            type: 'line',
 	            stack: '总量',
-	            data: serTotalProfit
+	            data: serDayIncome
 	        },
 	        {
-	            name: '当日盈利',
+	            name: '利润',
 	            type: 'line',
 	            stack: '总量',
 	            data: serDayProfit
 	        },
 	        {
-	            name: '当日支出',
+	            name: '支出',
 	            type: 'line',
 	            stack: '总量',
 	            data: serDayExpend
@@ -161,7 +174,7 @@ function loadChart4Pie(qryData,qryIndex,pieDayExpend){
 	        y: 'top',
 	        padding: [25,20],
 	        textStyle:{
-                    fontSize: 10,
+                    fontSize: 12,
                     color: '#444'
            	},
 	        data:['进货','邮费','自销']

@@ -1,10 +1,6 @@
 package com.shop.snack.web.action.homePage;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shop.snack.web.model.User;
 import com.shop.snack.web.service.homePage.HomeService;
 import com.shop.snack.web.utils.StringUtils;
-import com.shop.snack.web.utils.TimeUtils;
 import com.shop.snack.web.utils.WebConstants;
 
 @Controller
@@ -43,6 +38,9 @@ public class HomeAction {
 	@RequestMapping(value = "/homePage")
 	public ModelAndView netWorkHome(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/homePage/homePage");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = homeService.getTotalStatus();
+		mv.addObject("total", map);
 		return mv;
 	}
 
@@ -62,7 +60,7 @@ public class HomeAction {
 		String userid = user.getUserid() + "";
 		String uuid = StringUtils.getUuid();
 		try {
-			map = homeService.getChartsInfo(uuid,userid);
+			map = homeService.getChartsInfo(uuid, userid);
 		} catch (Exception e) {
 			logger.error("query info for charts of homePage,Accounting chart in HomeAction.getChartsInfo", e);
 		}
