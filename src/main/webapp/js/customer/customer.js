@@ -102,12 +102,12 @@ function saveCustomer(){
 					}else{
 						info='操作失败！';
 					}
-					$.messager.alert('提示',info,"error");
+					toastr.warning(info);
 				}
 			},
 			error:function(){
 				uniqueFlag = 0;
-				$.messager.alert('提示',"连接服务器失败！","error");
+				toastr.error("连接服务器失败！");
 			}
 		});
 	}
@@ -128,11 +128,11 @@ $(function(){
 						if(data.msg==1){
 							window.location.href=contextPath+"/customer/customer";
 						}else{
-							$.messager.alert('提示',"操作失败！","error");
+							toastr.warning("操作失败！ ");
 						}
 					},
 					error:function(){
-						$.messager.alert('提示',"连接服务器失败！","error");
+						toastr.error("连接服务器失败！");
 					}
 				});
 			}

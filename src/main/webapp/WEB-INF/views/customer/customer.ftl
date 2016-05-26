@@ -133,14 +133,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 						<table class="table table-striped table-hover table-bordered dataTable" id="sample_editable_1">
 							<thead>
 								<tr style="background-color:#EAEAEA;">
-									<th style="text-align:center;width:12%;">顾客姓名</th>
-									<th style="text-align:center;width:12%;">顾客等级</th>
+									<th style="text-align:center;width:10%;">顾客姓名</th>
+									<th style="text-align:center;width:10%;">顾客等级</th>
 									<th style="text-align:center;width:12%;">联系电话</th>
 									<th style="text-align:center;width:22%;">收获地址</th>
 									<th style="text-align:center;width:9%;">定购数量(累计)</th>
 									<th style="text-align:center;width:9%;">消费金额(累计)</th>
-									<th style="text-align:center;width:12%;">修改时间</th>
-									<th style="text-align:center;width:12%;">操作</th>
+									<th style="text-align:center;width:14%;">修改时间</th>
+									<th colspan="2" style="text-align:center;width:12%;">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -155,14 +155,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 											<td align='center'>${(p.totalCost)!}</td>
 											<td align='center'>${(p.modifyTime)!}</td>
 											<td align='center'>
-												<a class="edit" href="#" id="${(p.id)!}">编辑</a>|
-												<a class="delete" href="#" id="${(p.id)!}" cname="${(p.customerName)!}">删除</a>
+												<a class="edit" href="#" id="${(p.id)!}"><span class="fa fa-wrench"></span>编辑</a>
+											</td>
+											<td align='center'>
+												<a class="delete" href="#" id="${(p.id)!}" cname="${(p.customerName)!}"><span class="fa fa-times"></span>删除</a>
 											</td>
 										</tr>
 									</#list>
 								<#else>
 									<tr>
-										<td colspan="7" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+										<td colspan="8" align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 									</tr>
 								</#if>
 							</tbody>

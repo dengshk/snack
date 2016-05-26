@@ -18,7 +18,6 @@
 	<link href="${application.getContextPath()}/scripts/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
 	<link href="${application.getContextPath()}/scripts/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css"/>
 	
-	
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/select2/select2_metro.css" />
 	<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/clockface/css/clockface.css" />
@@ -133,7 +132,7 @@
 										<thead>
 											<tr style="background-color:#EAEAEA;">
 													<th style="text-align:center;width:14%;">订单号</th>
-													<th style="text-align:center;width:8%;">订单日期</th>
+													<th style="text-align:center;width:10%;">订单日期</th>
 													<th style="text-align:center;width:8%;">订货人</th>
 													<!--
 													<th style="text-align:center;width:8%;">是否付款</th>
@@ -144,7 +143,7 @@
 													<th style="text-align:center;width:8%;">销售数量</th>
 													<th style="text-align:center;width:8%;">实收款</th>
 													<th style="text-align:center;width:8%;">售后利润</th>
-													<th style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:14%;">操作</th>
+													<th colspan="2" style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:12%;">操作</th>
 											</tr>
 										</thead>
 										<!--表单title 结束-->
@@ -152,7 +151,7 @@
 										<tbody>
 											<#if page?? && page.list?? &&  page.list?size &gt; 0>
 												<#list page.list as ls>
-													<tr style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
+													<tr name="linkToDetail" fid="${(ls.flowId)!}" style="height:37px;<#if ls_index==page.list?size-1>border-bottom:1px #dddddd  solid;</#if>">
 														<td style="text-align:center;vertical-align:middle;" >${(ls.flowId)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.orderDate)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.customerName)!'-'}</td>
@@ -181,17 +180,19 @@
 														<td style="text-align:center;vertical-align:middle;" >${(ls.reallyPay)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" >${(ls.profit)!'-'}</td>
 														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
-															<a href="#" class="edit" fid="${(ls.flowId)!}">详单</a>|
+															<a href="#" class="edit" fid="${(ls.flowId)!}"><span class="fa fa-info"></span>详单</a>
 															<!--
 															<a href="#" class="save" fid="${(ls.flowId)!}">保存</a>|
 															-->
-															<a href="#" class="delete" fid="${(ls.flowId)!}">删除</a>
+														</td>
+														<td style="text-align:center;vertical-align:middle;" name="${(ls.flowId)!'-'}">
+															<a href="#" class="delete" fid="${(ls.flowId)!}"><span class="fa fa-times"></span>删除</a>
 														</td>
 													</tr>
 												</#list>
 											<#else>
 												<tr>
-													<td colspan="11"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
+													<td colspan="12"  align='center' style="height:37px;border-bottom:1px #dddddd  solid;">还没有数据</td>
 												</tr>
 											</#if>
 										</tbody>

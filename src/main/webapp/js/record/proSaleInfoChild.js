@@ -2,7 +2,7 @@ $(function(){
 	$(".editUser").click(function(){
 		var _id = $(this).attr("fid");
 		if($('#flowId').val()==null||$('#flowId').val()==""){
-			$.messager.alert('提示', '请先保存一笔订货信息!', "error");
+			toastr.warning('请先保存一笔订货信息!');
 			//$('#proInfoForm').bootstrapValidator('validate');
 		}else{
 			editOrder(_id);
@@ -28,12 +28,12 @@ $(function(){
 							$("#editPage").submit();
 						}else{
 							$("#modal-backdrop").hide();
-							$.messager.alert('提示', '订单【'+_name+"】,删除失败！", "error");
+							toastr.warning('订单【'+_name+"】,删除失败！");
 						}
 					},
 					error:function(data){
 						$("#modal-backdrop").hide();
-						$.messager.alert('提示', "连接服务器失败！", "error");
+						toastr.error("连接服务器失败！");
 					}
 				});
 			}
@@ -265,11 +265,11 @@ function saveOrder(){
 					$("#editChild").val($("#flowId").val());
 					$("#editPage").submit();
 				}else{
-					$.messager.alert('提示',"操作失败！","error");
+					toastr.warning("操作失败！");
 				}
 			},
 			error:function(){
-				$.messager.alert('提示',"连接服务器失败！","error");
+				toastr.error("连接服务器失败！");
 			}
 		});
 	}

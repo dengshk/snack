@@ -96,6 +96,14 @@ $(function(){
 		$("#pageForm").submit();
 	});
 	/**
+	 * 双击跳转
+	 */
+	$("tr[name='linkToDetail']").live('dblclick',function(){
+		$("#modal-backdrop").show();
+		$("#editChild").val($(this).attr('fid'));
+		$("#editPage").submit();
+	});
+	/**
 	 * 导出
 	 */
 	$("#export").click(function(){

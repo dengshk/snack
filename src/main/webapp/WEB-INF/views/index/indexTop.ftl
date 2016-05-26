@@ -28,6 +28,7 @@ body>div.window-mask{
 </style>
 <link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/easyui/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-toastr/toastr.min.css"/>
 <!--loading-->
 <!--<div class="modal-backdrop fade in"  style="display:block;z-index: 10050;text-align:center;">
 	<img src="${application.getContextPath()}/images/load-pic.png" style="margin-top:200px;"/>
@@ -105,7 +106,8 @@ body>div.window-mask{
 <!--alter等提示框-->
 <script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootbox/bootbox.min.js"></script>
 <script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/data-tables/jquery.dataTables.js"></script>
-<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-editable.js"></script> 
+<script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/table-editable.js"></script>
+<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/bootstrap-toastr/toastr.min.js"></script> 
 <!-- 开始     页面级脚本 -->
 <script type="text/javascript" src="${application.getContextPath()}/scripts/scripts/app.js"></script>
 <!-- 结束    页面级脚本 -->  
