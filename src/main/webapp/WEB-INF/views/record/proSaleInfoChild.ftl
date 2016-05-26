@@ -59,6 +59,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		margin-left: 0px !important;
 		margin-right: 0px !important;
 		}
+		.portlet.box.blue {
+		    border-width: 0 1px 1px;
+		}
 	</style>
 	
 	
@@ -100,7 +103,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<div class="row" >
 				<div class="col-md-12">
 				    <!-- BEGIN SAMPLE TABLE PORTLET-->
-				    <div class="portlet box green">
+				    <div class="portlet box blue">
 				        <div class="portlet-title">
 				            <div class="caption">
 				                <i class="fa fa-comments"></i>订单信息</div>
@@ -191,7 +194,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 									</div>
 									<!--修改-->
 									&nbsp;&nbsp;&nbsp;
-									<button class="btn green" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" type="submit" id="saveBtn">
+									<button class="btn blue" style="height:31px;width:75px;margin-top:-6px;margin-left:10px;" type="submit" id="saveBtn">
 										<#if proSaleInfo??>
 											<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;修改
 										<#else>
