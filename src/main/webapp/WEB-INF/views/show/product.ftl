@@ -259,10 +259,6 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
         <!-- END FOOTER -->
-        <!--[if lt IE 9]>
-<script src="${application.getContextPath()}/assets/global/plugins/respond.min.js"></script>
-<script src="${application.getContextPath()}/assets/global/plugins/excanvas.min.js"></script> 
-<![endif]-->
         <!-- BEGIN CORE PLUGINS -->
         <script src="${application.getContextPath()}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="${application.getContextPath()}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
