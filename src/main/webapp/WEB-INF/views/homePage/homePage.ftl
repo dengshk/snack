@@ -28,6 +28,11 @@
 	
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts3/echarts.min.js"></script>
 	<script type="text/javascript" src="${application.getContextPath()}/scripts/plugins/echarts3/macarons.js"></script>
+	<style type="text/css">
+		.page-content-wrapper .page-content {
+			margin-left: 0px;
+		}
+	</style>
 </head>
 <body class="page-header-fixed">
 	<!-- 上框 开始 -->   
