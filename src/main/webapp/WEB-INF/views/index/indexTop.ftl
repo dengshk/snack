@@ -29,6 +29,7 @@ body>div.window-mask{
 <link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/easyui/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="${application.getContextPath()}/js/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="${application.getContextPath()}/scripts/plugins/bootstrap-toastr/toastr.min.css"/>
+<link rel="shortcut icon" href="${application.getContextPath()}/assets/favicon.ico" />
 <!--loading-->
 <!--<div class="modal-backdrop fade in"  style="display:block;z-index: 10050;text-align:center;">
 	<img src="${application.getContextPath()}/images/load-pic.png" style="margin-top:200px;"/>

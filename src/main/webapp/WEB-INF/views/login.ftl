@@ -28,6 +28,7 @@
 <link href="${application.getContextPath()}/scripts/css/pages/login-soft.css" rel="stylesheet" type="text/css"/>
 <link href="${application.getContextPath()}/scripts/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
+<link rel="shortcut icon" href="${application.getContextPath()}/assets/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
